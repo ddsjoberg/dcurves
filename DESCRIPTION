@@ -14,9 +14,12 @@ Suggests:
     testthat,
     survival,
     cmprsk,
-    MASS
+    MASS,
+    knitr,
+    rmarkdown
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Imports: 
     stats,
     graphics
+VignetteBuilder: knitr
