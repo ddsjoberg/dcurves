@@ -106,7 +106,7 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
     if(probability[m]==FALSE) {
       model=NULL
       pred=NULL
-      model=stats::glm(data.matrix(data[outcome]) ~ data.matrix(data[predictors[m]]), family=binomial("logit"))
+      model=stats::glm(data.matrix(data[outcome]) ~ data.matrix(data[predictors[m]]), family=stats::binomial("logit"))
       pred=data.frame(model$fitted.values)
       pred=data.frame(pred)
       names(pred)=predictors[m]
