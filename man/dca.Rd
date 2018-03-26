@@ -51,8 +51,8 @@ data.set <- birthwt
 model = glm(low ~ age + lwt, family=binomial(link="logit"), data=data.set)
 data.set$predlow = predict(model, type="response")
 dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
-dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
-dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
+result1 = dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
+result2 = dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
 
 }
 \author{

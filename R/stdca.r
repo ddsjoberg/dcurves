@@ -27,10 +27,11 @@
 #'
 #' @examples
 #' library(MASS)
+#' library(survival)
 #' data.set <- Melanoma
 #' data.set$diedcancer = ifelse(data.set$status==1, 1, 0)
-#' #stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability=FALSE, xstop=.25)
-#' #stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability="FALSE", xstop=.25, intervention="TRUE")
+#' result1 = stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability=FALSE, xstop=.25)
+#' result2 = stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability="FALSE", xstop=.25, intervention="TRUE")
 #'
 #' @importFrom stats binomial complete.cases loess
 #' @importFrom graphics legend lines plot
