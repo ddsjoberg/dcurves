@@ -31,6 +31,8 @@
 #' dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
 #' dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
 #'
+#' @importFrom stats binomial complete.cases glm loess
+#' @importFrom graphics legend lines plot
 #' @export
 #'
 dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
@@ -43,7 +45,7 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
   }
 
   #ONLY KEEPING COMPLETE CASES
-  data=data[complete.cases(data[append(outcome,predictors)]),append(outcome,predictors)]
+  data=data[stats::complete.cases(data[append(outcome,predictors)]),append(outcome,predictors)]
 
   # outcome MUST BE CODED AS 0 AND 1
   if (max(data[[outcome]])>1 | min(data[[outcome]])<0) {
@@ -104,7 +106,7 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
     if(probability[m]==FALSE) {
       model=NULL
       pred=NULL
-      model=glm(data.matrix(data[outcome]) ~ data.matrix(data[predictors[m]]), family=binomial("logit"))
+      model=stats::glm(data.matrix(data[outcome]) ~ data.matrix(data[predictors[m]]), family=binomial("logit"))
       pred=data.frame(model$fitted.values)
       pred=data.frame(pred)
       names(pred)=predictors[m]
@@ -152,10 +154,10 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
   # CYCLING THROUGH EACH PREDICTOR AND SMOOTH NET BENEFIT AND INTERVENTIONS AVOIDED
   for(m in 1:pred.n) {
     if (smooth==TRUE){
-      lws=loess(data.matrix(nb[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(nb[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
+      lws=stats::loess(data.matrix(nb[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(nb[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
       nb[!is.na(nb[[predictors[m]]]),paste(predictors[m],"_sm",sep="")]=lws$fitted
 
-      lws=loess(data.matrix(interv[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(interv[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
+      lws=stats::loess(data.matrix(interv[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(interv[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
       interv[!is.na(nb[[predictors[m]]]),paste(predictors[m],"_sm",sep="")]=lws$fitted
     }
   }
@@ -175,14 +177,14 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
       ymax=max(interv[predictors],na.rm = TRUE)
 
       #INITIALIZING EMPTY PLOT WITH LABELS
-      plot(x=nb$threshold, y=nb$all, type="n" ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab=paste("Net reduction in interventions per",interventionper,"patients"))
+      graphics::plot(x=nb$threshold, y=nb$all, type="n" ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab=paste("Net reduction in interventions per",interventionper,"patients"))
 
       #PLOTTING INTERVENTIONS AVOIDED FOR EACH PREDICTOR
       for(m in 1:pred.n) {
         if (smooth==TRUE){
-          lines(interv$threshold,data.matrix(interv[paste(predictors[m],"_sm",sep="")]),col=m,lty=2)
+          graphics::lines(interv$threshold,data.matrix(interv[paste(predictors[m],"_sm",sep="")]),col=m,lty=2)
         } else {
-          lines(interv$threshold,data.matrix(interv[predictors[m]]),col=m,lty=2)
+          graphics::lines(interv$threshold,data.matrix(interv[predictors[m]]),col=m,lty=2)
         }
 
         # adding each model to the legend
@@ -204,15 +206,15 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
       ymax=max(nb[names(nb)!="threshold"],na.rm = TRUE)
 
       # inializing new benfit plot with treat all option
-      plot(x=nb$threshold, y=nb$all, type="l", col=8, lwd=2 ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab="Net benefit")
+      graphics::plot(x=nb$threshold, y=nb$all, type="l", col=8, lwd=2 ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab="Net benefit")
       # adding treat none option
-      lines(x=nb$threshold, y=nb$none,lwd=2)
+      graphics::lines(x=nb$threshold, y=nb$none,lwd=2)
       #PLOTTING net benefit FOR EACH PREDICTOR
       for(m in 1:pred.n) {
         if (smooth==TRUE){
-          lines(nb$threshold,data.matrix(nb[paste(predictors[m],"_sm",sep="")]),col=m,lty=2)
+          graphics::lines(nb$threshold,data.matrix(nb[paste(predictors[m],"_sm",sep="")]),col=m,lty=2)
         } else {
-          lines(nb$threshold,data.matrix(nb[predictors[m]]),col=m,lty=2)
+          graphics::lines(nb$threshold,data.matrix(nb[predictors[m]]),col=m,lty=2)
         }
         # adding each model to the legend
         legendlabel <- c(legendlabel, predictors[m])
@@ -222,7 +224,7 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
       }
     }
     # then add the legend
-    legend("topright", legendlabel, cex=0.8, col=legendcolor, lwd=legendwidth, lty=legendpattern)
+    graphics::legend("topright", legendlabel, cex=0.8, col=legendcolor, lwd=legendwidth, lty=legendpattern)
 
   }
 

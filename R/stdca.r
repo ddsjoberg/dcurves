@@ -29,9 +29,11 @@
 #' library(MASS)
 #' data.set <- Melanoma
 #' data.set$diedcancer = ifelse(data.set$status==1, 1, 0)
-#' stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability=FALSE, xstop=.25)
-#' stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability="FALSE", xstop=.25, intervention="TRUE")
+#' #stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability=FALSE, xstop=.25)
+#' #stdca(data=data.set, outcome="diedcancer", ttoutcome="time", timepoint=545, predictors="thickness", probability="FALSE", xstop=.25, intervention="TRUE")
 #'
+#' @importFrom stats binomial complete.cases loess
+#' @importFrom graphics legend lines plot
 #' @export
 #'
 stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, xstop=0.99, xby=0.01,
@@ -40,7 +42,7 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
 
 
   #ONLY KEEPING COMPLETE CASES
-  data=data[complete.cases(data[c(outcome,ttoutcome,predictors)]),c(outcome,ttoutcome,predictors)]
+  data=data[stats::complete.cases(data[c(outcome,ttoutcome,predictors)]),c(outcome,ttoutcome,predictors)]
 
   # outcome MUST BE CODED AS 0 AND 1
   if ((length(data[!(data[outcome]==0 | data[outcome]==1),outcome])>0) & cmprsk==FALSE) {
@@ -112,9 +114,9 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
     if(probability[m]==FALSE) {
       model=NULL
       pred=NULL
-      model=coxph(Surv(data.matrix(data[ttoutcome]),data.matrix(data[outcome])) ~ data.matrix(data[predictors[m]]))
+      model=survival::coxph(survival::Surv(data.matrix(data[ttoutcome]),data.matrix(data[outcome])) ~ data.matrix(data[predictors[m]]))
       surv.data=data.frame(0)
-      pred=data.frame(1-c(summary(survfit(model, newdata=surv.data), time=timepoint)$surv))
+      pred=data.frame(1-c(summary(survival::survfit(model, newdata=surv.data), time=timepoint)$surv))
       names(pred)=predictors[m]
       data=cbind(data[names(data)!=predictors[m]],pred)
       print(paste(predictors[m],"converted to a probability with Cox regression. Due to linearity and proportional hazards assumption, miscalibration may occur.",sep=" "))
@@ -127,11 +129,11 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
   # getting the probability of the event for all subjects
   # this is used for the net benefit associated with treating all patients
   if(cmprsk==FALSE) {
-    km.cuminc=survfit(Surv(data.matrix(data[ttoutcome]),data.matrix(data[outcome]))~1)
+    km.cuminc=survival::survfit(Surv(data.matrix(data[ttoutcome]),data.matrix(data[outcome]))~1)
     pd=1 - summary(km.cuminc, times=timepoint)$surv
   } else {
-    cr.cuminc=cuminc(data[[ttoutcome]],data[[outcome]])
-    pd=timepoints(cr.cuminc, times=timepoint)$est[1]
+    cr.cuminc=cmprsk::cuminc(data[[ttoutcome]],data[[outcome]])
+    pd=cmprsk::timepoints(cr.cuminc, times=timepoint)$est[1]
   }
 
   #creating dataset that is one line per threshold for the treat all and treat none strategies;
@@ -158,7 +160,7 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
       } else {
         #calculate risk using Kaplan Meier
         if(cmprsk==FALSE) {
-          km.cuminc=survfit(Surv(data.matrix(data[data[predictors[m]]>nb$threshold[t],ttoutcome]),data.matrix(data[data[predictors[m]]>nb$threshold[t],outcome]))~1)
+          km.cuminc=survival::survfit(survival::Surv(data.matrix(data[data[predictors[m]]>nb$threshold[t],ttoutcome]),data.matrix(data[data[predictors[m]]>nb$threshold[t],outcome]))~1)
           pdgivenx=(1 - summary(km.cuminc, times=timepoint)$surv)
           if(length(pdgivenx)==0){
             error=rbind(error,paste(predictors[m],": No observations with risk greater than ",nb$threshold[t]*100,"% that have followup through the timepoint selected",sep=""))
@@ -166,8 +168,8 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
           }
           #calculate risk using competing risk
         }  else {
-          cr.cuminc=cuminc(data[[ttoutcome]][data[[predictors[m]]]>nb$threshold[t]],data[[outcome]][data[[predictors[m]]]>nb$threshold[t]])
-          pdgivenx=timepoints(cr.cuminc, times=timepoint)$est[1]
+          cr.cuminc=cmprsk::cuminc(data[[ttoutcome]][data[[predictors[m]]]>nb$threshold[t]],data[[outcome]][data[[predictors[m]]]>nb$threshold[t]])
+          pdgivenx=cmprsk::timepoints(cr.cuminc, times=timepoint)$est[1]
           if(is.na(pdgivenx)){
             error=rbind(error,paste(predictors[m],": No observations with risk greater than ",nb$threshold[t]*100,"% that have followup through the timepoint selected",sep=""))
             break
@@ -187,10 +189,10 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
   # CYCLING THROUGH EACH PREDICTOR AND SMOOTH NET BENEFIT AND INTERVENTIONS AVOIDED
   for(m in 1:pred.n) {
     if (smooth==TRUE){
-      lws=loess(data.matrix(nb[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(nb[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
+      lws=stats::loess(data.matrix(nb[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(nb[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
       nb[!is.na(nb[[predictors[m]]]),paste(predictors[m],"_sm",sep="")]=lws$fitted
 
-      lws=loess(data.matrix(interv[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(interv[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
+      lws=stats::loess(data.matrix(interv[!is.na(nb[[predictors[m]]]),predictors[m]]) ~ data.matrix(interv[!is.na(nb[[predictors[m]]]),"threshold"]),span=loess.span)
       interv[!is.na(nb[[predictors[m]]]),paste(predictors[m],"_sm",sep="")]=lws$fitted
     }
   }
@@ -240,9 +242,9 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
       ymax=max(nb[names(nb)!="threshold"],na.rm = TRUE)
 
       # inializing new benfit plot with treat all option
-      plot(x=nb$threshold, y=nb$all, type="l", col=8, lwd=2 ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab="Net benefit")
+      graphics::plot(x=nb$threshold, y=nb$all, type="l", col=8, lwd=2 ,xlim=c(xstart, xstop), ylim=c(ymin, ymax), xlab="Threshold probability", ylab="Net benefit")
       # adding treat none option
-      lines(x=nb$threshold, y=nb$none,lwd=2)
+      graphics::lines(x=nb$threshold, y=nb$none,lwd=2)
       #PLOTTING net benefit FOR EACH PREDICTOR
       for(m in 1:pred.n) {
         if (smooth==TRUE){
@@ -258,7 +260,7 @@ stdca <- function(data, outcome, ttoutcome, timepoint, predictors, xstart=0.01, 
       }
     }
     # then add the legend
-    legend("topright", legendlabel, cex=0.8, col=legendcolor, lwd=legendwidth, lty=legendpattern)
+    graphics::legend("topright", legendlabel, cex=0.8, col=legendcolor, lwd=legendwidth, lty=legendpattern)
 
   }
 
