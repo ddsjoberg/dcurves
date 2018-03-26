@@ -26,12 +26,11 @@ Diagnostic and prognostic models are typically evaluated with measures of accura
 We’ll be working with the example dataset (dca.df), available on our website.  Patients went to have the marker measured and patients were followed to determine whether they were eventually diagnosed with cancer, as well as the time to that diagnosis or censoring. We want to build a model of our own based on age, family history, and the marker, and assess how good the model is at predicting cancer by 18 months, 1.5 years. 
 
 ```{r}
-library(tidyverse)
 library(dca)
 
 # keeping variable for binary outcome examples
-dca.df = dca.df %>%
-  select(patientid, cancer, ttcancer, age, famhistory, marker, dead)
+data(dca.df)
+dca.df = dca.df[, c("patientid", "cancer", "ttcancer", "age", "famhistory", "marker", "dead")]
 ```
 
 ### Basic Data Set-up

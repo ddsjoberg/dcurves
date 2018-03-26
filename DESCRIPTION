@@ -23,3 +23,4 @@ Imports:
     stats,
     graphics
 VignetteBuilder: knitr
+BugReports: https://github.com/ddsjoberg/dca/issues

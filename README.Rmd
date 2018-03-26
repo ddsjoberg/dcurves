@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Coverage status](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/github/ddsjoberg/dca?branch=master)
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/dca)](https://cran.r-project.org/package=dca) -->
 
-# dca
+# Decision Curve Analysis (dca)
 
 Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
 
@@ -40,7 +40,6 @@ library(dca)
 data.set <- birthwt
 model = glm(low ~ age + lwt, family=binomial(link="logit"), data=data.set)
 data.set$predlow = predict(model, type="response")
-dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
-
+results = dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
 ```
 

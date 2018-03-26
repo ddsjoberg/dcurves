@@ -26,12 +26,11 @@ Diagnostic and prognostic models are typically evaluated with measures of accura
 We’ll be working with the example dataset (dca.df), available on our website. The dataset includes information on 750 patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer.  Each patient has been biopsied and we know their cancer status.  It is known that older patients with a family history of cancer have a higher probability of harboring cancer.  A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer.  We wish to assess whether or not the new marker does indeed identify patients with and without cancer.  If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.
 
 ```{r}
-library(tidyverse)
 library(dca)
 
 # keeping variable for binary outcome examples
-dca.df = dca.df %>%
-  select(patientid, cancer, age, risk_group, famhistory, marker, cancerpredmarker)
+data(dca.df)
+dca.df = dca.df[, c("patientid", "cancer", "age", "risk_group", "famhistory", "marker", "cancerpredmarker")]
 ```
 
 ### Univariate Decision Curve Analysis
