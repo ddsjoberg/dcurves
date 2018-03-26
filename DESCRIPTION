@@ -1,0 +1,20 @@
+Package: dca
+Version: 0.0.0.9000
+Title: Decision Curve Analysis
+Description: Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. The dca function performs decision curve analysis for binary outcomes.
+Authors@R: person("Daniel D.", "Sjoberg", email = "danieldsjoberg@gmail.com", role = c("aut", "cre"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+Suggests: 
+    covr,
+    testthat,
+    survival,
+    cmprsk,
+    MASS
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Imports: 
+    stats,
+    graphics
