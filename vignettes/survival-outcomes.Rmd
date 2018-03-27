@@ -20,8 +20,7 @@ knitr::opts_chunk$set(
 
 Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.  This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves.  In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.  For more details on DCA, visit decisioncurveanalysis.org.  You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details.
 
-## Decision Curve Analysis for Survival Outcomes
-### Motivating Example
+## Motivating Example
 
 We’ll be working with the example dataset (dca.df), available on our website.  Patients went to have the marker measured and patients were followed to determine whether they were eventually diagnosed with cancer, as well as the time to that diagnosis or censoring. We want to build a model of our own based on age, family history, and the marker, and assess how good the model is at predicting cancer by 18 months, 1.5 years. 
 
@@ -33,7 +32,7 @@ data(dca.df)
 dca.df = dca.df[, c("patientid", "cancer", "ttcancer", "age", "famhistory", "marker", "dead")]
 ```
 
-### Basic Data Set-up
+## Basic Data Set-up
 
 The survival probability to any time-point can be derived from any type of survival model; here we use a Cox as this is the most common model in statistical practice.  The formula for a survival probability from a Cox model is given by:
 $$
@@ -64,7 +63,7 @@ results = stdca(data=dca.df, outcome="cancer", ttoutcome="ttcancer", timepoint=1
 
 This shows that using the model to inform clinical decisions will lead to superior outcomes for any decision associated with a threshold probability of above 2% or so.
 
-### Decision Curve Analysis with Competing Risks
+## Decision Curve Analysis with Competing Risks
 At times, data sets are subject to competing risks. For example in our cancer dataset, patients may have died prior to cancer diagnosis. To run a competing risk analysis, we first create a failure variable that indicates which patients died before a cancer diagnosis. Using the traditional approach, patients are coded 0 if they do not have an event, 1 if they have the event of interest (cancer diagnosis) before the competing event and 2 if they have the competing event (death) before the event of interest. 
 
 ```{r}
@@ -112,21 +111,3 @@ Model"), col=c(17, 8, 8, 1, 1), lwd=c(2, 2, 2, 1, 1), lty=c(1, 1, 2, 1, 2))
 ```
 
 Here the decision curves adjusting for competing risk are shown in orange and red; the decision curves with patients censored at the time of death are shown in green and blue. Competing risk shifts all lines down, that is, estimates a lower net benefit, because censoring at the time of death overestimates the risk of death.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

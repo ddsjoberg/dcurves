@@ -20,8 +20,7 @@ knitr::opts_chunk$set(
 
 Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.  This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves.  In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.  For more details on DCA, visit decisioncurveanalysis.org.  You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details.
 
-## Decision Curve Analysis for Binary Outcomes
-### Motivating Example
+## Motivating Example
 
 We’ll be working with the example dataset (dca.df), available on our website. The dataset includes information on 750 patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer.  Each patient has been biopsied and we know their cancer status.  It is known that older patients with a family history of cancer have a higher probability of harboring cancer.  A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer.  We wish to assess whether or not the new marker does indeed identify patients with and without cancer.  If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.
 
@@ -33,7 +32,7 @@ data(dca.df)
 dca.df = dca.df[, c("patientid", "cancer", "age", "risk_group", "famhistory", "marker", "cancerpredmarker")]
 ```
 
-### Univariate Decision Curve Analysis
+## Univariate Decision Curve Analysis
 
 First, we want to confirm family history of cancer is indeed associated with the biopsy result.  
 
@@ -58,8 +57,8 @@ results = dca(data=dca.df, outcome="cancer", predictors="famhistory", xstop=0.35
 
 Now that the graph is showing a more reasonable range of threshold probabilities, let’s assess the clinical utility of family history alone. We can see here that although family history is significantly associated with biopsy outcome, it only adds value to a small range of threshold probabilities near 13% -20%.  If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy.  However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme.
 
-### Multivariable Decision Curve Analysis
-#### Evaluation of New Models
+## Multivariable Decision Curve Analysis
+### Evaluation of New Models
 
 We wanted to examine the value of a statistical model that incorporates family history, age, and the marker. First we will build the logistic regression model with all three variables, and second we would have saved out the predicted probability of having cancer based on the model. Note that in our example dataset, this variable actually already exists so it wouldn’t be necessary to create the predicted probabilities once again.
 
@@ -83,7 +82,7 @@ A few points are worth noting. First, look at the green line, the net benefit fo
 
 Second, the decision curve for the binary variable (family history of cancer, the brown line) crosses the  “biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer.  The decision curve for a binary variable is equivalent to biopsy no-one at the positive predictive value. This is because for a binary variable, a patient with the characteristic is given a risk at the positive predictive value.
 
-#### Evaluation of Published Models
+### Evaluation of Published Models
 
 Imagine that a model was published by Brown et al. with respect to our cancer biopsy data set. The authors reported a statistical model with coefficients of 0.75 for a positive family history of cancer; 0.26 for each increased year of age, and an intercept of -17.5. To test this formula on our dataset: 
 
@@ -98,7 +97,7 @@ results = dca(data=dca.df, outcome="cancer", predictors="phat_Brown", xstop=0.35
 
 This decision curve suggests that although the model might be useful in the most risk averse patients, it is actually harmful in patients with more moderate threshold probabilities. As such, the Brown et al. model should not be used in clinical practice. This effect, a model being harmful, occurs due to miscalibration, that is, when patients are given risks that are too high or too low. Note that miscalibration only occurs rarely when models are created and tested on the same data set, such as in the example where we created a model with both family history and the marker. 
 
-#### Joint or Conditional Tests
+## Joint or Conditional Tests
 
 Many decisions in medicine are based on joint or conditional test results. A classic example is where patients are categorized on the basis of a test as being at high, low or intermediate risk. Patients at high risk are referred immediately for treatment (in our example biopsied); patients at low risk are reassured and advised that no further action is necessary; patients at intermediate risk are sent for an additional test, with subsequent treatment decisions made accordingly.
 
@@ -131,7 +130,7 @@ results = dca(data=dca.df, outcome="cancer", predictors=c("high_risk", "joint",
 
 This appears to show that the joint test is the better option for the range of threshold probabilities from 5% - 24% since it has the highest net benefit across that range. Less than 5%, the clinical option of treating all would be superior to any other option, though rarely would treatment thresholds be so low. From 28%-35%, the conditional test would be a slightly better option, and in between the two ranges, the joint and conditional tests are comparable. The obvious disadvantage of the joint test is that the marker needs to be measured for everyone, and such tests may be expensive and time consuming. 
 
-#### Incorporating Harms into Model Assessment
+## Incorporating Harms into Model Assessment
 
 To incorporate the harm of testing and measuring the marker, we ask a clinician, who tells us that, even if the marker were perfectly accurate, few clinicians would conduct more than 30 tests to predict one cancer diagnosis. This might be because the test is expensive, or requires some invasive procedure to obtain. The “harm” of measuring the marker is the reciprocal of 30, or 0.0333.
 
@@ -153,7 +152,7 @@ xstop=0.35)
 
 Here the conditional test is clearly the best option (above the 8% treatment threshold), in fact, once you take into account the harm of measuring the marker, it is clearly not worth measuring the marker for everyone: the net benefit of just treating high risk patients is often higher than that of the joint test.
 
-#### Interventions Avoided
+## Interventions Avoided
 
 As part of assessing the usefulness of the marker, we would be interested in whether using this marker to identify patients with and without cancer would help reduce unnecessary biopsies. This value was the “intervention avoided” column in the table that was saved out. To view it graphically, we would only need to specify it in our command.
 
@@ -164,67 +163,3 @@ intervention=TRUE, xstart=0.05, xstop=0.35)
 
 At a probability threshold of 15%, the net reduction in interventions is about 33 per 100 patients. In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
