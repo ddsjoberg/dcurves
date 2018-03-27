@@ -1,5 +1,5 @@
 ---
-title: "Decision Curve Analysis for Binary Outcomes"
+title: "DCA for Binary Outcomes"
 author: "Daniel D. Sjoberg"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

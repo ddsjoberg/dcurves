@@ -1,5 +1,5 @@
 ---
-title: "Decision Curve Analysis for Survival Outcomes"
+title: "DCA for Survival Outcomes"
 author: "Daniel D. Sjoberg"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
