@@ -4,11 +4,25 @@
 \alias{stdca}
 \title{Decision Curve Analysis for Survival Data}
 \usage{
-stdca(data, outcome, ttoutcome, timepoint, predictors, xstart = 0.01,
-  xstop = 0.99, xby = 0.01, ymin = -0.05, probability = NULL,
-  harm = NULL, graph = TRUE, intervention = FALSE,
-  interventionper = 100, smooth = FALSE, loess.span = 0.1,
-  cmprsk = FALSE)
+stdca(
+  data,
+  outcome,
+  ttoutcome,
+  timepoint,
+  predictors,
+  xstart = 0.01,
+  xstop = 0.99,
+  xby = 0.01,
+  ymin = -0.05,
+  probability = NULL,
+  harm = NULL,
+  graph = TRUE,
+  intervention = FALSE,
+  interventionper = 100,
+  smooth = FALSE,
+  loess.span = 0.1,
+  cmprsk = FALSE
+)
 }
 \arguments{
 \item{data}{a data frame containing the outcome of the outcome predictions.}

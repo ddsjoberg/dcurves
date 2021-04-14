@@ -4,39 +4,12 @@
 \alias{dca}
 \title{Decision Curve Analysis}
 \usage{
-dca(data, outcome, predictors, xstart = 0.01, xstop = 0.99, xby = 0.01,
-  ymin = -0.05, probability = NULL, harm = NULL, graph = TRUE,
-  intervention = FALSE, interventionper = 100, smooth = FALSE,
-  loess.span = 0.1)
+dca(formula, data)
 }
 \arguments{
+\item{formula}{formula}
+
 \item{data}{a data frame containing the outcome of the outcome predictions.}
-
-\item{outcome}{the outcome, response variable. Must be a variable contained within the data frame specified in data=.}
-
-\item{predictors}{the predictor variable(s). Must be a variable(s) contained within the data frame specified in data=.}
-
-\item{xstart}{starting value for x-axis (threshold probability) between 0 and 1. The default is 0.01.}
-
-\item{xstop}{stopping value for x-axis (threshold probability) between 0 and 1. The default is 0.99.}
-
-\item{xby}{increment for threshold probability. The default is 0.01.}
-
-\item{ymin}{minimum bound for graph. The default is -0.05.}
-
-\item{probability}{specifies whether or not each of the independent variables are probabilities. The default is TRUE.}
-
-\item{harm}{specifies the harm(s) associated with the independent variable(s). The default is none.}
-
-\item{graph}{specifies whether or not to display graph of net benefits. The default is TRUE.}
-
-\item{intervention}{plot net reduction in interventions.}
-
-\item{interventionper}{number of net reduction in interventions per interger. The default is 100.}
-
-\item{smooth}{specifies whether or not to smooth net benefit curve. The default is FALSE.}
-
-\item{loess.span}{specifies the degree of smoothing. The default is 0.10.}
 }
 \value{
 Returns a list containing the calculated net benefit, ADD MORE
@@ -56,5 +29,5 @@ result2 = dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE",
 
 }
 \author{
-Daniel D Sjoberg \email{sjobergd@mskcc.org}
+Daniel D Sjoberg
 }

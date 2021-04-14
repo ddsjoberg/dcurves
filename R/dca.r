@@ -3,22 +3,10 @@
 #' Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. The dca function performs decision curve analysis for binary outcomes.
 #' See http://www.decisioncurveanalysis.org for more information.
 #'
-#' @author Daniel D Sjoberg \email{sjobergd@@mskcc.org}
+#' @author Daniel D Sjoberg
 #'
+#' @param formula formula
 #' @param data a data frame containing the outcome of the outcome predictions.
-#' @param outcome the outcome, response variable. Must be a variable contained within the data frame specified in data=.
-#' @param predictors the predictor variable(s). Must be a variable(s) contained within the data frame specified in data=.
-#' @param probability specifies whether or not each of the independent variables are probabilities. The default is TRUE.
-#' @param xstart starting value for x-axis (threshold probability) between 0 and 1. The default is 0.01.
-#' @param xstop stopping value for x-axis (threshold probability) between 0 and 1. The default is 0.99.
-#' @param xby increment for threshold probability. The default is 0.01.
-#' @param ymin minimum bound for graph. The default is -0.05.
-#' @param harm specifies the harm(s) associated with the independent variable(s). The default is none.
-#' @param graph specifies whether or not to display graph of net benefits. The default is TRUE.
-#' @param intervention plot net reduction in interventions.
-#' @param interventionper number of net reduction in interventions per interger. The default is 100.
-#' @param smooth specifies whether or not to smooth net benefit curve. The default is FALSE.
-#' @param loess.span specifies the degree of smoothing. The default is 0.10.
 #'
 #' @return Returns a list containing the calculated net benefit, ADD MORE
 #'
@@ -31,18 +19,22 @@
 #' result1 = dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
 #' result2 = dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
 #'
-#' @importFrom stats binomial complete.cases glm loess
-#' @importFrom graphics legend lines plot
 #' @export
 #'
-dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
-  ymin=-0.05, probability=NULL, harm=NULL,graph=TRUE, intervention=FALSE,
-  interventionper=100, smooth=FALSE,loess.span=0.10) {
+dca <- function(formula, data, thresholds = seq(0, 1, by = 0.01)) {
+  # checking inputs ------------------------------------------------------------
+  if (!is.data.frame(data)) abort("`data=` must be a data frame")
+  if (!is.formula(formula)) abort("`formula=` must be a formula")
 
-  # data MUST BE A DATA FRAME
-  if (class(data)!="data.frame") {
-      stop("Input data must be class data.frame")
-  }
+  # prepping data --------------------------------------------------------------
+  model_frame <- stats::model.frame(formula, data)
+  outcome_name <- names(model_frame)[1]
+
+  outcome_type <-
+    dplyr::case_when(
+      inherits(model_frame[[outcome_name]], "Surv") ~ "survival",
+      dplyr::n_distinct(model_frame[[outcome_name]]) <= 2L ~ "binary"
+    )
 
   #ONLY KEEPING COMPLETE CASES
   data=data[stats::complete.cases(data[append(outcome,predictors)]),append(outcome,predictors)]
@@ -238,5 +230,9 @@ dca <- function(data, outcome, predictors, xstart=0.01, xstop=0.99, xby=0.01,
   results$interventions.avoided=interv
 
   return(results)
+
+}
+
+ <- function(outcome, risk, threshold) {
 
 }

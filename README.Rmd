@@ -13,10 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis build status](https://travis-ci.org/ddsjoberg/dca.svg?branch=master)](https://travis-ci.org/ddsjoberg/dca)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ddsjoberg/dca?branch=master&svg=true)](https://ci.appveyor.com/project/ddsjoberg/dca)
-[![Coverage status](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/github/ddsjoberg/dca?branch=master)
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/dca)](https://cran.r-project.org/package=dca) -->
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/ddsjoberg/dca/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dca/actions)
+[![Codecov test coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dca?branch=master)
+<!-- badges: end -->
 
 # Decision Curve Analysis (dca)
 

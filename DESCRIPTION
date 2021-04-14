@@ -1,26 +1,42 @@
 Package: dca
-Version: 0.1.0.9000
 Title: Decision Curve Analysis
-Description: Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. The dca function performs decision curve analysis for binary outcomes.
-Authors@R: person("Daniel D.", "Sjoberg", email = "danieldsjoberg@gmail.com", role = c("aut", "cre"))
+Version: 0.1.0.9000
+Authors@R: 
+    person(given = "Daniel D.",
+           family = "Sjoberg",
+           role = c("aut", "cre"),
+           email = "danieldsjoberg@gmail.com")
+Description: Diagnostic and prognostic models are typically evaluated with
+    measures of accuracy that do not address clinical consequences.
+    Decision-analytic techniques allow assessment of clinical outcomes but
+    often require collection of additional information may be cumbersome
+    to apply to models that yield a continuous result. Decision curve
+    analysis is a method for evaluating and comparing prediction models
+    that incorporates clinical consequences, requires only the data set on
+    which the models are tested, and can be applied to models that have
+    either continuous or dichotomous results. The dca function performs
+    decision curve analysis for binary outcomes.
 License: MIT + file LICENSE
+BugReports: https://github.com/ddsjoberg/dca/issues
+Depends:
+    R (>= 3.3)
+Imports: 
+    dplyr (>= 1.0.5),
+    ggplot2 (>= 3.3.3),
+    gtsummary (>= 1.3.7),
+    purrr (>= 0.3.4),
+    rlang (>= 0.4.10),
+    survival,
+    tibble (>= 3.1.0)
+Suggests: 
+    covr (>= 3.5.1),
+    knitr (>= 1.31),
+    rmarkdown (>= 2.7),
+    testthat (>= 3.0.2)
+VignetteBuilder: 
+    knitr
+ByteCompile: true
 Encoding: UTF-8
 LazyData: true
-ByteCompile: true
-Depends:
-    R (>= 2.10)
-Suggests: 
-    covr,
-    testthat,
-    survival,
-    cmprsk,
-    MASS,
-    knitr,
-    rmarkdown
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
-Imports: 
-    stats,
-    graphics
-VignetteBuilder: knitr
-BugReports: https://github.com/ddsjoberg/dca/issues
+RoxygenNote: 7.1.1
