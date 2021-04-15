@@ -33,8 +33,31 @@ dca <- function(formula, data, thresholds = seq(0, 1, by = 0.01)) {
   outcome_type <-
     dplyr::case_when(
       inherits(model_frame[[outcome_name]], "Surv") ~ "survival",
-      dplyr::n_distinct(model_frame[[outcome_name]]) <= 2L ~ "binary"
+      dplyr::n_distinct(model_frame[[outcome_name]]) == 2L ~ "binary",
+      dplyr::n_distinct(model_frame[[outcome_name]]) == 1L &&
+        inherits(model_frame[[outcome_name]]) &&
+        length(attr(model_frame[[outcome_name]], "level")) == 2L ~ "binary"
     )
+  if (is.na(outcome_type))
+    stop("Outcome type not supported.", call. = FALSE)
+
+  # for binary outcomes, make the outcome a factor to both levels always appear in `table()` results
+  if (outcome_type == "binary") {
+    # first convert outcome to logical
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   #ONLY KEEPING COMPLETE CASES
   data=data[stats::complete.cases(data[append(outcome,predictors)]),append(outcome,predictors)]
@@ -233,6 +256,25 @@ dca <- function(formula, data, thresholds = seq(0, 1, by = 0.01)) {
 
 }
 
- <- function(outcome, risk, threshold) {
+.calculate_nb <- function(outcome, risk, threshold) {
 
+}
+
+
+.convert_to_binary_fct <- function(x, msg = FALSE) {
+  # if not logical, convert to lgl
+  if (!inherits(x, "logical")) {
+    outcome_levels_sorted <- unique(x) %>% sort()
+    if (msg)
+      glue::glue("Assuming '{outcome_levels_sorted[2]}' is [Event]",
+                 "and '{outcome_levels_sorted[1]}' is [non-Event]") %>%
+      message()
+    x <-
+      dplyr::case_when(
+        x %in% outcome_levels_sorted[1] ~ FALSE,
+        x %in% outcome_levels_sorted[2] ~ TRUE
+      )
+  }
+  # convert lgl to fct
+  factor(x, levels = c(FALSE, TRUE))
 }
