@@ -43,8 +43,8 @@ dca <- function(formula, data, thresholds = seq(0, 1, by = 0.01)) {
 
   # for binary outcomes, make the outcome a factor to both levels always appear in `table()` results
   if (outcome_type == "binary") {
-    # first convert outcome to logical
-
+    model_frame[[outcome_name]] <-
+      .convert_to_binary_fct(model_frame[[outcome_name]])
   }
 
 
