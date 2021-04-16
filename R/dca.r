@@ -1,6 +1,14 @@
 #' Decision Curve Analysis
 #'
-#' Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. The dca function performs decision curve analysis for binary outcomes.
+#' Diagnostic and prognostic models are typically evaluated with measures of
+#' accuracy that do not address clinical consequences.
+#' Decision-analytic techniques allow assessment of clinical outcomes but often
+#' require collection of additional information may be cumbersome to apply to
+#' models that yield a continuous result. Decision curve analysis is a method
+#' for evaluating and comparing prediction models that incorporates clinical
+#' consequences, requires only the data set on which the models are tested,
+#' and can be applied to models that have either continuous or dichotomous results.
+#' The dca function performs decision curve analysis for binary outcomes.
 #' See http://www.decisioncurveanalysis.org for more information.
 #'
 #' @author Daniel D Sjoberg
@@ -22,7 +30,7 @@
 #' @export
 
 dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
-                label = NULL, harm = NULL, as_probability = NULL) {
+                label = NULL, harm = NULL, as_probability = NULL, time = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
   if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
@@ -99,8 +107,8 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
       by = "variable"
     ) %>%
     dplyr::mutate(
-      harm = dplyr::coalesce(as.numeric(harm), 0),
-      net_benefit = .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate
+      harm = dplyr::coalesce(harm, 0),
+      net_benefit = .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate - .data$harm
     ) %>%
     tibble::as_tibble()
 
@@ -141,6 +149,16 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
   }
   # convert lgl to fct
   factor(x, levels = c(FALSE, TRUE))
+}
+
+.convert_to_risk <- function(outcome, variable, outcome_type, time = NULL) {
+  if (outcome_type == "binary")
+    risk <-
+      glm(outcome ~ variable, family = binomial) %>%
+      predict()
+  else if (outcome_type == "survival")
+    survival::coxph(outcome ~ variable) %>%
+  risk
 }
 
 # #ONLY KEEPING COMPLETE CASES
