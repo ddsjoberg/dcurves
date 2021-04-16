@@ -156,10 +156,41 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
     risk <-
       glm(outcome ~ variable, family = binomial) %>%
       predict()
-  else if (outcome_type == "survival")
-    survival::coxph(outcome ~ variable) %>%
+  else if (outcome_type == "survival") {
+    # construct data frame
+    df <- data.frame(outcome = outcome, variable = variable)
+    new_df <- data.frame(outcome = outcome, variable = variable)
+    new_df$outcome[, 1] <- time
+    # build model, and get predictions for time point of interest
+    risk <-
+      survival::coxph(outcome ~ variable, data = df) %>%
+      predict(newdata = new_df, type = "expected") %>%
+      {exp(-.)}
+  }
+
   risk
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # #ONLY KEEPING COMPLETE CASES
 # data=data[stats::complete.cases(data[append(outcome,predictors)]),append(outcome,predictors)]
