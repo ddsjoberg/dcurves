@@ -32,7 +32,7 @@
 #'
 #' @export
 
-dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
+dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
                 label = NULL, harm = NULL, as_probability = character(), time = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
@@ -71,6 +71,10 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
   }
 
   # convert to probability if requested ----------------------------------------
+  as_probability <-
+    model_frame %>%
+    dplyr::select(-all_of(outcome_name)) %>%
+    dplyr::select(all_of(as_probability))
   for (v in as_probability) {
     model_frame[[v]] <- .convert_to_risk(model_frame[[outcome_name]],
                                          model_frame[[v]],
@@ -88,13 +92,13 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
   model_frame <-
     model_frame %>%
     dplyr::mutate(
-      all = 0L,
-      none = 1L,
+      all = 1L,
+      none = 0L,
       .after = .data[[outcome_name]]
     )
 
   # calculate net benefit ------------------------------------------------------
-  result <-
+  dca_result <-
     names(model_frame) %>%
     setdiff(outcome_name) %>%
     lapply(
@@ -104,24 +108,41 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
                                      thresholds) %>%
           dplyr::mutate(
             variable = x,
-            label = .env$label[[x]] %||% x,
+            label = .env$label[[x]] %||% attr(model_frame[[x]], "label") %||% x,
+            harm = .env$harm[[x]] %||% 0,
             .before = .data$threshold
           )
       }
     ) %>%
     dplyr::bind_rows() %>%
-    # adding harm
+    dplyr::mutate(
+      label = factor(.data$label, levels = unique(.data$label)),
+      harm = dplyr::coalesce(harm, 0),
+      net_benefit =
+        .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate - .data$harm
+    ) %>%
     dplyr::left_join(
-      rbind(data.frame(variable = character(), harm = numeric()),
-            tibble::enframe(harm, name = "variable", value = "harm")),
-      by = "variable"
+      dplyr::filter(., .data$variable %in% "all") %>%
+        dplyr::select(.data$threshold, net_benefit_all = .data$net_benefit),
+      by = "threshold"
     ) %>%
     dplyr::mutate(
-      harm = dplyr::coalesce(harm, 0),
-      net_benefit = .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate - .data$harm
+      net_intervention_avoided =
+        (.data$net_benefit - .data$net_benefit_all) / (.data$threshold / (1 - .data$threshold))
     ) %>%
+    dplyr::select(-.data$net_benefit_all) %>%
     tibble::as_tibble()
 
+  # return results -------------------------------------------------------------
+  lst_result <-
+    list(
+      call = match.call(),
+      n = dca_result$n[1],
+      prevalence = dca_result$tp_rate[1] + dca_result$fn_rate[1],
+      dca = dca_result
+    )
+  class(lst_result) <- c("dca", class(lst_result))
+  lst_result
 }
 
 .calculate_test_consequences <- function(outcome, risk, threshold) {

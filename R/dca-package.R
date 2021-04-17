@@ -1,5 +1,5 @@
 #' @keywords internal
-#' @importFrom rlang abort
+#' @importFrom ggplot2 ggplot aes geom_line
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

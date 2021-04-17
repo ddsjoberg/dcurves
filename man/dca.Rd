@@ -4,28 +4,52 @@
 \alias{dca}
 \title{Decision Curve Analysis}
 \usage{
-dca(formula, data)
+dca(
+  formula,
+  data,
+  thresholds = seq(0.01, 0.99, length.out = 99),
+  label = NULL,
+  harm = NULL,
+  as_probability = character(),
+  time = NULL
+)
 }
 \arguments{
 \item{formula}{formula}
 
 \item{data}{a data frame containing the outcome of the outcome predictions.}
+
+\item{thresholds}{vector of threshold probabilities between 0 and 1.}
+
+\item{label}{named list of variable labels, e.g. \verb{list(age = "Age, years)}}
+
+\item{harm}{named list of harms associated with a test. Default is \code{NULL}}
+
+\item{as_probability}{character vector including names of variables
+that will be converted to a probability.}
+
+\item{time}{if outcome is survival, \verb{time=} specifies the time the
+assessment is made}
 }
 \value{
-Returns a list containing the calculated net benefit, ADD MORE
+List including net benefit of each variable
 }
 \description{
-Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. The dca function performs decision curve analysis for binary outcomes.
+Diagnostic and prognostic models are typically evaluated with measures of
+accuracy that do not address clinical consequences.
+Decision-analytic techniques allow assessment of clinical outcomes but often
+require collection of additional information may be cumbersome to apply to
+models that yield a continuous result. Decision curve analysis is a method
+for evaluating and comparing prediction models that incorporates clinical
+consequences, requires only the data set on which the models are tested,
+and can be applied to models that have either continuous or dichotomous results.
+The dca function performs decision curve analysis for binary outcomes.
 See http://www.decisioncurveanalysis.org for more information.
 }
 \examples{
-library(MASS)
-data.set <- birthwt
-model = glm(low ~ age + lwt, family=binomial(link="logit"), data=data.set)
-data.set$predlow = predict(model, type="response")
-dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
-result1 = dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
-result2 = dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
+dca(cancer ~ cancerpredmarker, data = df_dca)
+
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 
 }
 \author{
