@@ -22,6 +22,7 @@ Depends:
     R (>= 3.3)
 Imports: 
     dplyr (>= 1.0.5),
+    glue (>= 1.4.2),
     ggplot2 (>= 3.3.3),
     gtsummary (>= 1.4.0),
     purrr (>= 0.3.4),
@@ -30,7 +31,7 @@ Imports:
     tibble (>= 3.1.0)
 Suggests: 
     covr (>= 3.5.1),
-    knitr (>= 1.31),
+    knitr (>= 1.32),
     rmarkdown (>= 2.7),
     testthat (>= 3.0.2)
 VignetteBuilder: 
