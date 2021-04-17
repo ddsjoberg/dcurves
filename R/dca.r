@@ -15,22 +15,25 @@
 #'
 #' @param formula formula
 #' @param data a data frame containing the outcome of the outcome predictions.
+#' @param thresholds vector of threshold probabilities between 0 and 1.
+#' @param label named list of variable labels, e.g. `list(age = "Age, years)`
+#' @param harm named list of harms associated with a test. Default is `NULL`
+#' @param as_probability character vector including names of variables
+#' that will be converted to a probability.
+#' @param time if outcome is survival, `time=` specifies the time the
+#' assessment is made
 #'
-#' @return Returns a list containing the calculated net benefit, ADD MORE
+#' @return List including net benefit of each variable
 #'
 #' @examples
-#' library(MASS)
-#' data.set <- birthwt
-#' model = glm(low ~ age + lwt, family=binomial(link="logit"), data=data.set)
-#' data.set$predlow = predict(model, type="response")
-#' dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
-#' result1 = dca(data=data.set, outcome="low", predictors="age", smooth="TRUE", xstop=0.50, probability="FALSE", intervention="TRUE")
-#' result2 = dca(data=data.set, outcome="low", predictors="predlow", smooth="TRUE", xstop=0.50)
+#' dca(cancer ~ cancerpredmarker, data = df_dca)
+#'
+#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 #'
 #' @export
 
 dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
-                label = NULL, harm = NULL, as_probability = NULL, time = NULL) {
+                label = NULL, harm = NULL, as_probability = character(), time = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
   if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
@@ -58,6 +61,8 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
     paste("Outcome type not supported. Expecting a binary endpoint",
           "or an object of class 'Surv'.") %>%
     stop(call. = FALSE)
+  if (outcome_type == "survival" && !is.null(time))
+    stop("`time=` must be specified for survival endpoints.")
 
   # for binary outcomes, make the outcome a factor to both levels always appear in `table()` results
   if (outcome_type == "binary") {
@@ -66,7 +71,12 @@ dca <- function(formula, data, thresholds = seq(0, 1, length.out = 101),
   }
 
   # convert to probability if requested ----------------------------------------
-  # TODO: add code for converting here!
+  for (v in as_probability) {
+    model_frame[[v]] <- .convert_to_risk(model_frame[[outcome_name]],
+                                         model_frame[[v]],
+                                         outcome_type = outcome_type,
+                                         time = time)
+  }
   for (v in names(model_frame) %>% setdiff(outcome_name)) {
     if (any(!dplyr::between(model_frame[[v]], 0L, 1L))) {
       glue::glue("Error in {v}. All covariates/risks must be between 0 and 1.") %>%
