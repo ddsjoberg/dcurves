@@ -1,6 +1,7 @@
 #' Export DCA tibble
 #'
 #' @param x dca object created with `dca()`
+#' @param ... not used
 #'
 #' @return a tibble
 #' @export
@@ -9,6 +10,6 @@
 #' dca(cancer ~ cancerpredmarker, data = df_dca) %>%
 #'   as_tibble()
 
-as_tibble.dca <- function(x) {
+as_tibble.dca <- function(x, ...) {
   x$dca
 }

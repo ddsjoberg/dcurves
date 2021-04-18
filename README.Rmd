@@ -36,11 +36,8 @@ devtools::install_github("ddsjoberg/dca")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(MASS)
 library(dca)
-data.set <- birthwt
-model = glm(low ~ age + lwt, family=binomial(link="logit"), data=data.set)
-data.set$predlow = predict(model, type="response")
-results = dca(data=data.set, outcome="low", predictors=c("age", "lwt"), probability=c("FALSE", "FALSE"))
+
+dca(cancer ~ cancerpredmarker, data = df_dca)
 ```
 

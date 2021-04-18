@@ -4,10 +4,15 @@
 \alias{autoplot.dca}
 \title{Export DCA ggplot}
 \usage{
-\method{autoplot}{dca}(x)
+\method{autoplot}{dca}(object, type = c("net_benefit", "net_intervention_avoided"), ...)
 }
 \arguments{
-\item{x}{dca object created with \code{dca()}}
+\item{object}{dca object created with \code{dca()}}
+
+\item{type}{indicates type of plot to produce. must be one of
+\code{c("net_benefit", "net_intervention_avoided")}}
+
+\item{...}{not used}
 }
 \value{
 a ggplot

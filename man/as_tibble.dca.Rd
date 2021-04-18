@@ -4,10 +4,12 @@
 \alias{as_tibble.dca}
 \title{Export DCA tibble}
 \usage{
-\method{as_tibble}{dca}(x)
+\method{as_tibble}{dca}(x, ...)
 }
 \arguments{
 \item{x}{dca object created with \code{dca()}}
+
+\item{...}{not used}
 }
 \value{
 a tibble

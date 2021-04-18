@@ -4,7 +4,7 @@ author: "Daniel D. Sjoberg"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{DCA for Survival Outcomes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+knitr::knit_exit()
 ```
 
 ## Introduction & Background
@@ -73,7 +74,7 @@ dca.df$status = dca.df$cancer + dca.df$dead * (dca.df$cancer==0) * 2
 We then load the competing risks package (cmprisk) and run the analysis specifying the competing risk variable.
 
 ```{r}
-library(cmprsk)
+# library(cmprsk)
 #We declare the survival data variables within the stdca function and run
 #the decision curve analysis
 results = stdca(data=dca.df, outcome="status", ttoutcome="ttcancer", timepoint=1.5, predictors="pr_failure18", cmprsk=TRUE, smooth=TRUE, xstop=0.5)
