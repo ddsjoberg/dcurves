@@ -22,6 +22,9 @@
 #' that will be converted to a probability.
 #' @param time if outcome is survival, `time=` specifies the time the
 #' assessment is made
+#' @param prevalence When NULL, the prevalence is estimated from `data=`.
+#' If the data passed is a case-control set, the population prevalence
+#' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
 #'
@@ -33,7 +36,8 @@
 #' @export
 
 dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
-                label = NULL, harm = NULL, as_probability = character(), time = NULL) {
+                label = NULL, harm = NULL, as_probability = character(),
+                time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
   if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
@@ -192,7 +196,10 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
   factor(x, levels = c(FALSE, TRUE))
 }
 
-.convert_to_risk <- function(outcome, variable, outcome_type, time = NULL) {
+.convert_to_risk <- function(outcome, variable, outcome_type, time = NULL, prevalence = NULL) {
+  if (outcome_type == "binary" && !is.null(prevalence))
+    stop("Cannot convert to risks in case-control setting.")
+
   if (outcome_type == "binary")
     risk <-
       stats::glm(outcome ~ variable, family = stats::binomial) %>%
