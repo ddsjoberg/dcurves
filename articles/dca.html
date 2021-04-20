@@ -100,7 +100,7 @@
 <a href="#univariate-decision-curve-analysis" class="anchor"></a>Univariate Decision Curve Analysis</h3>
 <p>First, we want to confirm family history of cancer is indeed associated with the biopsy result. Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome (OR 1.80; 95% CI 1.09, 2.99; p=0.022). The DCA can help us address the clinical utility of using family history to predict biopsy outcome.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_dca</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span><span class="op">)</span>
 <span class="co">#&gt; Assuming '1' is [Event] and '0' is [non-Event]</span>
 <span class="co">#&gt; Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`</span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>

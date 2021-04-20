@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • dcurves</title>
+<title>Simulated data with a binary outcome — df_binary • dcurves</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Simulated data with a binary outcome — df_binary" />
+<meta property="og:description" content="Simulated data with a binary outcome" />
 
 
 
@@ -68,7 +69,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -121,85 +122,36 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Simulated data with a binary outcome</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/data.r'><code>R/data.r</code></a></small>
+    <div class="hidden name"><code>df_binary.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Simulated data with a binary outcome</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>df_binary</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-decision-curve-analysis" class="hasAnchor"><a href="#section-decision-curve-analysis" class="anchor"></a>Decision Curve Analysis</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="dca.html">dca()</a></code> </p>
-        </td>
-        <td><p>Perform Decision Curve Analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_tibble.dca.html">as_tibble(<i>&lt;dca&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Convert DCA Object to tibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="autoplot.dca.html">autoplot(<i>&lt;dca&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Convert DCA Object to ggplot</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-example-data" class="hasAnchor"><a href="#section-example-data" class="anchor"></a>Example Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="df_binary.html">df_binary</a></code> </p>
-        </td>
-        <td><p>Simulated data with a binary outcome</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_surv.html">df_surv</a></code> </p>
-        </td>
-        <td><p>Simulated data with a survival outcome</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_case_control.html">df_case_control</a></code> </p>
-        </td>
-        <td><p>Simulated data with a case-control outcome</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 750 rows:</p><dl>
+<dt>patientid</dt><dd><p>Identification Number</p></dd>
+<dt>cancer</dt><dd><p>Cancer Diagnosis: 0=No, 1=Yes</p></dd>
+<dt>dead</dt><dd><p>Dead (1=yes; 0=no)</p></dd>
+<dt>risk_group</dt><dd><p>Patient Risk Group (Low, Intermediate, High)</p></dd>
+<dt>age</dt><dd><p>Patient Age, years</p></dd>
+<dt>famhistory</dt><dd><p>Family History of Cancer: 0=No, 1=Yes</p></dd>
+<dt>marker</dt><dd><p>Marker</p></dd>
+<dt>cancerpredmarker</dt><dd><p>Prob. of Cancer based on Age, Family History, and Marker</p></dd>
+
+</dl>
+
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

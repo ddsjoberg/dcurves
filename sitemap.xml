@@ -16,7 +16,13 @@
     <loc>http://www.danieldsjoberg.com/dca//reference/dcurves-package.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/df_dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dca//reference/df_binary.html</loc>
+  </url>
+  <url>
+    <loc>http://www.danieldsjoberg.com/dca//reference/df_case_control.html</loc>
+  </url>
+  <url>
+    <loc>http://www.danieldsjoberg.com/dca//reference/df_surv.html</loc>
   </url>
   <url>
     <loc>http://www.danieldsjoberg.com/dca//reference/print.dca.html</loc>
