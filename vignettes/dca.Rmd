@@ -178,3 +178,8 @@ This appears to show that the joint test is the better option for the range of t
 Less than 5%, the clinical option of treating all would be superior to any other option, though rarely would treatment thresholds be so low.
 From 28%-35%, the conditional test would be a slightly better option, and in between the two ranges, the joint and conditional tests are comparable. 
 The obvious disadvantage of the joint test is that the marker needs to be measured for everyone, and such tests may be expensive and time consuming. 
+
+
+
+
+## Survival Outcomes
