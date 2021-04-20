@@ -1,4 +1,4 @@
-#' Decision Curve Analysis
+#' Perform Decision Curve Analysis
 #'
 #' Diagnostic and prognostic models are typically evaluated with measures of
 #' accuracy that do not address clinical consequences.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_tibble.R
 \name{as_tibble.dca}
 \alias{as_tibble.dca}
-\title{Export DCA tibble}
+\title{Convert DCA Object to tibble}
 \usage{
 \method{as_tibble}{dca}(x, ...)
 }
@@ -15,7 +15,7 @@
 a tibble
 }
 \description{
-Export DCA tibble
+Convert DCA Object to tibble
 }
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_dca) \%>\%

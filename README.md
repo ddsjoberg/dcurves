@@ -7,7 +7,7 @@
 coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dca?branch=master)
 <!-- badges: end -->
 
-# Decision Curve Analysis (dca)
+# Decision Curve Analysis
 
 Diagnostic and prognostic models are typically evaluated with measures
 of accuracy that do not address clinical consequences. Decision-analytic
@@ -28,23 +28,25 @@ You can install dca from [GitHub](https://github.com/) with:
 devtools::install_github("ddsjoberg/dca")
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+To assess models predicting binary endpoints.
 
 ``` r
-library(decisioncurveanalysis)
+library(dcurves)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
 #> Assuming '1' is [Event] and '0' is [non-Event]
 #> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example1-1.png" width="100%" />
+
+Time-to-event or survival endpoints
 
 ``` r
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 #> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
 
-<img src="man/figures/README-example-2.png" width="100%" />
+<img src="man/figures/README-example2-1.png" width="100%" />

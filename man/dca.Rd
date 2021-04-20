@@ -2,7 +2,7 @@
 % Please edit documentation in R/dca.r
 \name{dca}
 \alias{dca}
-\title{Decision Curve Analysis}
+\title{Perform Decision Curve Analysis}
 \usage{
 dca(
   formula,

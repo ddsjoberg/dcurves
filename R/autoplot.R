@@ -1,4 +1,4 @@
-#' Export DCA ggplot
+#' Convert DCA Object to ggplot
 #'
 #' @param object dca object created with `dca()`
 #' @param type indicates type of plot to produce. must be one of

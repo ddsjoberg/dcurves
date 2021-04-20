@@ -20,9 +20,11 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dca?branch=master)
 <!-- badges: end -->
 
-# Decision Curve Analysis (dca)
+# Decision Curve Analysis 
 
-Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
+Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences.
+Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result.
+Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
 
 ## Installation
 
@@ -30,16 +32,21 @@ You can install dca from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ddsjoberg/dcurves")
+devtools::install_github("ddsjoberg/dca")
 ```
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+To assess models predicting binary endpoints.
 
-```{r example}
+```{r example1}
 library(dcurves)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
+```
+
+Time-to-event or survival endpoints
+
+```{r example2}
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 ```
 

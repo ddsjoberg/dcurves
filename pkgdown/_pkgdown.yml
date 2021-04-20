@@ -1,0 +1,36 @@
+url: http://www.danieldsjoberg.com/dca/
+
+template:
+  params:
+    ganalytics: UA-145876596-1
+    bootswatch: flatly
+# development:
+#   mode: auto
+#   version_label: default
+
+authors:
+  Daniel D. Sjoberg:
+    href: "http://www.danieldsjoberg.com/"
+
+navbar:
+  type: default
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Getting Started
+    href: articles/dca.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/ddsjoberg/dca
+
+reference:
+  - title: Decision Curve Analysis
+  - contents:
+      - dca
+      - as_tibble.dca
+      - autoplot.dca
+

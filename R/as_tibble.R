@@ -1,4 +1,4 @@
-#' Export DCA tibble
+#' Convert DCA Object to tibble
 #'
 #' @param x dca object created with `dca()`
 #' @param ... not used
