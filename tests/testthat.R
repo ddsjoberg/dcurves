@@ -1,4 +1,4 @@
 library(testthat)
-library(dca)
+library(decisioncurveanalysis)
 
-test_check("dca")
+test_check("decisioncurveanalysis")

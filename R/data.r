@@ -13,7 +13,5 @@
 #'   \item{marker}{Marker}
 #'   \item{cancerpredmarker}{Prob. of Cancer based on Age, Family History, and Marker}
 #' }
-#' @source internal
-#' @name dca.df
-NULL
+"df_dca"
 

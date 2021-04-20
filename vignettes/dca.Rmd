@@ -1,0 +1,42 @@
+---
+title: "Decision Curve Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Decision Curve Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(decisioncurveanalysis)
+```
+
+Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address
+clinical consequences.
+Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result.
+Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
+This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. 
+In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. 
+“Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.
+For more details on DCA, visit [](decisioncurveanalysis.org).
+You'll find the original articles explaining the details of the DCA derivation along with other papers providing more details. 
+Below we'll walk you through how to perform DCA for binary and time-to-event outcomes
+
+# Binary Outcomes
+
+### Univariate Decision Curve Analysis
+
+First, we want to confirm family history of cancer is indeed associated with the biopsy result. 
+Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome (OR 1.80; 95% CI 1.09, 2.99; p=0.022). 
+The DCA can help us address the clinical utility of using family history to predict biopsy outcome. 
+
+```{r}
+dca(cancer ~ famhistory, df_dca)
+```

@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
+  fig.height = 3,
   out.width = "100%"
 )
 ```
@@ -36,7 +37,7 @@ devtools::install_github("ddsjoberg/dca")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(dca)
+library(decisioncurveanalysis)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)

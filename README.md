@@ -33,7 +33,7 @@ devtools::install_github("ddsjoberg/dca")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(dca)
+library(decisioncurveanalysis)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
 #> Assuming '1' is [Event] and '0' is [non-Event]
