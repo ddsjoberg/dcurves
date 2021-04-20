@@ -35,9 +35,11 @@ To assess models predicting binary endpoints.
 ``` r
 library(dcurves)
 
-dca(cancer ~ cancerpredmarker, data = df_binary)
+dca(cancer ~ cancerpredmarker, 
+    data = df_binary,
+    thresholds = seq(0, 0.35, 0.01)) %>%
+  autoplot(smooth = TRUE)
 #> Assuming '1' is [Event] and '0' is [non-Event]
-#> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
 
 <img src="man/figures/README-example1-1.png" width="100%" />
@@ -45,8 +47,10 @@ dca(cancer ~ cancerpredmarker, data = df_binary)
 Time-to-event or survival endpoints
 
 ``` r
-dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
-#> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, 
+    data = df_surv, time = 1,
+    thresholds = seq(0, 0.50, 0.01)) %>%
+  autoplot(smooth = TRUE)
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />
