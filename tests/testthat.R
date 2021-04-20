@@ -1,4 +1,4 @@
 library(testthat)
-library(decisioncurveanalysis)
+library(dcurves)
 
-test_check("decisioncurveanalysis")
+test_check("dcurves")

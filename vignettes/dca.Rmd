@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(decisioncurveanalysis)
+library(dcurves)
 ```
 
 Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address

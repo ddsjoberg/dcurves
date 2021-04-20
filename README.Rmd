@@ -30,14 +30,14 @@ You can install dca from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ddsjoberg/dca")
+devtools::install_github("ddsjoberg/dcurves")
 ```
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(decisioncurveanalysis)
+library(dcurves)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
