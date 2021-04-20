@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @importFrom purrr %||%
 #' @importFrom rlang .data .env
 "_PACKAGE"
 

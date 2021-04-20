@@ -6,7 +6,6 @@
 \alias{autoplot}
 \alias{as_tibble}
 \alias{\%>\%}
-\alias{\%||\%}
 \alias{Surv}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -18,8 +17,6 @@ below to see their documentation.
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
-
-  \item{purrr}{\code{\link[purrr:null-default]{\%||\%}}}
 
   \item{survival}{\code{\link[survival]{Surv}}}
 

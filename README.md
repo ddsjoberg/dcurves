@@ -2,9 +2,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/ddsjoberg/dca/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dca/actions)
+[![R-CMD-check](https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dcurves/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dca?branch=master)
+coverage](https://codecov.io/gh/ddsjoberg/dcurves/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=master)
 <!-- badges: end -->
 
 # Decision Curve Analysis
@@ -25,7 +25,7 @@ You can install dca from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ddsjoberg/dca")
+devtools::install_github("ddsjoberg/dcurves")
 ```
 
 ## Examples

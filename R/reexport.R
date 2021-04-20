@@ -13,11 +13,6 @@ tibble::as_tibble
 #' @importFrom dplyr %>%
 dplyr::`%>%`
 
-# purrr ------------------------------------------------------------------------
-#' @export
-#' @importFrom purrr %||%
-purrr::`%||%`
-
 # survival ---------------------------------------------------------------------
 #' @export
 #' @importFrom survival Surv
