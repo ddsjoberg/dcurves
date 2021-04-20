@@ -93,12 +93,12 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dcurves</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring. For more details on DCA, visit <a href="decisioncurveanalysis.org"></a>. You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details. Below we’ll walk you through how to perform DCA for binary and time-to-event outcomes</p>
-<div id="binary-outcomes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#binary-outcomes" class="anchor"></a>Binary Outcomes</h1>
-<div id="univariate-decision-curve-analysis" class="section level2">
+<div id="binary-outcomes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#univariate-decision-curve-analysis" class="anchor"></a>Univariate Decision Curve Analysis</h2>
+<a href="#binary-outcomes" class="anchor"></a>Binary Outcomes</h2>
+<div id="univariate-decision-curve-analysis" class="section level3">
+<h3 class="hasAnchor">
+<a href="#univariate-decision-curve-analysis" class="anchor"></a>Univariate Decision Curve Analysis</h3>
 <p>We’ll be working with the example dataset <code>df_binary</code> included with the package. The dataset includes information on 750 patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer. Each patient has been biopsied and we know their cancer status. It is known that older patients with a family history of cancer have a higher probability of harboring cancer. A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer. We wish to assess whether or not the new marker does indeed identify patients with and without cancer. If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.</p>
 <p>First, we want to confirm family history of cancer is indeed associated with the biopsy result.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -109,7 +109,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zyplhiukhd .gt_table {
+#rhxmdgdrup .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -134,7 +134,7 @@
   border-left-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_heading {
+#rhxmdgdrup .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -146,7 +146,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_title {
+#rhxmdgdrup .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -156,7 +156,7 @@
   border-bottom-width: 0;
 }
 
-#zyplhiukhd .gt_subtitle {
+#rhxmdgdrup .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -166,13 +166,13 @@
   border-top-width: 0;
 }
 
-#zyplhiukhd .gt_bottom_border {
+#rhxmdgdrup .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_col_headings {
+#rhxmdgdrup .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -187,7 +187,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_col_heading {
+#rhxmdgdrup .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,7 +207,7 @@
   overflow-x: hidden;
 }
 
-#zyplhiukhd .gt_column_spanner_outer {
+#rhxmdgdrup .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -219,15 +219,15 @@
   padding-right: 4px;
 }
 
-#zyplhiukhd .gt_column_spanner_outer:first-child {
+#rhxmdgdrup .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zyplhiukhd .gt_column_spanner_outer:last-child {
+#rhxmdgdrup .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zyplhiukhd .gt_column_spanner {
+#rhxmdgdrup .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -239,7 +239,7 @@
   width: 100%;
 }
 
-#zyplhiukhd .gt_group_heading {
+#rhxmdgdrup .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -261,7 +261,7 @@
   vertical-align: middle;
 }
 
-#zyplhiukhd .gt_empty_group_heading {
+#rhxmdgdrup .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -276,15 +276,15 @@
   vertical-align: middle;
 }
 
-#zyplhiukhd .gt_from_md > :first-child {
+#rhxmdgdrup .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zyplhiukhd .gt_from_md > :last-child {
+#rhxmdgdrup .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zyplhiukhd .gt_row {
+#rhxmdgdrup .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -303,7 +303,7 @@
   overflow-x: hidden;
 }
 
-#zyplhiukhd .gt_stub {
+#rhxmdgdrup .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -315,7 +315,7 @@
   padding-left: 12px;
 }
 
-#zyplhiukhd .gt_summary_row {
+#rhxmdgdrup .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -325,7 +325,7 @@
   padding-right: 5px;
 }
 
-#zyplhiukhd .gt_first_summary_row {
+#rhxmdgdrup .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -335,7 +335,7 @@
   border-top-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_grand_summary_row {
+#rhxmdgdrup .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -345,7 +345,7 @@
   padding-right: 5px;
 }
 
-#zyplhiukhd .gt_first_grand_summary_row {
+#rhxmdgdrup .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -355,11 +355,11 @@
   border-top-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_striped {
+#rhxmdgdrup .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zyplhiukhd .gt_table_body {
+#rhxmdgdrup .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -368,7 +368,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_footnotes {
+#rhxmdgdrup .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -382,13 +382,13 @@
   border-right-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_footnote {
+#rhxmdgdrup .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#zyplhiukhd .gt_sourcenotes {
+#rhxmdgdrup .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -402,46 +402,46 @@
   border-right-color: #D3D3D3;
 }
 
-#zyplhiukhd .gt_sourcenote {
+#rhxmdgdrup .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#zyplhiukhd .gt_left {
+#rhxmdgdrup .gt_left {
   text-align: left;
 }
 
-#zyplhiukhd .gt_center {
+#rhxmdgdrup .gt_center {
   text-align: center;
 }
 
-#zyplhiukhd .gt_right {
+#rhxmdgdrup .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zyplhiukhd .gt_font_normal {
+#rhxmdgdrup .gt_font_normal {
   font-weight: normal;
 }
 
-#zyplhiukhd .gt_font_bold {
+#rhxmdgdrup .gt_font_bold {
   font-weight: bold;
 }
 
-#zyplhiukhd .gt_font_italic {
+#rhxmdgdrup .gt_font_italic {
   font-style: italic;
 }
 
-#zyplhiukhd .gt_super {
+#rhxmdgdrup .gt_super {
   font-size: 65%;
 }
 
-#zyplhiukhd .gt_footnote_marks {
+#rhxmdgdrup .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="zyplhiukhd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="rhxmdgdrup" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_col_headings"><tr>
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">
@@ -483,9 +483,9 @@
 <p><img src="dca_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Now that the graph is showing a more reasonable range of threshold probabilities, let’s assess the clinical utility of family history alone. We can see here that although family history is significantly associated with biopsy outcome, it only adds value to a small range of threshold probabilities near 13% - 20%. If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy. However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme.</p>
 </div>
-<div id="multivariable-decision-curve-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multivariable-decision-curve-analysis" class="anchor"></a>Multivariable Decision Curve Analysis</h2>
+<div id="multivariable-decision-curve-analysis" class="section level3">
+<h3 class="hasAnchor">
+<a href="#multivariable-decision-curve-analysis" class="anchor"></a>Multivariable Decision Curve Analysis</h3>
 <div id="evaluation-of-new-models" class="section level4">
 <h4 class="hasAnchor">
 <a href="#evaluation-of-new-models" class="anchor"></a>Evaluation of New Models</h4>
