@@ -4,7 +4,7 @@
 
 [![R-CMD-check](https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dcurves/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=master)
+coverage](https://codecov.io/gh/ddsjoberg/dcurves/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=master)
 <!-- badges: end -->
 
 # Decision Curve Analysis
