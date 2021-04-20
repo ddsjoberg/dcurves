@@ -57,6 +57,9 @@ dca(cancer ~ cancerpredmarker, data = df_dca)
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 
 }
+\seealso{
+\code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+}
 \author{
 Daniel D Sjoberg
 }

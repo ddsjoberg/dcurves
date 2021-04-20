@@ -17,7 +17,7 @@ Description: Diagnostic and prognostic models are typically evaluated with
     either continuous or dichotomous results. The dca function performs
     decision curve analysis for binary outcomes.
 License: MIT + file LICENSE
-BugReports: https://github.com/ddsjoberg/dca/issues
+BugReports: https://github.com/ddsjoberg/dcurves/issues
 Depends:
     R (>= 3.3)
 Imports: 

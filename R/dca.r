@@ -27,6 +27,7 @@
 #' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
+#' @seealso [`autoplot.dca()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_dca)
