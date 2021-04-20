@@ -106,3 +106,75 @@ value.
 
 #### Evaluation of Published Models 
 
+Imagine that a model was published by Brown et al. with respect to our cancer biopsy data set. 
+The authors reported a statistical model with coefficients of 0.75 for a positive family history of cancer; 0.26 for each increased year of age, and an intercept of -17.5. To test this formula on our dataset:
+
+```{r}
+
+
+df_updated <-
+  df_binary %>%
+  mutate(
+    # Use the coefficients from the Brown model
+    logodds_Brown = 0.75 * (famhistory) + 0.26 * (age) - 17.5,
+    # Convert to predicted probability
+    phat_Brown = exp(logodds_Brown) / (1 + exp(logodds_Brown))
+  )
+
+# Run the decision curve
+dca(cancer ~ phat_Brown, df_updated, thresholds = seq(0, 0.35, length.out = 100))
+```
+
+This decision curve suggests that although the model might be useful in the most risk averse patients, it is actually harmful in patients with more moderate threshold probabilities. 
+As such, the Brown et al. model should not be used in clinical practice. 
+This effect, a model being harmful, occurs due to miscalibration, that is, when patients are given risks that are too high or too low. 
+Note that miscalibration only occurs rarely when models are created and tested on the same data set, such as in the example where we created a model with both family history and the marker.
+
+#### Joint or Conditional Tests 
+
+Many decisions in medicine are based on joint or conditional test results. 
+A classic example is where patients are categorized on the basis of a test as being at high, low or intermediate risk. 
+Patients at high risk are referred immediately for treatment (in our example biopsied); patients at low risk are reassured and advised that no further action is necessary; patients at intermediate risk are sent for an additional test, with subsequent treatment decisions made accordingly.
+
+Imagine that for our example there was a previous test that categorized our patients as high, low, and intermediate risk of cancer and we wanted to incorporate our marker. 
+There are five clinical options: 
+
+1. Biopsy everyone
+2. Biopsy no-one
+3. Biopsy everyone that was determined to be at high risk of cancer; don't use the marker
+4. Measure the marker for everyone, then biopsy anyone who is either at high risk of cancer or who was determined to have a probability of cancer past a certain level, based on the marker (i.e. joint approach) 
+5. Biopsy everyone at high risk; measure the marker for patients at intermediate risk and biopsy
+those with a probability of cancer past a certain level, based on the marker (i.e. conditional
+approach) 
+
+Decision curve analysis can incorporate joint or conditional testing. All that is required is that
+appropriate variables are calculated from the data set; decision curves are then calculated as normal.
+First we would create the variables to represent our joint and conditional approach. For our example,
+let us use 0.15 as the cutoff probability level for patients who had their marker measured and should be
+biopsied.
+
+```{r}
+df_updated <-
+  df_updated %>%
+  mutate(
+    # Create a variable for the strategy of treating only high risk patients
+    # This will be 1 for treat and 0 for don’t treat
+    high_risk = ifelse(risk_group == "high", 1, 0),
+    # Treat based on Joint Approach
+    joint = ifelse(risk_group == "high" | cancerpredmarker > 0.15, 1, 0),
+    # Treat based on Conditional Approach
+    conditional = ifelse(risk_group == "high" | 
+                           (risk_group == "intermediate" & cancerpredmarker > 0.15), 1, 0)
+  )
+```
+
+Now that we have the variables worked out, we can run the decision curve analysis.
+
+```{r}
+dca(cancer ~ high_risk + joint + conditional, df_updated, thresholds = seq(0, 0.35, length.out = 100))
+```
+
+This appears to show that the joint test is the better option for the range of threshold probabilities from 5% - 24% since it has the highest net benefit across that range. 
+Less than 5%, the clinical option of treating all would be superior to any other option, though rarely would treatment thresholds be so low.
+From 28%-35%, the conditional test would be a slightly better option, and in between the two ranges, the joint and conditional tests are comparable. 
+The obvious disadvantage of the joint test is that the marker needs to be measured for everyone, and such tests may be expensive and time consuming. 
