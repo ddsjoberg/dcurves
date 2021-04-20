@@ -37,5 +37,14 @@ library(dca)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
 #> Assuming '1' is [Event] and '0' is [non-Event]
-#> Printing `dca()` object with `autoplot()`
+#> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />
+
+``` r
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+#> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
+```
+
+<img src="man/figures/README-example-2.png" width="100%" />

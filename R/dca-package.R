@@ -1,6 +1,5 @@
 #' @keywords internal
 #' @importFrom rlang .data .env
-#' @importFrom ggplot2 ggplot aes geom_line
 "_PACKAGE"
 
 # allowing for the use of the dot when piping

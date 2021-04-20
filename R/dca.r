@@ -31,7 +31,7 @@
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_dca)
 #'
-#' # dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 #'
 #' @export
 
@@ -54,18 +54,18 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
   outcome_type <-
     dplyr::case_when(
       inherits(model_frame[[outcome_name]], "Surv") ~ "survival",
-      dplyr::n_distinct(model_frame[[outcome_name]]) == 2L ~ "binary",
-      dplyr::n_distinct(model_frame[[outcome_name]]) == 1L &&
+      length(unique(model_frame[[outcome_name]])) == 2L ~ "binary",
+      length(unique(model_frame[[outcome_name]])) == 1L &&
         inherits(model_frame[[outcome_name]], "factor") &&
         length(attr(model_frame[[outcome_name]], "level")) == 2L ~ "binary",
-      dplyr::n_distinct(model_frame[[outcome_name]]) == 1L &&
+      length(unique(model_frame[[outcome_name]])) == 1L &&
         inherits(model_frame[[outcome_name]], "logical") ~ "binary"
     )
   if (is.na(outcome_type))
     paste("Outcome type not supported. Expecting a binary endpoint",
           "or an object of class 'Surv'.") %>%
     stop(call. = FALSE)
-  if (outcome_type == "survival" && !is.null(time))
+  if (outcome_type == "survival" && is.null(time))
     stop("`time=` must be specified for survival endpoints.")
 
   # for binary outcomes, make the outcome a factor to both levels always appear in `table()` results
@@ -109,7 +109,10 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
       function(x) {
         .calculate_test_consequences(model_frame[[outcome_name]],
                                      model_frame[[x]],
-                                     thresholds) %>%
+                                     thresholds = thresholds,
+                                     outcome_type = outcome_type,
+                                     prevalence = prevalence,
+                                     time = time) %>%
           dplyr::mutate(
             variable = x,
             label = .env$label[[x]] %||% attr(model_frame[[x]], "label") %||% x,
@@ -142,40 +145,80 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
     list(
       call = match.call(),
       n = dca_result$n[1],
-      prevalence = dca_result$tp_rate[1] + dca_result$fn_rate[1],
+      prevalence = dca_result$prevalence[1],
+      time = time,
       dca = dca_result
-    )
+    ) %>%
+    purrr::compact()
   class(lst_result) <- c("dca", class(lst_result))
   lst_result
 }
 
-.calculate_test_consequences <- function(outcome, risk, threshold, outcome_type) {
+.calculate_test_consequences <- function(outcome, risk, thresholds, outcome_type,
+                                         prevalence, time) {
+  df <-
+    tibble::tibble(threshold = thresholds,
+                   n = length(outcome))
+  # case-control population prev
+  if (!is.null(prevalence)) df$prevalence <- prevalence
+  # survival endpoitn prev
+  else if (outcome_type == "survival")
+    df$prevalence <-
+      tryCatch(
+        survival::survfit(outcome ~ 1) %>%
+          summary(time = time) %>%
+          purrr::pluck("surv") %>%
+          {1 - .},
+        error = function(e) NA_real_
+      )
+  # typical binary prev
+  else df$prevalence <- table(outcome)[2] / length(outcome)
+
   if (outcome_type == "binary") {
     df <-
-      tibble::tibble(threshold = threshold) %>%
+      df %>%
       dplyr::rowwise() %>%
       dplyr::mutate(
-        table =
-          table(outcome, .convert_to_binary_fct(risk >= .data$threshold)) %>%
-          list(),
-        n = sum(.data$table),
-        tp_rate = table[2, 2] / .data$n,
-        fp_rate = table[1, 2] / .data$n,
-        tn_rate = table[1, 1] / .data$n,
-        fn_rate = table[2, 1] / .data$n
+        test_pos_rate =
+          .convert_to_binary_fct(risk >= .data$threshold) %>%
+          table() %>%
+          purrr::pluck(2) %>%
+          {. / .data$n},
+        tp_rate =
+          mean(risk[outcome == "TRUE"] >= .data$threshold) * .data$prevalence,
+        fp_rate =
+          mean(risk[outcome == "FALSE"] >= .data$threshold) * .data$prevalence,
       )
   }
   else if (outcome_type == "survival") {
-
+    df <-
+      df %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        test_pos_rate =
+          .convert_to_binary_fct(risk >= .data$threshold) %>%
+          table() %>%
+          purrr::pluck(2) %>%
+          `/`(.data$n),
+        surv_rate_among_test_pos =
+          tryCatch(
+            survival::survfit(outcome[risk >= .data$threshold] ~ 1) %>%
+              summary(time = time) %>%
+              purrr::pluck("surv"),
+            error = function(e) {
+              if (length(outcome[risk >= .data$threshold]) == 0L) return(0)
+              NA_real_
+            }
+          ),
+        tp_rate = (1 - .data$surv_rate_among_test_pos) * .data$test_pos_rate,
+        fp_rate = .data$surv_rate_among_test_pos * .data$test_pos_rate,
+      )
   }
 
-  df %>%
-    dplyr::mutate(
-      test_pos_rate = .data$tp_rate + .data$fp_rate,
-      test_neg_rate = .data$tn_rate + .data$fn_rate
-    ) %>%
-    dplyr::select(.data$threshold, .data$n, .data$test_pos_rate, .data$test_neg_rate,
-                  dplyr::everything(), -.data$table)
+  # df %>%
+  #   dplyr::ungroup() %>%
+  #   dplyr::select(any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
+  df
 }
 
 .convert_to_binary_fct <- function(x, quiet = TRUE) {

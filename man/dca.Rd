@@ -11,7 +11,8 @@ dca(
   label = NULL,
   harm = NULL,
   as_probability = character(),
-  time = NULL
+  time = NULL,
+  prevalence = NULL
 )
 }
 \arguments{
@@ -30,6 +31,10 @@ that will be converted to a probability.}
 
 \item{time}{if outcome is survival, \verb{time=} specifies the time the
 assessment is made}
+
+\item{prevalence}{When NULL, the prevalence is estimated from \verb{data=}.
+If the data passed is a case-control set, the population prevalence
+may be set with this argument.}
 }
 \value{
 List including net benefit of each variable
@@ -49,7 +54,7 @@ See http://www.decisioncurveanalysis.org for more information.
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_dca)
 
-# dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 
 }
 \author{

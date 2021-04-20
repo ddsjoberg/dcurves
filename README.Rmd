@@ -39,5 +39,6 @@ This is a basic example which shows you how to solve a common problem:
 library(dca)
 
 dca(cancer ~ cancerpredmarker, data = df_dca)
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
 ```
 
