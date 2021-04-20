@@ -12,7 +12,7 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
@@ -54,6 +54,16 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145876596-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145876596-1');
+</script>
+
 
   </head>
 
@@ -79,33 +89,24 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/dca.html">Decision Curve Analysis</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/dca.html">Getting Started</a>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/ddsjoberg/dca/">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://github.com/ddsjoberg/dca">
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +137,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-decision-curve-analysis" class="hasAnchor"><a href="#section-decision-curve-analysis" class="anchor"></a>Decision Curve Analysis</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -148,33 +149,21 @@
       <tr>
         
         <td>
+          <p><code><a href="dca.html">dca()</a></code> </p>
+        </td>
+        <td><p>Perform Decision Curve Analysis</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="as_tibble.dca.html">as_tibble(<i>&lt;dca&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Export DCA tibble</p></td>
+        <td><p>Convert DCA Object to tibble</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="autoplot.dca.html">autoplot(<i>&lt;dca&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Export DCA ggplot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dca.html">dca()</a></code> </p>
-        </td>
-        <td><p>Decision Curve Analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_dca.html">df_dca</a></code> </p>
-        </td>
-        <td><p>A simulated data frame used to motivate examples in the <code>dca</code> package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.dca.html">print(<i>&lt;dca&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print <code>dca()</code> object</p></td>
+        <td><p>Convert DCA Object to ggplot</p></td>
       </tr>
     </tbody>
     </table>
@@ -190,7 +179,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Daniel D. Sjoberg.</p>
+  <p>Developed by <a href='http://www.danieldsjoberg.com/'>Daniel D. Sjoberg</a>.</p>
 </div>
 
 <div class="pkgdown">
