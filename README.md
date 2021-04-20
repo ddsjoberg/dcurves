@@ -4,7 +4,7 @@
 
 [![R-CMD-check](https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dcurves/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ddsjoberg/dcurves/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=master)
+coverage](https://codecov.io/gh/ddsjoberg/dca/branch/master/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=master)
 <!-- badges: end -->
 
 # Decision Curve Analysis
@@ -35,7 +35,7 @@ To assess models predicting binary endpoints.
 ``` r
 library(dcurves)
 
-dca(cancer ~ cancerpredmarker, data = df_dca)
+dca(cancer ~ cancerpredmarker, data = df_binary)
 #> Assuming '1' is [Event] and '0' is [non-Event]
 #> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
@@ -45,7 +45,7 @@ dca(cancer ~ cancerpredmarker, data = df_dca)
 Time-to-event or survival endpoints
 
 ``` r
-dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 #> Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`
 ```
 
