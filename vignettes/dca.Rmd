@@ -31,9 +31,9 @@ For more details on DCA, visit [](decisioncurveanalysis.org).
 You'll find the original articles explaining the details of the DCA derivation along with other papers providing more details. 
 Below we'll walk you through how to perform DCA for binary and time-to-event outcomes
 
-# Binary Outcomes
+## Binary Outcomes
 
-## Univariate Decision Curve Analysis
+### Univariate Decision Curve Analysis
 
 We’ll be working with the example dataset `df_binary` included with the package.
 The dataset includes information on `r nrow(df_binary)` patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer.
@@ -72,7 +72,7 @@ We can see here that although family history is significantly associated with bi
 If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy. 
 However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme. 
 
-## Multivariable Decision Curve Analysis
+### Multivariable Decision Curve Analysis
 
 #### Evaluation of New Models 
 
