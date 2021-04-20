@@ -188,7 +188,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
         tp_rate =
           mean(risk[outcome == "TRUE"] >= .data$threshold) * .data$prevalence,
         fp_rate =
-          mean(risk[outcome == "FALSE"] >= .data$threshold) * .data$prevalence,
+          mean(risk[outcome == "FALSE"] >= .data$threshold) * (1 - .data$prevalence),
       )
   }
   else if (outcome_type == "survival") {
@@ -216,10 +216,9 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
       )
   }
 
-  # df %>%
-  #   dplyr::ungroup() %>%
-  #   dplyr::select(any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
-  df
+  df %>%
+    dplyr::ungroup() %>%
+    dplyr::select(any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
 }
 
 .convert_to_binary_fct <- function(x, quiet = TRUE) {

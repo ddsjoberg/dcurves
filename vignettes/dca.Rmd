@@ -10,12 +10,14 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r setup, message = FALSE}
 library(dcurves)
+library(gtsummary); library(dplyr)
 ```
 
 Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address
@@ -31,12 +33,76 @@ Below we'll walk you through how to perform DCA for binary and time-to-event out
 
 # Binary Outcomes
 
-### Univariate Decision Curve Analysis
+## Univariate Decision Curve Analysis
+
+We’ll be working with the example dataset `df_binary` included with the package.
+The dataset includes information on `r nrow(df_binary)` patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer.
+Each patient has been biopsied and we know their cancer status. 
+It is known that older patients with a family history of cancer have a higher probability of harboring cancer. 
+A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer. 
+We wish to assess whether or not the new marker does indeed identify patients with and without cancer. 
+If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.
+
 
 First, we want to confirm family history of cancer is indeed associated with the biopsy result. 
-Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome (OR 1.80; 95% CI 1.09, 2.99; p=0.022). 
+
+```{r}
+mod <- glm(cancer ~ famhistory, df_binary, family = binomial)
+tbl <- tbl_regression(mod, exponentiate = TRUE)
+tbl
+```
+
+Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome OR `r inline_text(tbl, variable = "famhistory")`. 
 The DCA can help us address the clinical utility of using family history to predict biopsy outcome. 
 
 ```{r}
 dca(cancer ~ famhistory, df_binary)
 ```
+
+First, note that there are many threshold probabilities shown here that are not of interest. 
+For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. 
+Let’s do the DCA again, this time restricting the output to threshold probabilities a moreclinically reasonable range, between 0% and 35%.
+
+```{r}
+dca(cancer ~ famhistory, df_binary, thresholds = seq(0, 0.35, length.out = 100))
+```
+
+Now that the graph is showing a more reasonable range of threshold probabilities, let’s assess the clinical utility of family history alone. 
+We can see here that although family history is significantly associated with biopsy outcome, it only adds value to a small range of threshold probabilities near 13% - 20%. 
+If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy. 
+However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme. 
+
+## Multivariable Decision Curve Analysis
+
+#### Evaluation of New Models 
+
+We wanted to examine the value of a statistical model that incorporates family history, age, and the
+marker. 
+First we will build the logistic regression model with all three variables, and second we would have saved out the predicted probability of having cancer based on the model. 
+Note that in our example data set, this variable actually already exists so it wouldn't be necessary to create the predicted probabilities once again. 
+
+```{r}
+glm(cancer ~ marker + age + famhistory, df_binary, family = binomial) %>%
+  broom::augment(newdata = df_binary, type.predict = "response") 
+```
+
+We now want to compare our different approaches to cancer detection: biopsying everyone, biopsying no-one, biopsying on the basis of family history, or biopsying on the basis of a multivariable statistical model including the marker, age and family history of cancer. 
+
+```{r}
+dca(cancer ~ famhistory + cancerpredmarker, df_binary, thresholds = seq(0, 0.35, length.out = 100))
+```
+
+The key aspect of decision curve analysis is to look at which strategy leads to the largest net benefit (i.e. the “highest” line), which in this example would correspond to the model that includes age, family history of cancer, and the marker. 
+It is clear that, across the range of reasonable threshold probabilities, one cannot go wrong basing decisions on this multivariate model: it is superior, and unlike any alternative strategy, it is never worse.
+
+A few points are worth noting. 
+First, look at the green line, the net benefit for “treat all”, that is, biopsy everyone. 
+This crosses the y axis at the prevalence. Imagine that a man had a risk threshold of 14%, and asked his risk under the "biopsy all" strategy. He would be told that his risk was the prevalence (14%).
+When a patient's risk threshold is the same as his predicted risk, the net benefit of biopsying and not biopsying are the same.
+Second, the decision curve for the binary variable (family history of cancer, the brown line) crosses the “biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer. 
+The decision curve for a binary variable is equivalent to biopsy no-one at the positive predictive value. 
+This is because for a binary variable, a patient with the characteristic is given a risk at the positive predictive
+value. 
+
+#### Evaluation of Published Models 
+
