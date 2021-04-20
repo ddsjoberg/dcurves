@@ -38,5 +38,5 @@ Via logistic regression with cancer as the outcome, we can see that family histo
 The DCA can help us address the clinical utility of using family history to predict biopsy outcome. 
 
 ```{r}
-dca(cancer ~ famhistory, df_dca)
+dca(cancer ~ famhistory, df_binary)
 ```

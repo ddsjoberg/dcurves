@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^dca\.Rproj$
+^dcurves\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.travis\.yml$

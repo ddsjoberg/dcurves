@@ -34,6 +34,6 @@ a ggplot
 Convert DCA Object to ggplot
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_dca) \%>\%
+dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   autoplot()
 }

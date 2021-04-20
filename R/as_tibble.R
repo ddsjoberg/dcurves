@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_dca) %>%
+#' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   as_tibble()
 
 as_tibble.dca <- function(x, ...) {

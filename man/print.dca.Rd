@@ -18,6 +18,6 @@ a ggplot
 Print \code{dca()} object
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_dca) \%>\%
+dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   print()
 }

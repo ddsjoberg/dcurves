@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_dca) %>%
+#' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   autoplot()
 
 autoplot.dca <- function(object,

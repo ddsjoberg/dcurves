@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_dca) %>%
+#' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   print()
 
 print.dca <- function(x, ...) {

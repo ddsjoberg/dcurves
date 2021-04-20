@@ -30,9 +30,9 @@
 #' @seealso [`autoplot.dca()`], [`as_tibble.dca()`]
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_dca)
+#' dca(cancer ~ cancerpredmarker, data = df_binary)
 #'
-#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 #'
 #' @export
 

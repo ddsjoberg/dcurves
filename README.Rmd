@@ -41,12 +41,12 @@ To assess models predicting binary endpoints.
 ```{r example1}
 library(dcurves)
 
-dca(cancer ~ cancerpredmarker, data = df_dca)
+dca(cancer ~ cancerpredmarker, data = df_binary)
 ```
 
 Time-to-event or survival endpoints
 
 ```{r example2}
-dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 ```
 

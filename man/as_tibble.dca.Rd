@@ -18,6 +18,6 @@ a tibble
 Convert DCA Object to tibble
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_dca) \%>\%
+dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   as_tibble()
 }

@@ -33,4 +33,10 @@ reference:
       - dca
       - as_tibble.dca
       - autoplot.dca
+  - title: Example Data
+  - contents:
+      - df_binary
+      - df_surv
+      - df_case_control
+
 

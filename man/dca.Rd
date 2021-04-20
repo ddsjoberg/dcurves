@@ -52,9 +52,9 @@ The dca function performs decision curve analysis for binary outcomes.
 See http://www.decisioncurveanalysis.org for more information.
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_dca)
+dca(cancer ~ cancerpredmarker, data = df_binary)
 
-dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_dca, time = 1)
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 
 }
 \seealso{
