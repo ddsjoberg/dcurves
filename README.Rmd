@@ -43,7 +43,8 @@ library(dcurves)
 
 dca(cancer ~ cancerpredmarker, 
     data = df_binary,
-    thresholds = seq(0, 0.35, 0.01)) %>%
+    thresholds = seq(0, 0.35, 0.01),
+    label = list(cancerpredmarker = "Prediction Model")) %>%
   autoplot(smooth = TRUE)
 ```
 
@@ -51,8 +52,10 @@ Time-to-event or survival endpoints
 
 ```{r example2}
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, 
-    data = df_surv, time = 1,
-    thresholds = seq(0, 0.50, 0.01)) %>%
+    data = df_surv, 
+    time = 1,
+    thresholds = seq(0, 0.50, 0.01),
+    label = list(cancerpredmarker = "Prediction Model")) %>%
   autoplot(smooth = TRUE)
 ```
 
