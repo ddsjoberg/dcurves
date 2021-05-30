@@ -9,6 +9,7 @@ A data frame with 750 rows:
 \describe{
 \item{patientid}{Identification Number}
 \item{cancer}{Cancer Diagnosis: 0=No, 1=Yes}
+\item{cancer_cr}{Cancer Diagnosis, competing event: "censor", "dead other causes", "diagnosed with cancer"}
 \item{ttcancer}{Years to Cancer Dx/Censor}
 \item{risk_group}{Patient Risk Group (Low, Intermediate, High)}
 \item{age}{Patient Age, years}

@@ -37,7 +37,7 @@
 #' @export
 
 dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
-                label = NULL, harm = NULL, as_probability = character(),
+                label = NULL, harm = NULL, as_probability = character(0L),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
@@ -69,7 +69,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
   if (outcome_type == "survival" && is.null(time))
     stop("`time=` must be specified for survival endpoints.")
 
-  # for binary outcomes, make the outcome a factor to both levels always appear in `table()` results
+  # for binary outcomes, make the outcome a factor so both levels always appear in `table()` results
   if (outcome_type == "binary") {
     model_frame[[outcome_name]] <-
       .convert_to_binary_fct(model_frame[[outcome_name]], quiet = FALSE)
@@ -162,16 +162,15 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
                    n = length(outcome))
   # case-control population prev
   if (!is.null(prevalence)) df$prevalence <- prevalence
-  # survival endpoitn prev
-  else if (outcome_type == "survival")
-    df$prevalence <-
-      tryCatch(
-        survival::survfit(outcome ~ 1) %>%
-          summary(time = time) %>%
-          purrr::pluck("surv") %>%
-          {1 - .},
-        error = function(e) NA_real_
-      )
+  # survival endpoint prev
+  else if (outcome_type == "survival") {
+    outcome_prev <- .surv_to_risk(outcome ~ 1, time = time, quiet = TRUE) # TODO: print the multistate model note only once
+    if (is.na(outcome_prev))
+      paste("Cannot calculate outcome prevalence at specified time,",
+            "likely due to no observed data beyond selected time.") %>%
+      stop(call. = FALSE)
+    df$prevalence <- outcome_prev
+  }
   # typical binary prev
   else df$prevalence <- table(outcome)[2] / length(outcome)
 
@@ -201,18 +200,16 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
           table() %>%
           purrr::pluck(2) %>%
           `/`(.data$n),
-        surv_rate_among_test_pos =
+        risk_rate_among_test_pos =
           tryCatch(
-            survival::survfit(outcome[risk >= .data$threshold] ~ 1) %>%
-              summary(time = time) %>%
-              purrr::pluck("surv"),
+            .surv_to_risk(outcome[risk >= .data$threshold] ~ 1, time = time),
             error = function(e) {
               if (length(outcome[risk >= .data$threshold]) == 0L) return(0)
               NA_real_
             }
           ),
-        tp_rate = (1 - .data$surv_rate_among_test_pos) * .data$test_pos_rate,
-        fp_rate = .data$surv_rate_among_test_pos * .data$test_pos_rate,
+        tp_rate = .data$risk_rate_among_test_pos * .data$test_pos_rate,
+        fp_rate = (1 - .data$risk_rate_among_test_pos) * .data$test_pos_rate,
       )
   }
 
@@ -262,4 +259,31 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
   risk
 }
 
+
+.surv_to_risk <- function(outcome, time, quiet = TRUE) {
+  df_tidy <-
+    survival::survfit(outcome) %>%
+    broom::tidy()
+
+  # if multistate (i.e. competing risks) delete states not of interest
+  if ("state" %in% names(df_tidy)) {
+    state <- unique(df_tidy$state) %>% setdiff("(s0)") %>% purrr::pluck(1)
+    df_tidy <- df_tidy %>% dplyr::filter(.data$state %in% .env$state)
+    if (isFALSE(quiet))
+      paste0("Multi-state model detected. Showing probabilities into state '", state, "'") %>%
+      message()
+  }
+  # if regular survfit() model, convert survival to risk
+  else {
+    df_tidy <- dplyr::mutate(df_tidy, estimate = 1 - .data$estimate)
+  }
+
+  # if no observed times after spefified time, return NA
+  if (max(df_tidy$time) < time) return(NA_real_)
+
+  df_tidy %>%
+    dplyr::filter(.data$time <= .env$time) %>%
+    dplyr::slice_tail() %>%
+    dplyr::pull(.data$estimate)
+}
 
