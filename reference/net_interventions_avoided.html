@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert DCA Object to tibble — as_tibble.dca • dcurves</title>
+<title>Net Interventions Avoided — net_interventions_avoided • dcurves</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Convert DCA Object to tibble — as_tibble.dca" />
-<meta property="og:description" content="Convert DCA Object to tibble" />
+<meta property="og:title" content="Net Interventions Avoided — net_interventions_avoided" />
+<meta property="og:description" content="Add the number of net interventions avoided to dca() object." />
 
 
 
@@ -124,52 +124,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert DCA Object to tibble</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/as_tibble.R'><code>R/as_tibble.R</code></a></small>
-    <div class="hidden name"><code>as_tibble.dca.Rd</code></div>
+    <h1>Net Interventions Avoided</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/net_interventions_avoided.R'><code>R/net_interventions_avoided.R</code></a></small>
+    <div class="hidden name"><code>net_interventions_avoided.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert DCA Object to tibble</p>
+    <p>Add the number of net interventions avoided to <code><a href='dca.html'>dca()</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for dca</span>
-<span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>net_interventions_avoided</span><span class='op'>(</span><span class='va'>x</span>, nper <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>dca object created with <code><a href='dca.html'>dca()</a></code></p></td>
+      <td><p>object of class <code>'dca'</code> calculated with <code><a href='dca.html'>dca()</a></code></p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>not used</p></td>
+      <th>nper</th>
+      <td><p>Number to report net invterventions per. Default is 100.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a tibble</p>
+    <p>'dca' object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Assuming '1' is [Event] and '0' is [non-Event]</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 297 x 9</span>
-#&gt;    variable label    harm threshold prevalence     n tp_rate fp_rate net_benefit
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> all      Treat …     0      0.01       0.14   750    0.14    0.86      0.131 
-#&gt; <span style='color: #BCBCBC;'> 2</span> all      Treat …     0      0.02       0.14   750    0.14    0.86      0.122 
-#&gt; <span style='color: #BCBCBC;'> 3</span> all      Treat …     0      0.03       0.14   750    0.14    0.86      0.113 
-#&gt; <span style='color: #BCBCBC;'> 4</span> all      Treat …     0      0.04       0.14   750    0.14    0.86      0.104 
-#&gt; <span style='color: #BCBCBC;'> 5</span> all      Treat …     0      0.05       0.14   750    0.14    0.86      0.094<span style='text-decoration: underline;'>7</span>
-#&gt; <span style='color: #BCBCBC;'> 6</span> all      Treat …     0      0.06       0.14   750    0.14    0.86      0.085<span style='text-decoration: underline;'>1</span>
-#&gt; <span style='color: #BCBCBC;'> 7</span> all      Treat …     0      0.07       0.14   750    0.14    0.86      0.075<span style='text-decoration: underline;'>3</span>
-#&gt; <span style='color: #BCBCBC;'> 8</span> all      Treat …     0      0.08       0.14   750    0.14    0.86      0.065<span style='text-decoration: underline;'>2</span>
-#&gt; <span style='color: #BCBCBC;'> 9</span> all      Treat …     0      0.09       0.14   750    0.14    0.86      0.054<span style='text-decoration: underline;'>9</span>
-#&gt; <span style='color: #BCBCBC;'>10</span> all      Treat …     0      0.1        0.14   750    0.14    0.86      0.044<span style='text-decoration: underline;'>4</span>
-#&gt; <span style='color: #949494;'># … with 287 more rows</span></div></pre>
+  <span class='fu'>net_interventions_avoided</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Assuming '1' is [Event] and '0' is [non-Event]</span></div><div class='output co'>#&gt; <span class='message'>Printing with `autoplot(x, type = 'net_intervention_avoided', smooth = FALSE)`</span></div><div class='img'><img src='net_interventions_avoided-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
