@@ -80,7 +80,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
     model_frame %>%
     dplyr::select(-dplyr::all_of(outcome_name)) %>%
     dplyr::select(dplyr::all_of(as_probability))
-  for (v in as_probability) {
+  for (v in names(as_probability)) {
     model_frame[[v]] <- .convert_to_risk(model_frame[[outcome_name]],
                                          model_frame[[v]],
                                          outcome_type = outcome_type,
@@ -128,17 +128,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
       harm = dplyr::coalesce(harm, 0),
       net_benefit =
         .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate - .data$harm
-    ) %>%
-    dplyr::left_join(
-      dplyr::filter(., .data$variable %in% "all") %>%
-        dplyr::select(.data$threshold, net_benefit_all = .data$net_benefit),
-      by = "threshold"
-    ) %>%
-    dplyr::mutate(
-      net_intervention_avoided =
-        (.data$net_benefit - .data$net_benefit_all) / (.data$threshold / (1 - .data$threshold))
-    ) %>%
-    dplyr::select(-.data$net_benefit_all) %>%
+    )
     tibble::as_tibble()
 
   # return results -------------------------------------------------------------
@@ -215,7 +205,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
 
   df %>%
     dplyr::ungroup() %>%
-    dplyr::select(any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
+    dplyr::select(dplyr::any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
 }
 
 .convert_to_binary_fct <- function(x, quiet = TRUE) {
@@ -243,7 +233,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
   if (outcome_type == "binary")
     risk <-
       stats::glm(outcome ~ variable, family = stats::binomial) %>%
-      stats::predict()
+      stats::predict(type = "response")
   else if (outcome_type == "survival") {
     # construct data frame
     df <- data.frame(outcome = outcome, variable = variable)

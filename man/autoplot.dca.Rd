@@ -4,26 +4,22 @@
 \alias{autoplot.dca}
 \title{Convert DCA Object to ggplot}
 \usage{
-\method{autoplot}{dca}(
-  object,
-  type = c("net_benefit", "net_intervention_avoided"),
-  smooth = FALSE,
-  span = 0.2,
-  ...
-)
+\method{autoplot}{dca}(object, type = NULL, smooth = FALSE, span = 0.2, ...)
 }
 \arguments{
 \item{object}{dca object created with \code{dca()}}
 
-\item{type}{indicates type of plot to produce. must be one of
-\code{c("net_benefit", "net_intervention_avoided")}}
+\item{type}{indicates type of plot to produce. Must be one of
+\code{c("net_benefit", "net_intervention_avoided")}. The default is
+\code{"net_benefit"}, unless the net interventions have been calculated
+when \code{"net_intervention_avoided"} is used.}
 
 \item{smooth}{Logical indicator whether plot will be smooth with
 \code{ggplot2::stat_smooth()}. Default is \code{FALSE}}
 
 \item{span}{when \code{smooth = TRUE}, Controls the amount of smoothing for
 loess smoother. Smaller numbers produce wigglier lines, larger numbers
-produce smoother lines. Default is 0.2.}
+produce smoother lines. Default is \code{0.2}.}
 
 \item{...}{not used}
 }
@@ -35,5 +31,5 @@ Convert DCA Object to ggplot
 }
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
-  autoplot()
+  autoplot(nper = 100)
 }

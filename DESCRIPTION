@@ -35,7 +35,8 @@ Suggests:
     gtsummary (>= 1.4.0),
     knitr (>= 1.32),
     rmarkdown (>= 2.7),
-    testthat (>= 3.0.2)
+    testthat (>= 3.0.2),
+    tidyr
 VignetteBuilder: 
     knitr
 ByteCompile: true

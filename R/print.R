@@ -11,6 +11,12 @@
 #'   print()
 
 print.dca <- function(x, ...) {
-  message("Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`")
-  print(autoplot.dca(x))
+  if (!"net_intervention_avoided" %in% names(x$dca)) {
+    message("Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`")
+    print(autoplot.dca(x, type = 'net_benefit', smooth = FALSE))
+  }
+  else {
+    message("Printing with `autoplot(x, type = 'net_intervention_avoided', smooth = FALSE)`")
+    print(autoplot.dca(x, type = 'net_intervention_avoided', smooth = FALSE))
+  }
 }
