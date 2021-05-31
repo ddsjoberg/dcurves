@@ -28,5 +28,13 @@ test_that("autoplot() works", {
       autoplot(smooth = TRUE),
     NA
   )
+
+  expect_error(
+    dca_binary <-
+      dca(cancer ~ cancerpredmarker, data = df_binary) %>%
+      net_interventions_avoided() %>%
+      autoplot(type = "net_benefit"),
+    NA
+  )
 })
 
