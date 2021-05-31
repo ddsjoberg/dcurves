@@ -308,7 +308,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       setdiff("(s0)") %>%
       purrr::pluck(1)
     df_tidy <- df_tidy %>% dplyr::filter(.data$state %in% .env$state)
-    if (isFALSE(quiet)) {
+    if (!isTRUE(quiet)) {
       paste0(
         "Multi-state model detected. Showing probabilities into state '",
         state, "'"
