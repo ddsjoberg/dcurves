@@ -39,10 +39,10 @@
 #'
 #' @examples
 #' # calculate DCA with binary endpoint
-#' dca(cancer ~ cancerpredmarker,
-#'   data = df_binary,
-#'   label = list(cancerpredmarker = "Prediction Model")
-#' ) %>%
+#' dca(cancer ~ cancerpredmarker + marker,
+#'     data = df_binary,
+#'     as_probability = "marker",
+#'     label = list(cancerpredmarker = "Prediction Model", marker = "Biomarker")) %>%
 #'   # plot DCA curves with ggplot
 #'   autoplot(smooth = TRUE) +
 #'   # add ggplot formatting
@@ -321,7 +321,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
     df_tidy <- dplyr::mutate(df_tidy, estimate = 1 - .data$estimate)
   }
 
-  # if no observed times after spefified time, return NA
+  # if no observed times after specified time, return NA
   if (max(df_tidy$time) < time) {
     return(NA_real_)
   }

@@ -20,6 +20,8 @@ Diagnostic and prognostic models are typically evaluated with
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/ddsjoberg/dcurves}
+  \item \url{http://www.danieldsjoberg.com/dcurves/}
   \item Report bugs at \url{https://github.com/ddsjoberg/dcurves/issues}
 }
 

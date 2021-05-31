@@ -16,8 +16,8 @@ dca(
 )
 }
 \arguments{
-\item{formula}{a formula with the outcome on the LHS and a sum of markers/covariates
-to test on the RHS}
+\item{formula}{a formula with the outcome on the LHS and a sum of
+markers/covariates to test on the RHS}
 
 \item{data}{a data frame containing the variables in \verb{formula=}.}
 
@@ -49,17 +49,20 @@ require collection of additional information may be cumbersome to apply to
 models that yield a continuous result. Decision curve analysis is a method
 for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
-and can be applied to models that have either continuous or dichotomous results.
+and can be applied to models that have either continuous or dichotomous
+results.
 The dca function performs decision curve analysis for binary outcomes.
-Review the \href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
+Review the
+\href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
 for a detailed walk-through of various applications.
 Also, see http://www.decisioncurveanalysis.org for more information.
 }
 \examples{
 # calculate DCA with binary endpoint
-dca(cancer ~ cancerpredmarker,
+dca(cancer ~ cancerpredmarker + marker,
     data = df_binary,
-    label = list(cancerpredmarker = "Prediction Model")) \%>\%
+    as_probability = "marker",
+    label = list(cancerpredmarker = "Prediction Model", marker = "Biomarker")) \%>\%
   # plot DCA curves with ggplot
   autoplot(smooth = TRUE) +
   # add ggplot formatting
@@ -69,7 +72,8 @@ dca(cancer ~ cancerpredmarker,
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 }
 \seealso{
-\code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+\code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=autoplot.dca]{autoplot.dca()}},
+\code{\link[=as_tibble.dca]{as_tibble.dca()}}
 }
 \author{
 Daniel D Sjoberg

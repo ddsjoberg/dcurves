@@ -41,8 +41,7 @@ autoplot.dca <- function(object,
       stop(call. = FALSE)
   }
 
-
-  # specifying smooth or line geom
+  # specifying smooth or line geom ---------------------------------------------
   ggline <- ifelse(smooth,
     list(ggplot2::stat_smooth(
       method = "loess",
@@ -53,6 +52,7 @@ autoplot.dca <- function(object,
     list(ggplot2::geom_line())
   )
 
+  # build net benefit ggplot ---------------------------------------------------
   if (type == "net_benefit") {
     gg <-
       object$dca %>%
@@ -75,6 +75,7 @@ autoplot.dca <- function(object,
         color = ""
       )
   }
+  # build intervention ggplot --------------------------------------------------
   else if (type == "net_intervention_avoided") {
     gg <-
       object$dca %>%
@@ -103,5 +104,6 @@ autoplot.dca <- function(object,
       )
   }
 
+  # return ggplot --------------------------------------------------------------
   gg
 }
