@@ -55,8 +55,10 @@ autoplot.dca <- function(object,
                                    y = .data$net_benefit,
                                    color = .data$label)) +
       ggline +
-      ggplot2::coord_cartesian(ylim = c(object$prevalence * -0.1, object$prevalence)) +
-      ggplot2::scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+      ggplot2::coord_cartesian(
+        ylim = c(object$prevalence * -0.1, object$prevalence)) +
+      ggplot2::scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1)) +
       ggplot2::labs(
         x = "Threshold Probability",
         y = "Net Benefit",
@@ -73,7 +75,8 @@ autoplot.dca <- function(object,
                                    color = .data$label)) +
       ggline +
       ggplot2::coord_cartesian(ylim = c(0, object$net_interventions_nper)) +
-      ggplot2::scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+      ggplot2::scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1)) +
       ggplot2::labs(
         x = "Threshold Probability",
         y = paste("Net reduction in interventions per",

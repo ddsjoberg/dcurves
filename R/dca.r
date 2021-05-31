@@ -7,16 +7,18 @@
 #' models that yield a continuous result. Decision curve analysis is a method
 #' for evaluating and comparing prediction models that incorporates clinical
 #' consequences, requires only the data set on which the models are tested,
-#' and can be applied to models that have either continuous or dichotomous results.
+#' and can be applied to models that have either continuous or dichotomous
+#' results.
 #' The dca function performs decision curve analysis for binary outcomes.
-#' Review the [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
+#' Review the
+#' [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
 #' for a detailed walk-through of various applications.
 #' Also, see http://www.decisioncurveanalysis.org for more information.
 #'
 #' @author Daniel D Sjoberg
 #'
-#' @param formula a formula with the outcome on the LHS and a sum of markers/covariates
-#' to test on the RHS
+#' @param formula a formula with the outcome on the LHS and a sum of
+#' markers/covariates to test on the RHS
 #' @param data a data frame containing the variables in `formula=`.
 #' @param thresholds vector of threshold probabilities between 0 and 1.
 #' Default is `seq(0.01, 0.99, by = 0.01)`
@@ -31,7 +33,8 @@
 #' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
-#' @seealso [`net_interventions_avoided()`], [`autoplot.dca()`], [`as_tibble.dca()`]
+#' @seealso [`net_interventions_avoided()`], [`autoplot.dca()`],
+#' [`as_tibble.dca()`]
 #' @export
 #'
 #' @examples
@@ -56,11 +59,14 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
 
   # prepping data --------------------------------------------------------------
   thresholds <- thresholds[thresholds > 0 & thresholds < 1]
-  label <- list(all = "Treat All", none = "Treat None") %>% purrr::list_modify(!!!label)
+  label <-
+    list(all = "Treat All", none = "Treat None") %>%
+    purrr::list_modify(!!!label)
   model_frame <- stats::model.frame(formula, data)
   outcome_name <- names(model_frame)[1]
   if (any(c("all", "none") %in% names(model_frame))) {
-    stop("Variables cannot be named 'all' or 'none': they are reserved.", call. = FALSE)
+    stop("Variables cannot be named 'all' or 'none': they are reserved.",
+         call. = FALSE)
   }
 
   outcome_type <-
@@ -80,7 +86,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   if (outcome_type == "survival" && is.null(time))
     stop("`time=` must be specified for survival endpoints.")
 
-  # for binary outcomes, make the outcome a factor so both levels always appear in `table()` results
+  # for binary outcomes, make the outcome a factor
+  # so both levels always appear in `table()` results
   if (outcome_type == "binary") {
     model_frame[[outcome_name]] <-
       .convert_to_binary_fct(model_frame[[outcome_name]], quiet = FALSE)
@@ -138,7 +145,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       label = factor(.data$label, levels = unique(.data$label)),
       harm = dplyr::coalesce(harm, 0),
       net_benefit =
-        .data$tp_rate - .data$threshold / (1 - .data$threshold) * .data$fp_rate - .data$harm
+        .data$tp_rate - .data$threshold /
+        (1 - .data$threshold) * .data$fp_rate - .data$harm
     )
     tibble::as_tibble()
 
@@ -216,7 +224,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
 
   df %>%
     dplyr::ungroup() %>%
-    dplyr::select(dplyr::any_of(c("threshold", "prevalence", "n", "tp_rate", "fp_rate")))
+    dplyr::select(dplyr::any_of(c("threshold", "prevalence",
+                                  "n", "tp_rate", "fp_rate")))
 }
 
 .convert_to_binary_fct <- function(x, quiet = TRUE) {
@@ -237,7 +246,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   factor(x, levels = c(FALSE, TRUE))
 }
 
-.convert_to_risk <- function(outcome, variable, outcome_type, time = NULL, prevalence = NULL) {
+.convert_to_risk <- function(outcome, variable, outcome_type,
+                             time = NULL, prevalence = NULL) {
   if (outcome_type == "binary" && !is.null(prevalence))
     stop("Cannot convert to risks in case-control setting.")
 
@@ -271,7 +281,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
     state <- unique(df_tidy$state) %>% setdiff("(s0)") %>% purrr::pluck(1)
     df_tidy <- df_tidy %>% dplyr::filter(.data$state %in% .env$state)
     if (isFALSE(quiet))
-      paste0("Multi-state model detected. Showing probabilities into state '", state, "'") %>%
+      paste0("Multi-state model detected. Showing probabilities into state '",
+             state, "'") %>%
       message()
   }
   # if regular survfit() model, convert survival to risk
