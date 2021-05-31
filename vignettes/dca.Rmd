@@ -115,7 +115,7 @@ Imagine that a model was published by Brown et al. with respect to our cancer bi
 The authors reported a statistical model with coefficients of 0.75 for a positive family history of cancer; 0.26 for each increased year of age, and an intercept of -17.5. To test this formula on our dataset:
 
 ```{r}
-df_updated <-
+df_binary_updated <-
   df_binary %>%
   mutate(
     # Use the coefficients from the Brown model
@@ -125,7 +125,7 @@ df_updated <-
   )
 
 # Run the decision curve
-dca(cancer ~ phat_Brown, df_updated, thresholds = seq(0, 0.35, by = 0.01)) %>%
+dca(cancer ~ phat_Brown, df_binary_updated, thresholds = seq(0, 0.35, by = 0.01)) %>%
   autoplot(smooth = TRUE)
 ```
 
@@ -158,8 +158,8 @@ let us use 0.15 as the cutoff probability level for patients who had their marke
 biopsied.
 
 ```{r}
-df_updated <-
-  df_updated %>%
+df_binary_updated <-
+  df_binary_updated %>%
   mutate(
     # Create a variable for the strategy of treating only high risk patients
     # This will be 1 for treat and 0 for don't treat
@@ -176,7 +176,7 @@ Now that we have the variables worked out, we can run the decision curve analysi
 
 ```{r}
 dca(cancer ~ high_risk + joint + conditional, 
-    data = df_updated, 
+    data = df_binary_updated, 
     thresholds = seq(0, 0.35, by = 0.01)) %>%
   autoplot(smooth = TRUE)
 ```
@@ -202,7 +202,7 @@ The strategy for incorporating harm for the conditional test is by multiplying t
 harm_marker <- 0.0333
 
 # in the conditional test, only patients at intermediate risk have their marker measured
-intermediate_risk <- df_updated$risk_group == "intermediate"
+intermediate_risk <- df_binary_updated$risk_group == "intermediate"
 
 # harm of the conditional approach is proportion of patients who have the marker measured multiplied by the harm
 harm_conditional <- mean(intermediate_risk) * harm_marker
@@ -210,7 +210,7 @@ harm_conditional <- mean(intermediate_risk) * harm_marker
 # Run the decision curve 
 dca_with_harms <-
   dca(cancer ~ high_risk + joint + conditional, 
-    data = df_updated, 
+    data = df_binary_updated, 
     harm = list(joint = harm_marker, conditional = harm_conditional),
     thresholds = seq(0, 0.35, by = 0.01))
 autoplot(dca_with_harms, smooth = TRUE)
@@ -255,3 +255,97 @@ dca(cancer ~ marker,
 
 At a probability threshold of 15%, the net reduction in interventions is about 33 per 100 patients.
 In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers. 
+
+## Survival Outcomes
+
+### Motivating Example
+
+Patients went to have a marker measured and patients were followed to determine whether they were eventually diagnosed with cancer.
+We want to build a model using age, family history, and the marker, and assess how
+well the model predicts cancer within 1.5 years.
+The variables that will be used from the example dataset for this section of the tutorial are the
+following: 
+
+```{r}
+library(survival)
+df_surv %>% head()
+```
+
+### Basic Data Set-up
+
+The survival probability to any time-point can be derived from any type of survival model; here we use a
+Cox as this is the most common model in statistical practice.
+The formula for a survival probability from a Cox model is given by
+
+$$
+S(t) = S_0(t)^{e^{X\beta}}
+$$
+
+Where $X$ is matrix of covariates in the Cox model, $\beta$ is a vector containing the parameter estimates from the Cox model, and $S_0(t)$ is the baseline survival probability to time $t$.
+To get such values within our code, we will run a Cox model with age, family history, and the marker, as predictors, save out the baseline survival function in a new variable, and obtaining the linear prediction from the model for each subject.
+
+We then obtain the baseline survival probability to our time point of interest. 
+If no patient was observed at the exact time of interest, we can use the baseline survival probability to the observed time closest to, but not after, the time point.
+We can then calculate the probability of failure at the specified time point.
+For our example, we will use a time point of 1.5 years.
+
+```{r}
+# build Cox model
+cox_model <- coxph(Surv(ttcancer, cancer) ~ age + famhistory + marker, data = df_surv)
+
+# show summary of model results
+tbl_regression(cox_model, exponentiate = TRUE)
+
+# add model prediction to our data frame
+df_surv_updated <-
+  broom::augment(
+    cox_model, 
+    newdata = df_surv %>% mutate(ttcancer =  1.5),
+    type.predict = "expected"
+  ) %>%
+    mutate(
+      pr_failure18 = 1 - exp(-.fitted)
+    ) %>%
+    select(-.fitted, -.se.fit)
+```
+
+The code for running the decision curve analysis is straightforward after the probability of failure is
+calculated.
+All we have to do is specify the time point we are interested in. 
+For our example, let us not only set the threshold from 0% to 50%, but also add smoothing. 
+Results of a smoothed curve should always be compared with the unsmoothed curve to ensure accuracy.
+
+```{r}
+dca(Surv(ttcancer, cancer) ~ pr_failure18, 
+    data = df_surv_updated,
+    time = 1.5,
+    thresholds = 1:50 / 100) %>%
+  autoplot(smooth = TRUE)
+```
+
+This shows that using the model to inform clinical decisions will lead to superior outcomes for any decision associated with a threshold probability of above 2% or so.
+
+### Competing Risks 
+
+Competing risks endpoints are handled similarly to survival endpoints. 
+The outcome must be defined as a factor, with the lowest level called `"censor"`, and the other levels defining the events of interest.
+The `dca()` function will treat the first outcome listed as the outcome of interest.
+
+```{r}
+dca(Surv(ttcancer, cancer_cr) ~ pr_failure18, 
+    data = df_surv_updated,
+    time = 1.5,
+    thresholds = 1:50 / 100) %>%
+  autoplot(smooth = TRUE)
+```
+
+## Case-Control Data
+
+Case-control data are handled similarly to binary data, expect that the prevalence of the outcome must be specified as it cannot be estimated from the data.
+
+```{r}
+dca(casecontrol ~ cancerpredmarker, 
+    data = df_case_control,
+    prevalence = 0.15) %>%
+  autoplot(smooth = TRUE)
+```
