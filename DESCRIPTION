@@ -17,34 +17,34 @@ Description: Diagnostic and prognostic models are typically evaluated with
     either continuous or dichotomous results. The dca function performs
     decision curve analysis for binary outcomes.
 License: MIT + file LICENSE
+URL: https://github.com/ddsjoberg/dcurves,
+    http://www.danieldsjoberg.com/dcurves/
 BugReports: https://github.com/ddsjoberg/dcurves/issues
 Depends:
     R (>= 3.3)
 Imports: 
-    broom,
+    broom (>= 0.7.6),
     dplyr (>= 1.0.5),
-    glue (>= 1.4.2),
     ggplot2 (>= 3.3.3),
+    glue (>= 1.4.2),
     purrr (>= 0.3.4),
     rlang (>= 0.4.10),
     scales (>= 1.1.1),
     survival,
     tibble (>= 3.1.0)
 Suggests: 
-    spelling,
     covr (>= 3.5.1),
     gtsummary (>= 1.4.0),
     knitr (>= 1.32),
     rmarkdown (>= 2.7),
+    spelling (>= 2.2),
     testthat (>= 3.0.2),
-    tidyr
+    tidyr (>= 1.1.3)
 VignetteBuilder: 
     knitr
 ByteCompile: true
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Language: en-US
-URL: https://github.com/ddsjoberg/dcurves,
-    http://www.danieldsjoberg.com/dcurves/
