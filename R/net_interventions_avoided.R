@@ -14,9 +14,11 @@
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   net_interventions_avoided()
 net_interventions_avoided <- function(x, nper = 100) {
-  if (!inherits(x, "dca"))
+  if (!inherits(x, "dca")) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
-         call. = FALSE)
+      call. = FALSE
+    )
+  }
 
   # add net interventions to the dca tibble ------------------------------------
   x$dca <-
@@ -29,7 +31,7 @@ net_interventions_avoided <- function(x, nper = 100) {
     dplyr::mutate(
       net_intervention_avoided =
         (.data$net_benefit - .data$net_benefit_all) /
-        (.data$threshold / (1 - .data$threshold)) * .env$nper
+          (.data$threshold / (1 - .data$threshold)) * .env$nper
     ) %>%
     dplyr::select(-.data$net_benefit_all)
 

@@ -37,4 +37,3 @@ test_that("autoplot() works", {
     NA
   )
 })
-

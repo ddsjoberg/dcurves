@@ -24,9 +24,10 @@ test_that("dca() works", {
 
   expect_error(
     dca(Surv(ttcancer, cancer_cr) ~ cancerpredmarker,
-        data = df_surv,
-        time = 1.5,
-        thresholds = 1:50 / 100),
+      data = df_surv,
+      time = 1.5,
+      thresholds = 1:50 / 100
+    ),
     NA
   )
 })
