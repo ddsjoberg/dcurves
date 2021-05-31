@@ -90,7 +90,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dcurves</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves">dcurves</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
 <p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring. For more details on DCA, visit <a href="decisioncurveanalysis.org"></a>. You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details. Below we’ll walk you through how to perform DCA for binary and time-to-event outcomes</p>
 <div id="binary-outcomes" class="section level2">
@@ -105,12 +105,12 @@
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>
 <span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span><span class="va">mod</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">tbl</span></code></pre></div>
-<div id="phudkefcoz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ninikvpczu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#phudkefcoz .gt_table {
+#ninikvpczu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -135,7 +135,7 @@
   border-left-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_heading {
+#ninikvpczu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -147,7 +147,7 @@
   border-right-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_title {
+#ninikvpczu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -157,7 +157,7 @@
   border-bottom-width: 0;
 }
 
-#phudkefcoz .gt_subtitle {
+#ninikvpczu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -167,13 +167,13 @@
   border-top-width: 0;
 }
 
-#phudkefcoz .gt_bottom_border {
+#ninikvpczu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_col_headings {
+#ninikvpczu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -188,7 +188,7 @@
   border-right-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_col_heading {
+#ninikvpczu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -208,7 +208,7 @@
   overflow-x: hidden;
 }
 
-#phudkefcoz .gt_column_spanner_outer {
+#ninikvpczu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -220,15 +220,15 @@
   padding-right: 4px;
 }
 
-#phudkefcoz .gt_column_spanner_outer:first-child {
+#ninikvpczu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#phudkefcoz .gt_column_spanner_outer:last-child {
+#ninikvpczu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#phudkefcoz .gt_column_spanner {
+#ninikvpczu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -240,7 +240,7 @@
   width: 100%;
 }
 
-#phudkefcoz .gt_group_heading {
+#ninikvpczu .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -262,7 +262,7 @@
   vertical-align: middle;
 }
 
-#phudkefcoz .gt_empty_group_heading {
+#ninikvpczu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -277,15 +277,15 @@
   vertical-align: middle;
 }
 
-#phudkefcoz .gt_from_md > :first-child {
+#ninikvpczu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#phudkefcoz .gt_from_md > :last-child {
+#ninikvpczu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#phudkefcoz .gt_row {
+#ninikvpczu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -304,7 +304,7 @@
   overflow-x: hidden;
 }
 
-#phudkefcoz .gt_stub {
+#ninikvpczu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -316,7 +316,7 @@
   padding-left: 12px;
 }
 
-#phudkefcoz .gt_summary_row {
+#ninikvpczu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -326,7 +326,7 @@
   padding-right: 5px;
 }
 
-#phudkefcoz .gt_first_summary_row {
+#ninikvpczu .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -336,7 +336,7 @@
   border-top-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_grand_summary_row {
+#ninikvpczu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -346,7 +346,7 @@
   padding-right: 5px;
 }
 
-#phudkefcoz .gt_first_grand_summary_row {
+#ninikvpczu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -356,11 +356,11 @@
   border-top-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_striped {
+#ninikvpczu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#phudkefcoz .gt_table_body {
+#ninikvpczu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -369,7 +369,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_footnotes {
+#ninikvpczu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -383,13 +383,13 @@
   border-right-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_footnote {
+#ninikvpczu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#phudkefcoz .gt_sourcenotes {
+#ninikvpczu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -403,41 +403,41 @@
   border-right-color: #D3D3D3;
 }
 
-#phudkefcoz .gt_sourcenote {
+#ninikvpczu .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#phudkefcoz .gt_left {
+#ninikvpczu .gt_left {
   text-align: left;
 }
 
-#phudkefcoz .gt_center {
+#ninikvpczu .gt_center {
   text-align: center;
 }
 
-#phudkefcoz .gt_right {
+#ninikvpczu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#phudkefcoz .gt_font_normal {
+#ninikvpczu .gt_font_normal {
   font-weight: normal;
 }
 
-#phudkefcoz .gt_font_bold {
+#ninikvpczu .gt_font_bold {
   font-weight: bold;
 }
 
-#phudkefcoz .gt_font_italic {
+#ninikvpczu .gt_font_italic {
   font-style: italic;
 }
 
-#phudkefcoz .gt_super {
+#ninikvpczu .gt_super {
   font-size: 65%;
 }
 
-#phudkefcoz .gt_footnote_marks {
+#ninikvpczu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -478,7 +478,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Assuming '1' is [Event] and '0' is [non-Event]</span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>First, note that there are many threshold probabilities shown here that are not of interest. For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. Let’s do the DCA again, this time restricting the output to threshold probabilities a moreclinically reasonable range, between 0% and 35%.</p>
+<p>First, note that there are many threshold probabilities shown here that are not of interest. For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. Let’s do the DCA again, this time restricting the output to threshold probabilities a more clinically reasonable range, between 0% and 35%.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -680,12 +680,12 @@ S(t) = S_0(t)^{e^{X\beta}}
 
 <span class="co"># show summary of model results</span>
 <span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span><span class="va">cox_model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div id="gcekzybjbc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rcvnsdyfgm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gcekzybjbc .gt_table {
+#rcvnsdyfgm .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -710,7 +710,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-left-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_heading {
+#rcvnsdyfgm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -722,7 +722,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_title {
+#rcvnsdyfgm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -732,7 +732,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-width: 0;
 }
 
-#gcekzybjbc .gt_subtitle {
+#rcvnsdyfgm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -742,13 +742,13 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-width: 0;
 }
 
-#gcekzybjbc .gt_bottom_border {
+#rcvnsdyfgm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_col_headings {
+#rcvnsdyfgm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -763,7 +763,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_col_heading {
+#rcvnsdyfgm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -783,7 +783,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#gcekzybjbc .gt_column_spanner_outer {
+#rcvnsdyfgm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -795,15 +795,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 4px;
 }
 
-#gcekzybjbc .gt_column_spanner_outer:first-child {
+#rcvnsdyfgm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gcekzybjbc .gt_column_spanner_outer:last-child {
+#rcvnsdyfgm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gcekzybjbc .gt_column_spanner {
+#rcvnsdyfgm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -815,7 +815,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   width: 100%;
 }
 
-#gcekzybjbc .gt_group_heading {
+#rcvnsdyfgm .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -837,7 +837,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#gcekzybjbc .gt_empty_group_heading {
+#rcvnsdyfgm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -852,15 +852,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#gcekzybjbc .gt_from_md > :first-child {
+#rcvnsdyfgm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gcekzybjbc .gt_from_md > :last-child {
+#rcvnsdyfgm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gcekzybjbc .gt_row {
+#rcvnsdyfgm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -879,7 +879,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#gcekzybjbc .gt_stub {
+#rcvnsdyfgm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -891,7 +891,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-left: 12px;
 }
 
-#gcekzybjbc .gt_summary_row {
+#rcvnsdyfgm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -901,7 +901,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#gcekzybjbc .gt_first_summary_row {
+#rcvnsdyfgm .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -911,7 +911,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_grand_summary_row {
+#rcvnsdyfgm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -921,7 +921,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#gcekzybjbc .gt_first_grand_summary_row {
+#rcvnsdyfgm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -931,11 +931,11 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_striped {
+#rcvnsdyfgm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gcekzybjbc .gt_table_body {
+#rcvnsdyfgm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -944,7 +944,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_footnotes {
+#rcvnsdyfgm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -958,13 +958,13 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_footnote {
+#rcvnsdyfgm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#gcekzybjbc .gt_sourcenotes {
+#rcvnsdyfgm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -978,41 +978,41 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#gcekzybjbc .gt_sourcenote {
+#rcvnsdyfgm .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#gcekzybjbc .gt_left {
+#rcvnsdyfgm .gt_left {
   text-align: left;
 }
 
-#gcekzybjbc .gt_center {
+#rcvnsdyfgm .gt_center {
   text-align: center;
 }
 
-#gcekzybjbc .gt_right {
+#rcvnsdyfgm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gcekzybjbc .gt_font_normal {
+#rcvnsdyfgm .gt_font_normal {
   font-weight: normal;
 }
 
-#gcekzybjbc .gt_font_bold {
+#rcvnsdyfgm .gt_font_bold {
   font-weight: bold;
 }
 
-#gcekzybjbc .gt_font_italic {
+#rcvnsdyfgm .gt_font_italic {
   font-style: italic;
 }
 
-#gcekzybjbc .gt_super {
+#rcvnsdyfgm .gt_super {
   font-size: 65%;
 }
 
-#gcekzybjbc .gt_footnote_marks {
+#rcvnsdyfgm .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
