@@ -4,9 +4,9 @@ template:
   params:
     ganalytics: UA-145876596-1
     bootswatch: flatly
-# development:
-#   mode: auto
-#   version_label: default
+development:
+  mode: auto
+  version_label: default
 
 authors:
   Daniel D. Sjoberg:
@@ -32,8 +32,8 @@ reference:
   - contents:
       - dca
       - net_interventions_avoided
-      - as_tibble.dca
       - autoplot.dca
+      - as_tibble.dca
   - title: Example Data
   - contents:
       - df_binary

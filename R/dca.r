@@ -28,13 +28,20 @@
 #'
 #' @return List including net benefit of each variable
 #' @seealso [`autoplot.dca()`], [`as_tibble.dca()`]
+#' @export
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_binary)
+#' # calculate DCA with binary endpoint
+#' dca(cancer ~ cancerpredmarker,
+#'     data = df_binary,
+#'     label = list(cancerpredmarker = "Prediction Model")) %>%
+#'   # plot DCA curves with ggplot
+#'   autoplot(smooth = TRUE) +
+#'   # add ggplot formatting
+#'   ggplot2::labs(x = "Treatment Threshold Probability")
 #'
+#' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
-#'
-#' @export
 
 dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
                 label = NULL, harm = NULL, as_probability = character(0L),
@@ -276,4 +283,3 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
     dplyr::slice_tail() %>%
     dplyr::pull(.data$estimate)
 }
-

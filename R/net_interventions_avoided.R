@@ -1,9 +1,9 @@
-#' Net Interventions Avoided
+#' Add Net Interventions Avoided
 #'
 #' Add the number of net interventions avoided to `dca()` object.
 #'
 #' @param x object of class `'dca'` calculated with `dca()`
-#' @param nper Number to report net invterventions per. Default is 100.
+#' @param nper Number to report net interventions per. Default is 100.
 #'
 #' @return 'dca' object
 #' @export

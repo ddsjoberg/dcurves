@@ -62,7 +62,7 @@ dca(cancer ~ famhistory, df_binary) %>%
 
 First, note that there are many threshold probabilities shown here that are not of interest. 
 For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. 
-Let's do the DCA again, this time restricting the output to threshold probabilities a moreclinically reasonable range, between 0% and 35%.
+Let's do the DCA again, this time restricting the output to threshold probabilities a more clinically reasonable range, between 0% and 35%.
 
 ```{r}
 dca(cancer ~ famhistory, df_binary, thresholds = seq(0, 0.35, by = 0.01)) %>%

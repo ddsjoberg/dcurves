@@ -2,14 +2,14 @@
 % Please edit documentation in R/net_interventions_avoided.R
 \name{net_interventions_avoided}
 \alias{net_interventions_avoided}
-\title{Net Interventions Avoided}
+\title{Add Net Interventions Avoided}
 \usage{
 net_interventions_avoided(x, nper = 100)
 }
 \arguments{
 \item{x}{object of class \code{'dca'} calculated with \code{dca()}}
 
-\item{nper}{Number to report net invterventions per. Default is 100.}
+\item{nper}{Number to report net interventions per. Default is 100.}
 }
 \value{
 'dca' object

@@ -52,10 +52,17 @@ The dca function performs decision curve analysis for binary outcomes.
 See http://www.decisioncurveanalysis.org for more information.
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_binary)
+# calculate DCA with binary endpoint
+dca(cancer ~ cancerpredmarker,
+    data = df_binary,
+    label = list(cancerpredmarker = "Prediction Model")) \%>\%
+  # plot DCA curves with ggplot
+  autoplot(smooth = TRUE) +
+  # add ggplot formatting
+  ggplot2::labs(x = "Treatment Threshold Probability")
 
+# calculate DCA with time to event endpoint
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
-
 }
 \seealso{
 \code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/autoplot.R
 \name{autoplot.dca}
 \alias{autoplot.dca}
-\title{Convert DCA Object to ggplot}
+\title{Plot DCA Object with ggplot}
 \usage{
 \method{autoplot}{dca}(object, type = NULL, smooth = FALSE, span = 0.2, ...)
 }
@@ -27,7 +27,7 @@ produce smoother lines. Default is \code{0.2}.}
 a ggplot
 }
 \description{
-Convert DCA Object to ggplot
+Plot DCA Object with ggplot
 }
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
