@@ -9,25 +9,29 @@
 #' consequences, requires only the data set on which the models are tested,
 #' and can be applied to models that have either continuous or dichotomous results.
 #' The dca function performs decision curve analysis for binary outcomes.
-#' See http://www.decisioncurveanalysis.org for more information.
+#' Review the [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
+#' for a detailed walk-through of various applications.
+#' Also, see http://www.decisioncurveanalysis.org for more information.
 #'
 #' @author Daniel D Sjoberg
 #'
-#' @param formula formula
-#' @param data a data frame containing the outcome of the outcome predictions.
+#' @param formula a formula with the outcome on the LHS and a sum of markers/covariates
+#' to test on the RHS
+#' @param data a data frame containing the variables in `formula=`.
 #' @param thresholds vector of threshold probabilities between 0 and 1.
+#' Default is `seq(0.01, 0.99, by = 0.01)`
 #' @param label named list of variable labels, e.g. `list(age = "Age, years)`
 #' @param harm named list of harms associated with a test. Default is `NULL`
 #' @param as_probability character vector including names of variables
 #' that will be converted to a probability.
 #' @param time if outcome is survival, `time=` specifies the time the
 #' assessment is made
-#' @param prevalence When NULL, the prevalence is estimated from `data=`.
+#' @param prevalence When `NULL`, the prevalence is estimated from `data=`.
 #' If the data passed is a case-control set, the population prevalence
 #' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
-#' @seealso [`autoplot.dca()`], [`as_tibble.dca()`]
+#' @seealso [`net_interventions_avoided()`], [`autoplot.dca()`], [`as_tibble.dca()`]
 #' @export
 #'
 #' @examples
@@ -43,7 +47,7 @@
 #' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 
-dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
+dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(0L),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
@@ -148,7 +152,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, length.out = 99),
       dca = dca_result
     ) %>%
     purrr::compact()
-  class(lst_result) <- c("dca", class(lst_result))
+  class(lst_result) <- "dca"
   lst_result
 }
 

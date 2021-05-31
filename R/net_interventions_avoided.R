@@ -7,6 +7,8 @@
 #'
 #' @return 'dca' object
 #' @export
+#' @author Daniel D Sjoberg
+#' @seealso [`dca()`], [`autoplot.dca()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%

@@ -7,7 +7,7 @@
 dca(
   formula,
   data,
-  thresholds = seq(0.01, 0.99, length.out = 99),
+  thresholds = seq(0.01, 0.99, by = 0.01),
   label = NULL,
   harm = NULL,
   as_probability = character(0L),
@@ -16,11 +16,13 @@ dca(
 )
 }
 \arguments{
-\item{formula}{formula}
+\item{formula}{a formula with the outcome on the LHS and a sum of markers/covariates
+to test on the RHS}
 
-\item{data}{a data frame containing the outcome of the outcome predictions.}
+\item{data}{a data frame containing the variables in \verb{formula=}.}
 
-\item{thresholds}{vector of threshold probabilities between 0 and 1.}
+\item{thresholds}{vector of threshold probabilities between 0 and 1.
+Default is \code{seq(0.01, 0.99, by = 0.01)}}
 
 \item{label}{named list of variable labels, e.g. \verb{list(age = "Age, years)}}
 
@@ -32,7 +34,7 @@ that will be converted to a probability.}
 \item{time}{if outcome is survival, \verb{time=} specifies the time the
 assessment is made}
 
-\item{prevalence}{When NULL, the prevalence is estimated from \verb{data=}.
+\item{prevalence}{When \code{NULL}, the prevalence is estimated from \verb{data=}.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.}
 }
@@ -49,7 +51,9 @@ for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
 and can be applied to models that have either continuous or dichotomous results.
 The dca function performs decision curve analysis for binary outcomes.
-See http://www.decisioncurveanalysis.org for more information.
+Review the \href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
+for a detailed walk-through of various applications.
+Also, see http://www.decisioncurveanalysis.org for more information.
 }
 \examples{
 # calculate DCA with binary endpoint
@@ -65,7 +69,7 @@ dca(cancer ~ cancerpredmarker,
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 }
 \seealso{
-\code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+\code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
 }
 \author{
 Daniel D Sjoberg

@@ -12,8 +12,10 @@
 #' produce smoother lines. Default is `0.2`.
 #' @param ... not used
 #'
-#' @return a ggplot
+#' @return a ggplot2 object
 #' @export
+#' @author Daniel D Sjoberg
+#' @seealso [`dca()`], [`net_interventions_avoided()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%

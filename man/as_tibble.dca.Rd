@@ -21,3 +21,9 @@ Convert DCA Object to tibble
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   as_tibble()
 }
+\seealso{
+\code{\link[=dca]{dca()}}, \code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=autoplot.dca]{autoplot.dca()}}
+}
+\author{
+Daniel D Sjoberg
+}

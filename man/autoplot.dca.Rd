@@ -24,7 +24,7 @@ produce smoother lines. Default is \code{0.2}.}
 \item{...}{not used}
 }
 \value{
-a ggplot
+a ggplot2 object
 }
 \description{
 Plot DCA Object with ggplot
@@ -32,4 +32,10 @@ Plot DCA Object with ggplot
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   autoplot(nper = 100)
+}
+\seealso{
+\code{\link[=dca]{dca()}}, \code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+}
+\author{
+Daniel D Sjoberg
 }

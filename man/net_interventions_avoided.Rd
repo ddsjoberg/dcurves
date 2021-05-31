@@ -21,3 +21,9 @@ Add the number of net interventions avoided to \code{dca()} object.
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   net_interventions_avoided()
 }
+\seealso{
+\code{\link[=dca]{dca()}}, \code{\link[=autoplot.dca]{autoplot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+}
+\author{
+Daniel D Sjoberg
+}
