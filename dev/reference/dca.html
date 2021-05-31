@@ -49,7 +49,9 @@ for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
 and can be applied to models that have either continuous or dichotomous results.
 The dca function performs decision curve analysis for binary outcomes.
-See http://www.decisioncurveanalysis.org for more information." />
+Review the DCA Vignette
+for a detailed walk-through of various applications.
+Also, see http://www.decisioncurveanalysis.org for more information." />
 
 
 <meta name="robots" content="noindex">
@@ -148,13 +150,15 @@ for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
 and can be applied to models that have either continuous or dichotomous results.
 The dca function performs decision curve analysis for binary outcomes.
-See http://www.decisioncurveanalysis.org for more information.</p>
+Review the <a href='http://www.danieldsjoberg.com/dcurves/articles/dca.html'>DCA Vignette</a>
+for a detailed walk-through of various applications.
+Also, see http://www.decisioncurveanalysis.org for more information.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dca</span><span class='op'>(</span>
   <span class='va'>formula</span>,
   <span class='va'>data</span>,
-  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span>, length.out <span class='op'>=</span> <span class='fl'>99</span><span class='op'>)</span>,
+  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
   label <span class='op'>=</span> <span class='cn'>NULL</span>,
   harm <span class='op'>=</span> <span class='cn'>NULL</span>,
   as_probability <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0L</span><span class='op'>)</span>,
@@ -167,15 +171,17 @@ See http://www.decisioncurveanalysis.org for more information.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>formula</th>
-      <td><p>formula</p></td>
+      <td><p>a formula with the outcome on the LHS and a sum of markers/covariates
+to test on the RHS</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>a data frame containing the outcome of the outcome predictions.</p></td>
+      <td><p>a data frame containing the variables in <code>formula=</code>.</p></td>
     </tr>
     <tr>
       <th>thresholds</th>
-      <td><p>vector of threshold probabilities between 0 and 1.</p></td>
+      <td><p>vector of threshold probabilities between 0 and 1.
+Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0.01, 0.99, by = 0.01)</a></code></p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -197,7 +203,7 @@ assessment is made</p></td>
     </tr>
     <tr>
       <th>prevalence</th>
-      <td><p>When NULL, the prevalence is estimated from <code>data=</code>.
+      <td><p>When <code>NULL</code>, the prevalence is estimated from <code>data=</code>.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.</p></td>
     </tr>
@@ -208,7 +214,7 @@ may be set with this argument.</p></td>
     <p>List including net benefit of each variable</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoplot.dca.html'>autoplot.dca()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='net_interventions_avoided.html'>net_interventions_avoided()</a></code>, <code><a href='autoplot.dca.html'>autoplot.dca()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Daniel D Sjoberg</p>
