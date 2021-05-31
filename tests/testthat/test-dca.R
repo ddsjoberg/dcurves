@@ -33,7 +33,10 @@ test_that("dca() works", {
 
 test_that("dca() errors print with bad inputs", {
   expect_error(
-    dca_binary <- dca(cancer + cancerpredmarker, data = df_binary)
+    dca_binary <- dca(formula = letters, data = df_binary)
+  )
+  expect_error(
+    dca_binary <- dca(cancer ~ cancerpredmarker + all, data = df_binary %>% dplyr::mutate(all = 1L))
   )
   expect_error(
     dca_binary <- dca(cancer ~ cancerpredmarker, data = letters)
