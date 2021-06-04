@@ -4,7 +4,15 @@
 \alias{autoplot.dca}
 \title{Plot DCA Object with ggplot}
 \usage{
-\method{autoplot}{dca}(object, type = NULL, smooth = FALSE, span = 0.2, ...)
+\method{autoplot}{dca}(
+  object,
+  type = NULL,
+  smooth = FALSE,
+  span = 0.2,
+  style = c("color", "bw"),
+  show_ggplot_code = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{dca object created with \code{dca()}}
@@ -21,6 +29,13 @@ when \code{"net_intervention_avoided"} is used.}
 loess smoother. Smaller numbers produce wigglier lines, larger numbers
 produce smoother lines. Default is \code{0.2}.}
 
+\item{style}{Must be one of \code{c("color", "bw")}. Default is \code{"color"}, and
+\code{"bw"} will print a black and white figure}
+
+\item{show_ggplot_code}{Logical indicating whether to print ggplot2 code used to
+create figure. Default is \code{FALSE}. Set to \code{TRUE} to perform advanced figure
+customization}
+
 \item{...}{not used}
 }
 \value{
@@ -31,7 +46,7 @@ Plot DCA Object with ggplot
 }
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
-  autoplot(nper = 100)
+  autoplot(smooth = TRUE, show_ggplot_code = TRUE)
 }
 \seealso{
 \code{\link[=dca]{dca()}}, \code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}

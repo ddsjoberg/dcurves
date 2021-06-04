@@ -1,6 +1,6 @@
 #' @keywords internal
 #' @importFrom purrr %||%
-#' @importFrom rlang .data .env
+#' @importFrom rlang .data .env expr sym inject
 "_PACKAGE"
 
 # allowing for the use of the dot when piping

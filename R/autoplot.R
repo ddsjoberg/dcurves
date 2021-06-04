@@ -10,6 +10,11 @@
 #' @param span when `smooth = TRUE`, Controls the amount of smoothing for
 #' loess smoother. Smaller numbers produce wigglier lines, larger numbers
 #' produce smoother lines. Default is `0.2`.
+#' @param style Must be one of `c("color", "bw")`. Default is `"color"`, and
+#' `"bw"` will print a black and white figure
+#' @param show_ggplot_code Logical indicating whether to print ggplot2 code used to
+#' create figure. Default is `FALSE`. Set to `TRUE` to perform advanced figure
+#' customization
 #' @param ... not used
 #'
 #' @return a ggplot2 object
@@ -19,11 +24,13 @@
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-#'   autoplot(nper = 100)
+#'   autoplot(smooth = TRUE, show_ggplot_code = TRUE)
 autoplot.dca <- function(object,
                          type = NULL,
                          smooth = FALSE,
-                         span = 0.2, ...) {
+                         span = 0.2,
+                         style = c("color", "bw"),
+                         show_ggplot_code = FALSE, ...) {
   # set type of figure to create -----------------------------------------------
   if (is.null(type) && !"net_intervention_avoided" %in% names(object$dca)) {
     type <- "net_benefit"
@@ -31,9 +38,10 @@ autoplot.dca <- function(object,
     type <- "net_intervention_avoided"
   }
   type <- match.arg(type, choices = c("net_benefit", "net_intervention_avoided"))
+  style <- match.arg(style)
 
   if (type %in% "net_intervention_avoided" &&
-    !"net_intervention_avoided" %in% names(object$dca)) {
+      !"net_intervention_avoided" %in% names(object$dca)) {
     paste(
       "Cannot specify `type = 'net_intervention_avoided' without",
       "first running `net_intervention_avoided()`."
@@ -41,69 +49,82 @@ autoplot.dca <- function(object,
       stop(call. = FALSE)
   }
 
-  # specifying smooth or line geom ---------------------------------------------
-  ggline <- ifelse(smooth,
-    list(ggplot2::stat_smooth(
-      method = "loess",
-      se = FALSE,
-      formula = "y ~ x",
-      span = span
-    )),
-    list(ggplot2::geom_line())
-  )
+  # data prep expressions ------------------------------------------------------
+  expr_data_prep <-
+    list(
+      expr(as_tibble(object)),
+      switch(type,
+             "net_benefit" = expr(dplyr::filter(!is.na(!!sym("net_benefit")))),
+             "net_intervention_avoided" =
+               expr(dplyr::filter(!is.na(!!sym("net_intervention_avoided")),
+                                  !(!!sym("variable") %in% c("all", "none")))))
+    )
 
-  # build net benefit ggplot ---------------------------------------------------
+  # assign aes() and geom_*() arguments ----------------------------------------
+  aes.args <-
+    list(x = expr(!!sym("threshold")), y = expr(!!sym(type))) %>%
+    c(switch( style,
+              "bw" = list(linetype = expr(!!sym("label"))),
+              "color" = list(color = expr(!!sym("label")))))
+  geom.args <-
+    switch(
+      smooth,
+      list(method = "loess", se = FALSE, formula = "y ~ x", span = inject(!!span))
+    ) %||%
+    list(NULL) %>%
+    c(switch(style == "bw", list(color = "black")))
+
+  # build full ggplot expression -----------------------------------------------
+  expr_ggplot <-
+    list(expr(ggplot(aes(!!!aes.args)))) %>%
+    c(ifelse(smooth,
+             list(expr(stat_smooth(!!!geom.args))),
+             list(expr(geom_line())))
+    )
+
+  # add styling ggplot functions -----------------------------------------------
   if (type == "net_benefit") {
-    gg <-
-      object$dca %>%
-      dplyr::filter(!is.na(.data$net_benefit)) %>%
-      ggplot2::ggplot(ggplot2::aes(
-        x = .data$threshold,
-        y = .data$net_benefit,
-        color = .data$label
-      )) +
-      ggline +
-      ggplot2::coord_cartesian(
-        ylim = c(object$prevalence * -0.1, object$prevalence)
-      ) +
-      ggplot2::scale_x_continuous(
-        labels = scales::percent_format(accuracy = 1)
-      ) +
-      ggplot2::labs(
-        x = "Threshold Probability",
-        y = "Net Benefit",
-        color = ""
-      )
+    y_axis_title <- "Net Benefit"
+    ylim = c(object$prevalence * -0.1, object$prevalence) %>% unname()
   }
-  # build intervention ggplot --------------------------------------------------
   else if (type == "net_intervention_avoided") {
-    gg <-
-      object$dca %>%
-      dplyr::filter(
-        !is.na(.data$net_intervention_avoided),
-        !.data$variable %in% c("all", "none")
-      ) %>%
-      ggplot2::ggplot(ggplot2::aes(
-        x = .data$threshold,
-        y = .data$net_intervention_avoided,
-        color = .data$label
-      )) +
-      ggline +
-      ggplot2::coord_cartesian(ylim = c(0, object$net_interventions_nper)) +
-      ggplot2::scale_x_continuous(
-        labels = scales::percent_format(accuracy = 1)
-      ) +
-      ggplot2::labs(
-        x = "Threshold Probability",
-        y = paste(
-          "Net reduction in interventions per",
-          object$net_interventions_nper,
-          "patients"
-        ),
-        color = ""
-      )
+    y_axis_title <- paste("Net reduction in interventions per",
+                          object$net_interventions_nper, "patients")
+    ylim = c(0, object$net_interventions_nper)
+  }
+  labs.args <-
+    list("Threshold Probability", y_axis_title, "") %>%
+    rlang::set_names(c("x", "y", ifelse(style == "color", "color", "linetype")))
+
+  expr_ggplot <-
+    expr_ggplot %>%
+    c(list(
+      expr(coord_cartesian(ylim = !!ylim)),
+      expr(scale_x_continuous(labels = scales::percent_format(accuracy = 1))),
+      expr(labs(!!!labs.args)),
+      expr(theme_bw())
+    ))
+
+  # construct data prep and ggplot expressions, and return plot ----------------
+  str_final_expression <-
+    c(
+      expr_data_prep %>%
+        purrr::map(rlang::quo_text) %>%
+        paste(collapse = " %>%\n  "),
+      expr_ggplot %>%
+        purrr::map(rlang::quo_text) %>%
+        paste(collapse = " +\n  ")
+    ) %>%
+    paste(collapse = " %>%\n  ")
+
+  # show ggplot code if requested
+  if (isTRUE(show_ggplot_code)) {
+    cat("# ggplot2 code to create DCA figure -------------------------------\n")
+    cat(str_final_expression)
   }
 
-  # return ggplot --------------------------------------------------------------
-  gg
+  # return ggplot
+  str_final_expression %>%
+    rlang::parse_expr() %>%
+    eval()
 }

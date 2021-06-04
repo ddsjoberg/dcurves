@@ -30,14 +30,14 @@ devtools::install_github("ddsjoberg/dcurves")
 
 ## Examples
 
-To assess models predicting binary endpoints.
+Assess models predicting binary endpoints.
 
 ``` r
 library(dcurves)
 
-dca(cancer ~ cancerpredmarker, 
+dca(cancer ~ cancerpredmarker + famhistory, 
     data = df_binary,
-    thresholds = seq(0, 0.35, 0.01),
+    thresholds = seq(0, 0.35, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
   autoplot(smooth = TRUE)
 #> Assuming '1' is [Event] and '0' is [non-Event]
@@ -51,9 +51,31 @@ Time-to-event or survival endpoints
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, 
     data = df_surv, 
     time = 1,
-    thresholds = seq(0, 0.50, 0.01),
+    thresholds = seq(0, 0.50, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
   autoplot(smooth = TRUE)
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />
+
+Create a customized DCA figure by first printing the ggplot code
+
+``` r
+gg_dca <-
+  dca(cancer ~ cancerpredmarker, 
+    data = df_binary,
+    thresholds = seq(0, 0.35, by = 0.01),
+    label = list(cancerpredmarker = "Prediction Model")) %>%
+  autoplot(smooth = TRUE, show_ggplot_code = TRUE)
+#> Assuming '1' is [Event] and '0' is [non-Event]
+#> # ggplot2 code to create DCA figure -------------------------------
+#> as_tibble(object) %>%
+#>   dplyr::filter(!is.na(net_benefit)) %>%
+#>   ggplot(aes(x = threshold, y = net_benefit, color = label)) +
+#>   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", 
+#>     span = 0.2) +
+#>   coord_cartesian(ylim = c(-0.014, 0.14)) +
+#>   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+#>   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +
+#>   theme_bw()
+```

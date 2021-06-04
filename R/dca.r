@@ -224,7 +224,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
           .convert_to_binary_fct(risk >= .data$threshold) %>%
             table() %>%
             purrr::pluck(2) %>%
-            `/`(.data$n),
+            {. / .data$n},
         risk_rate_among_test_pos =
           tryCatch(
             .surv_to_risk(outcome[risk >= .data$threshold] ~ 1, time = time),
