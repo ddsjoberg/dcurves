@@ -3,7 +3,6 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{autoplot}
 \alias{ggplot}
 \alias{aes}
 \alias{geom_line}
@@ -24,7 +23,7 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{coord_cartesian}}, \code{\link[ggplot2:geom_path]{geom_line}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:scale_continuous]{scale_x_continuous}}, \code{\link[ggplot2:geom_smooth]{stat_smooth}}, \code{\link[ggplot2:ggtheme]{theme_bw}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{coord_cartesian}}, \code{\link[ggplot2:geom_path]{geom_line}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:scale_continuous]{scale_x_continuous}}, \code{\link[ggplot2:geom_smooth]{stat_smooth}}, \code{\link[ggplot2:ggtheme]{theme_bw}}}
 
   \item{survival}{\code{\link[survival]{Surv}}}
 

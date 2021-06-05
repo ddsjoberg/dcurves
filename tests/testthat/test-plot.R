@@ -1,39 +1,46 @@
-test_that("autoplot() works", {
+test_that("plot() works", {
   expect_error(
     dca_binary <-
       dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-      autoplot(),
+      plot(),
     NA
   )
 
   expect_error(
     dca_binary <-
       dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-      autoplot(smooth = TRUE),
+      plot(smooth = TRUE),
     NA
   )
 
   expect_error(
     dca_binary <-
       dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-      net_interventions_avoided() %>%
-      autoplot(),
+      net_intervention_avoided() %>%
+      plot(),
     NA
   )
 
   expect_error(
     dca_binary <-
       dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-      net_interventions_avoided() %>%
-      autoplot(smooth = TRUE),
+      net_intervention_avoided() %>%
+      plot(smooth = TRUE),
     NA
   )
 
   expect_error(
     dca_binary <-
       dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-      net_interventions_avoided() %>%
-      autoplot(type = "net_benefit"),
+      net_intervention_avoided() %>%
+      plot(type = "net_benefit"),
+    NA
+  )
+
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary) %>%
+      net_intervention_avoided() %>%
+      plot(type = "net_intervention_avoided", show_ggplot_code = TRUE),
     NA
   )
 })

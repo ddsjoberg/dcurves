@@ -4,10 +4,13 @@ set.seed(20210530)
 df_dca_full <- readr::read_csv(here::here("data-raw", "dca.csv"))
 
 # binary endpoint data
-df_binary <- dplyr::select(df_dca_full, -ttcancer, -casecontrol)
+df_binary <-
+  dplyr::select(df_dca_full, -ttcancer, -casecontrol) %>%
+  dplyr::mutate(cancer = as.logical(cancer))
 df_surv <-
   df_dca_full %>%
   dplyr::mutate(
+    cancer = as.logical(cancer),
     cancer_cr =
       dplyr::case_when(
         cancer == 1 ~ "diagnosed with cancer",

@@ -19,9 +19,14 @@ clinical consequences, requires only the data set on which the models
 are tested, and can be applied to models that have either continuous or
 dichotomous results.
 
+The dcurves package includes methods for evaluating predictive models
+with binary (Vickers and Elkin 2006) and time-to-event endpoints
+(Vickers et al. 2008). The package also includes methods for model
+evaluation in the case-control setting (Pfeiffer and Gail 2020).
+
 ## Installation
 
-You can install dca from [GitHub](https://github.com/) with:
+You can install dcurves from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -38,9 +43,9 @@ library(dcurves)
 dca(cancer ~ cancerpredmarker + famhistory, 
     data = df_binary,
     thresholds = seq(0, 0.35, by = 0.01),
-    label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE)
-#> Assuming '1' is [Event] and '0' is [non-Event]
+    label = list(cancerpredmarker = "Prediction Model",
+                 famhistory = "Family History")) %>%
+  plot(smooth = TRUE)
 ```
 
 <img src="man/figures/README-example1-1.png" width="100%" />
@@ -53,7 +58,7 @@ dca(Surv(ttcancer, cancer) ~ cancerpredmarker,
     time = 1,
     thresholds = seq(0, 0.50, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />
@@ -66,10 +71,9 @@ gg_dca <-
     data = df_binary,
     thresholds = seq(0, 0.35, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE, show_ggplot_code = TRUE)
-#> Assuming '1' is [Event] and '0' is [non-Event]
+  plot(smooth = TRUE, show_ggplot_code = TRUE)
 #> # ggplot2 code to create DCA figure -------------------------------
-#> as_tibble(object) %>%
+#> as_tibble(x) %>%
 #>   dplyr::filter(!is.na(net_benefit)) %>%
 #>   ggplot(aes(x = threshold, y = net_benefit, color = label)) +
 #>   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", 
@@ -79,3 +83,34 @@ gg_dca <-
 #>   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +
 #>   theme_bw()
 ```
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-pfeiffer2020estimating" class="csl-entry">
+
+Pfeiffer, Ruth M, and Mitchell H Gail. 2020. “Estimating the Decision
+Curve and Its Precision from Three Study Designs.” *Biometrical Journal*
+62 (3): 764–76.
+
+</div>
+
+<div id="ref-vickers2008extensions" class="csl-entry">
+
+Vickers, Andrew J, Angel M Cronin, Elena B Elkin, and Mithat Gonen.
+2008. “Extensions to Decision Curve Analysis, a Novel Method for
+Evaluating Diagnostic Tests, Prediction Models and Molecular Markers.”
+*BMC Medical Informatics and Decision Making* 8 (1): 1–17.
+
+</div>
+
+<div id="ref-vickers2006decision" class="csl-entry">
+
+Vickers, Andrew J, and Elena B Elkin. 2006. “Decision Curve Analysis: A
+Novel Method for Evaluating Prediction Models.” *Medical Decision
+Making* 26 (6): 565–74.
+
+</div>
+
+</div>

@@ -6,7 +6,7 @@
 #' @return a tibble
 #' @export
 #' @author Daniel D Sjoberg
-#' @seealso [`dca()`], [`net_interventions_avoided()`], [`autoplot.dca()`]
+#' @seealso [`dca()`], [`net_intervention_avoided()`], [`plot.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%

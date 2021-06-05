@@ -20,7 +20,7 @@ dca(cancer ~ marker,
     data = df_tutorial,
     thresholds = 5:35 / 100,
     as_probability = "marker") %>%
-  net_interventions_avoided()
+  net_intervention_avoided()
 
 # page 22
 df_tutorial2 <-

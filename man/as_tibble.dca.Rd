@@ -22,7 +22,7 @@ dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   as_tibble()
 }
 \seealso{
-\code{\link[=dca]{dca()}}, \code{\link[=net_interventions_avoided]{net_interventions_avoided()}}, \code{\link[=autoplot.dca]{autoplot.dca()}}
+\code{\link[=dca]{dca()}}, \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=plot.dca]{plot.dca()}}
 }
 \author{
 Daniel D Sjoberg

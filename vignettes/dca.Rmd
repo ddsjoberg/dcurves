@@ -27,7 +27,7 @@ Decision curve analysis is a method for evaluating and comparing prediction mode
 This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. 
 In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. 
 "Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.
-For more details on DCA, visit [](decisioncurveanalysis.org).
+For more details on DCA, visit [decisioncurveanalysis.org](decisioncurveanalysis.org).
 You'll find the original articles explaining the details of the DCA derivation along with other papers providing more details. 
 Below we'll walk you through how to perform DCA for binary and time-to-event outcomes
 
@@ -57,7 +57,7 @@ The DCA can help us address the clinical utility of using family history to pred
 
 ```{r}
 dca(cancer ~ famhistory, df_binary) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 First, note that there are many threshold probabilities shown here that are not of interest. 
@@ -66,7 +66,7 @@ Let's do the DCA again, this time restricting the output to threshold probabilit
 
 ```{r}
 dca(cancer ~ famhistory, df_binary, thresholds = seq(0, 0.35, by = 0.01)) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 Now that the graph is showing a more reasonable range of threshold probabilities, let's assess the clinical utility of family history alone. 
@@ -94,7 +94,7 @@ We now want to compare our different approaches to cancer detection: biopsying e
 dca(cancer ~ famhistory + cancerpredmarker, 
     data = df_binary, 
     thresholds = seq(0, 0.35, by = 0.01)) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 The key aspect of decision curve analysis is to look at which strategy leads to the largest net benefit (i.e. the "highest” line), which in this example would correspond to the model that includes age, family history of cancer, and the marker. 
@@ -126,7 +126,7 @@ df_binary_updated <-
 
 # Run the decision curve
 dca(cancer ~ phat_Brown, df_binary_updated, thresholds = seq(0, 0.35, by = 0.01)) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 This decision curve suggests that although the model might be useful in the most risk averse patients, it is actually harmful in patients with more moderate threshold probabilities. 
@@ -178,7 +178,7 @@ Now that we have the variables worked out, we can run the decision curve analysi
 dca(cancer ~ high_risk + joint + conditional, 
     data = df_binary_updated, 
     thresholds = seq(0, 0.35, by = 0.01)) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 This appears to show that the joint test is the better option for the range of threshold probabilities from 5% - 24% since it has the highest net benefit across that range. 
@@ -213,7 +213,7 @@ dca_with_harms <-
     data = df_binary_updated, 
     harm = list(joint = harm_marker, conditional = harm_conditional),
     thresholds = seq(0, 0.35, by = 0.01))
-autoplot(dca_with_harms, smooth = TRUE)
+plot(dca_with_harms, smooth = TRUE)
 ```
 
 Here the conditional test is clearly the best option (above the 8% treatment threshold), in fact, once you take into account the harm of measuring the marker, it is clearly not worth measuring the marker for everyone: the net benefit of just treating high risk patients is often higher than that of the joint test. 
@@ -249,8 +249,8 @@ dca(cancer ~ marker,
     data = df_binary, 
     as_probability = "marker",
     thresholds = seq(0, 0.35, by = 0.01)) %>%
-  net_interventions_avoided() %>%
-  autoplot(smooth = TRUE)
+  net_intervention_avoided() %>%
+  plot(smooth = TRUE)
 ```
 
 At a probability threshold of 15%, the net reduction in interventions is about 33 per 100 patients.
@@ -320,7 +320,7 @@ dca(Surv(ttcancer, cancer) ~ pr_failure18,
     data = df_surv_updated,
     time = 1.5,
     thresholds = 1:50 / 100) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 This shows that using the model to inform clinical decisions will lead to superior outcomes for any decision associated with a threshold probability of above 2% or so.
@@ -336,7 +336,7 @@ dca(Surv(ttcancer, cancer_cr) ~ pr_failure18,
     data = df_surv_updated,
     time = 1.5,
     thresholds = 1:50 / 100) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 ## Case-Control Data
@@ -347,5 +347,5 @@ Case-control data are handled similarly to binary data, expect that the prevalen
 dca(casecontrol ~ cancerpredmarker, 
     data = df_case_control,
     prevalence = 0.15) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```

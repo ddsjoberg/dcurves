@@ -1,6 +1,6 @@
 #' Plot DCA Object with ggplot
 #'
-#' @param object dca object created with `dca()`
+#' @param x dca object created with `dca()`
 #' @param type indicates type of plot to produce. Must be one of
 #' `c("net_benefit", "net_intervention_avoided")`. The default is
 #' `"net_benefit"`, unless the net interventions have been calculated
@@ -20,28 +20,28 @@
 #' @return a ggplot2 object
 #' @export
 #' @author Daniel D Sjoberg
-#' @seealso [`dca()`], [`net_interventions_avoided()`], [`as_tibble.dca()`]
+#' @seealso [`dca()`], [`net_intervention_avoided()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-#'   autoplot(smooth = TRUE, show_ggplot_code = TRUE)
-autoplot.dca <- function(object,
+#'   plot(smooth = TRUE, show_ggplot_code = TRUE)
+plot.dca <- function(x,
                          type = NULL,
                          smooth = FALSE,
                          span = 0.2,
                          style = c("color", "bw"),
                          show_ggplot_code = FALSE, ...) {
   # set type of figure to create -----------------------------------------------
-  if (is.null(type) && !"net_intervention_avoided" %in% names(object$dca)) {
+  if (is.null(type) && !"net_intervention_avoided" %in% names(x$dca)) {
     type <- "net_benefit"
-  } else if (is.null(type) && "net_intervention_avoided" %in% names(object$dca)) {
+  } else if (is.null(type) && "net_intervention_avoided" %in% names(x$dca)) {
     type <- "net_intervention_avoided"
   }
   type <- match.arg(type, choices = c("net_benefit", "net_intervention_avoided"))
   style <- match.arg(style)
 
   if (type %in% "net_intervention_avoided" &&
-      !"net_intervention_avoided" %in% names(object$dca)) {
+      !"net_intervention_avoided" %in% names(x$dca)) {
     paste(
       "Cannot specify `type = 'net_intervention_avoided' without",
       "first running `net_intervention_avoided()`."
@@ -52,7 +52,7 @@ autoplot.dca <- function(object,
   # data prep expressions ------------------------------------------------------
   expr_data_prep <-
     list(
-      expr(as_tibble(object)),
+      expr(as_tibble(x)),
       switch(type,
              "net_benefit" = expr(dplyr::filter(!is.na(!!sym("net_benefit")))),
              "net_intervention_avoided" =
@@ -85,12 +85,12 @@ autoplot.dca <- function(object,
   # add styling ggplot functions -----------------------------------------------
   if (type == "net_benefit") {
     y_axis_title <- "Net Benefit"
-    ylim = c(object$prevalence * -0.1, object$prevalence) %>% unname()
+    ylim = c(x$prevalence * -0.1, x$prevalence) %>% unname()
   }
   else if (type == "net_intervention_avoided") {
     y_axis_title <- paste("Net reduction in interventions per",
-                          object$net_interventions_nper, "patients")
-    ylim = c(0, object$net_interventions_nper)
+                          x$net_interventions_nper, "patients")
+    ylim = c(0, x$net_interventions_nper)
   }
   labs.args <-
     list("Threshold Probability", y_axis_title, "") %>%

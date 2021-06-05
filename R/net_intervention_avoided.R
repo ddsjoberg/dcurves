@@ -8,12 +8,12 @@
 #' @return 'dca' object
 #' @export
 #' @author Daniel D Sjoberg
-#' @seealso [`dca()`], [`autoplot.dca()`], [`as_tibble.dca()`]
+#' @seealso [`dca()`], [`plot.dca()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
-#'   net_interventions_avoided()
-net_interventions_avoided <- function(x, nper = 100) {
+#'   net_intervention_avoided()
+net_intervention_avoided <- function(x, nper = 100) {
   if (!inherits(x, "dca")) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
       call. = FALSE

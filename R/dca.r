@@ -33,7 +33,7 @@
 #' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
-#' @seealso [`net_interventions_avoided()`], [`autoplot.dca()`],
+#' @seealso [`net_intervention_avoided()`], [`plot.dca()`],
 #' [`as_tibble.dca()`]
 #' @export
 #'
@@ -44,7 +44,7 @@
 #'     as_probability = "marker",
 #'     label = list(cancerpredmarker = "Prediction Model", marker = "Biomarker")) %>%
 #'   # plot DCA curves with ggplot
-#'   autoplot(smooth = TRUE) +
+#'   plot(smooth = TRUE) +
 #'   # add ggplot formatting
 #'   ggplot2::labs(x = "Treatment Threshold Probability")
 #'
@@ -161,6 +161,7 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   lst_result <-
     list(
       call = match.call(),
+      y = outcome_name,
       n = dca_result$n[1],
       prevalence = dca_result$prevalence[1],
       time = time,

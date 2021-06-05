@@ -1,9 +1,5 @@
 # ggplot2 -----------------------------------------------------------------------
 #' @export
-#' @importFrom ggplot2 autoplot
-ggplot2::autoplot
-
-#' @export
 #' @importFrom ggplot2 ggplot
 ggplot2::ggplot
 

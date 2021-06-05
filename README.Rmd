@@ -26,9 +26,12 @@ Diagnostic and prognostic models are typically evaluated with measures of accura
 Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result.
 Decision curve analysis is a method for evaluating and comparing prediction models that incorporates  clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
 
+The dcurves package includes methods for evaluating predictive models with binary (Vickers and Elkin 2006) and time-to-event endpoints (Vickers et al. 2008). 
+The package also includes methods for model evaluation in the case-control setting (Pfeiffer and Gail 2020).
+
 ## Installation
 
-You can install dca from [GitHub](https://github.com/) with:
+You can install dcurves from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -44,8 +47,9 @@ library(dcurves)
 dca(cancer ~ cancerpredmarker + famhistory, 
     data = df_binary,
     thresholds = seq(0, 0.35, by = 0.01),
-    label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE)
+    label = list(cancerpredmarker = "Prediction Model",
+                 famhistory = "Family History")) %>%
+  plot(smooth = TRUE)
 ```
 
 Time-to-event or survival endpoints
@@ -56,7 +60,7 @@ dca(Surv(ttcancer, cancer) ~ cancerpredmarker,
     time = 1,
     thresholds = seq(0, 0.50, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE)
+  plot(smooth = TRUE)
 ```
 
 Create a customized DCA figure by first printing the ggplot code
@@ -67,5 +71,36 @@ gg_dca <-
     data = df_binary,
     thresholds = seq(0, 0.35, by = 0.01),
     label = list(cancerpredmarker = "Prediction Model")) %>%
-  autoplot(smooth = TRUE, show_ggplot_code = TRUE)
+  plot(smooth = TRUE, show_ggplot_code = TRUE)
 ```
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-pfeiffer2020estimating" class="csl-entry">
+
+Pfeiffer, Ruth M, and Mitchell H Gail. 2020. “Estimating the Decision
+Curve and Its Precision from Three Study Designs.” *Biometrical Journal*
+62 (3): 764–76.
+
+</div>
+
+<div id="ref-vickers2008extensions" class="csl-entry">
+
+Vickers, Andrew J, Angel M Cronin, Elena B Elkin, and Mithat Gonen.
+2008. “Extensions to Decision Curve Analysis, a Novel Method for
+Evaluating Diagnostic Tests, Prediction Models and Molecular Markers.”
+*BMC Medical Informatics and Decision Making* 8 (1): 1–17.
+
+</div>
+
+<div id="ref-vickers2006decision" class="csl-entry">
+
+Vickers, Andrew J, and Elena B Elkin. 2006. “Decision Curve Analysis: A
+Novel Method for Evaluating Prediction Models.” *Medical Decision
+Making* 26 (6): 565–74.
+
+</div>
+
+</div>
