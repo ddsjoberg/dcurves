@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • dcurves</title>
+<title>Plot DCA Object with ggplot — plot.dca • dcurves</title>
 
 
 <!-- jquery -->
@@ -39,19 +39,8 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  dplyr%&amp;gt;%
-
-  ggplot2aes, coord_cartesian, geom_line, ggplot, labs, scale_x_continuous, stat_smooth, theme_bw
-
-  survivalSurv
-
-  tibbleas_tibble
-
-" />
+<meta property="og:title" content="Plot DCA Object with ggplot — plot.dca" />
+<meta property="og:description" content="Plot DCA Object with ggplot" />
 
 
 
@@ -135,29 +124,91 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/reexport.R'><code>R/reexport.R</code></a></small>
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <h1>Plot DCA Object with ggplot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot.dca.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl>
-  <dt>dplyr</dt><dd><p><code>%&gt;%</code></p></dd>
-
-  <dt>ggplot2</dt><dd><p><code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></code>, <code>scale_x_continuous</code>, <code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth</a></code>, <code>theme_bw</code></p></dd>
-
-  <dt>survival</dt><dd><p><code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></code></p></dd>
-
-  <dt>tibble</dt><dd><p><code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p></dd>
-
-</dl>
+    <p>Plot DCA Object with ggplot</p>
     </div>
 
+    <pre class="usage"><span class='co'># S3 method for dca</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  span <span class='op'>=</span> <span class='fl'>0.2</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"color"</span>, <span class='st'>"bw"</span><span class='op'>)</span>,
+  show_ggplot_code <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>dca object created with <code><a href='dca.html'>dca()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>indicates type of plot to produce. Must be one of
+<code><a href='https://rdrr.io/r/base/c.html'>c("net_benefit", "net_intervention_avoided")</a></code>. The default is
+<code>"net_benefit"</code>, unless the net interventions have been calculated
+when <code>"net_intervention_avoided"</code> is used.</p></td>
+    </tr>
+    <tr>
+      <th>smooth</th>
+      <td><p>Logical indicator whether plot will be smooth with
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>ggplot2::stat_smooth()</a></code>. Default is <code>FALSE</code></p></td>
+    </tr>
+    <tr>
+      <th>span</th>
+      <td><p>when <code>smooth = TRUE</code>, Controls the amount of smoothing for
+loess smoother. Smaller numbers produce wigglier lines, larger numbers
+produce smoother lines. Default is <code>0.2</code>.</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>Must be one of <code><a href='https://rdrr.io/r/base/c.html'>c("color", "bw")</a></code>. Default is <code>"color"</code>, and
+<code>"bw"</code> will print a black and white figure</p></td>
+    </tr>
+    <tr>
+      <th>show_ggplot_code</th>
+      <td><p>Logical indicating whether to print ggplot2 code used to
+create figure. Default is <code>FALSE</code>. Set to <code>TRUE</code> to perform advanced figure
+customization</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>a ggplot2 object</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='dca.html'>dca()</a></code>, <code><a href='net_intervention_avoided.html'>net_intervention_avoided()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Daniel D Sjoberg</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span>, show_ggplot_code <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # ggplot2 code to create DCA figure -------------------------------
+#&gt; as_tibble(x) %&gt;%
+#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%
+#&gt;   ggplot(aes(x = threshold, y = net_benefit, color = label)) +
+#&gt;   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", 
+#&gt;     span = 0.2) +
+#&gt;   coord_cartesian(ylim = c(-0.014, 0.14)) +
+#&gt;   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +
+#&gt;   theme_bw()</div><div class='img'><img src='plot.dca-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

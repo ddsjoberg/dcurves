@@ -218,7 +218,7 @@ may be set with this argument.</p></td>
     <p>List including net benefit of each variable</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='net_interventions_avoided.html'>net_interventions_avoided()</a></code>, <code><a href='autoplot.dca.html'>autoplot.dca()</a></code>,
+    <div class='dont-index'><p><code><a href='net_intervention_avoided.html'>net_intervention_avoided()</a></code>, <code><a href='plot.dca.html'>plot.dca()</a></code>,
 <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
@@ -231,13 +231,13 @@ may be set with this argument.</p></td>
     as_probability <span class='op'>=</span> <span class='st'>"marker"</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cancerpredmarker <span class='op'>=</span> <span class='st'>"Prediction Model"</span>, marker <span class='op'>=</span> <span class='st'>"Biomarker"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='co'># plot DCA curves with ggplot</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># add ggplot formatting</span>
   <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Treatment Threshold Probability"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Assuming '1' is [Event] and '0' is [non-Event]</span></div><div class='img'><img src='dca-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='dca-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate DCA with time to event endpoint</span>
 <span class='fu'>dca</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttcancer</span>, <span class='va'>cancer</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_surv</span>, time <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`</span></div><div class='img'><img src='dca-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>Printing with `plot(x, type = 'net_benefit', smooth = FALSE)`</span></div><div class='img'><img src='dca-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
