@@ -43,4 +43,9 @@ test_that("plot() works", {
       plot(type = "net_intervention_avoided", show_ggplot_code = TRUE),
     NA
   )
+
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary) %>%
+      plot(type = "net_intervention_avoided", show_ggplot_code = TRUE)
+  )
 })

@@ -19,8 +19,8 @@ clinical consequences, requires only the data set on which the models
 are tested, and can be applied to models that have either continuous or
 dichotomous results.
 
-The dcurves package includes methods for evaluating predictive models
-with binary (Vickers and Elkin 2006) and time-to-event endpoints
+The **dcurves** package includes methods for evaluating predictive
+models with binary (Vickers and Elkin 2006) and time-to-event endpoints
 (Vickers et al. 2008). The package also includes methods for model
 evaluation in the case-control setting (Pfeiffer and Gail 2020).
 
