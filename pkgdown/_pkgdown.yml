@@ -31,7 +31,7 @@ reference:
   - title: Decision Curve Analysis
   - contents:
       - dca
-      - net_interventions_avoided
+      - net_intervention_avoided
       - plot.dca
       - as_tibble.dca
   - title: Example Data
