@@ -154,8 +154,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       net_benefit =
         .data$tp_rate - .data$threshold /
           (1 - .data$threshold) * .data$fp_rate - .data$harm
-    )
-  tibble::as_tibble()
+    ) %>%
+    tibble::as_tibble()
 
   # return results -------------------------------------------------------------
   lst_result <-
@@ -211,9 +211,11 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
               . / .data$n
             },
         tp_rate =
-          mean(risk[outcome == "TRUE"] >= .data$threshold) * .data$prevalence,
+          mean(risk[outcome == "TRUE"] >= .data$threshold) * .data$prevalence %>%
+          unname(),
         fp_rate =
-          mean(risk[outcome == "FALSE"] >= .data$threshold) * (1 - .data$prevalence),
+          mean(risk[outcome == "FALSE"] >= .data$threshold) * (1 - .data$prevalence) %>%
+          unname(),
       )
   }
   else if (outcome_type == "survival") {
@@ -236,8 +238,10 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
               NA_real_
             }
           ),
-        tp_rate = .data$risk_rate_among_test_pos * .data$test_pos_rate,
-        fp_rate = (1 - .data$risk_rate_among_test_pos) * .data$test_pos_rate,
+        tp_rate = .data$risk_rate_among_test_pos * .data$test_pos_rate %>%
+          unname(),
+        fp_rate = (1 - .data$risk_rate_among_test_pos) * .data$test_pos_rate %>%
+          unname(),
       )
   }
 

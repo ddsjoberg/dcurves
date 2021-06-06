@@ -35,14 +35,9 @@ df_tutorial2 <-
   dplyr::select(pr_failure18) %>%
   dplyr::bind_cols(df_tutorial)
 
-survival::survfit(Surv(ttcancer, cancer) ~ 1, df_tutorial) %>%
-  gtsummary::tbl_survfit(times = 1.5)
-
 dca(Surv(ttcancer, cancer) ~ pr_failure18,
     data = df_tutorial2,
     time = 1.5,
-    thresholds = c(0.2, 0.25, 0.3)) %>%
-  as_tibble() %>%
-  dplyr::filter(variable == "pr_failure18")
+    thresholds = 1:50 / 100)
 
 
