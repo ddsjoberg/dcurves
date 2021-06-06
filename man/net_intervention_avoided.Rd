@@ -20,6 +20,9 @@ Add the number of net interventions avoided to \code{dca()} object.
 \examples{
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   net_intervention_avoided()
+
+dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1) \%>\%
+  net_intervention_avoided()
 }
 \seealso{
 \code{\link[=dca]{dca()}}, \code{\link[=plot.dca]{plot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}

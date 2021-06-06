@@ -13,6 +13,10 @@
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   net_intervention_avoided()
+#'
+#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1) %>%
+#'   net_intervention_avoided()
+
 net_intervention_avoided <- function(x, nper = 100) {
   if (!inherits(x, "dca")) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
