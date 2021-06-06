@@ -11,11 +11,11 @@
 #'   print()
 print.dca <- function(x, ...) {
   if (!"net_intervention_avoided" %in% names(x$dca)) {
-    message("Printing with `plot(x, type = 'net_benefit', smooth = FALSE)`")
-    print(plot.dca(x, type = "net_benefit", smooth = FALSE))
+    message("Printing with `plot(x, type = 'net_benefit', smooth = FALSE, show_ggplot_code = FALSE)`")
+    print(plot.dca(x, type = "net_benefit", smooth = FALSE, show_ggplot_code = FALSE))
   }
   else {
-    message("Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE)`")
-    print(plot.dca(x, type = "net_intervention_avoided", smooth = FALSE))
+    message("Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE, show_ggplot_code = FALSE)`")
+    print(plot.dca(x, type = "net_intervention_avoided", smooth = FALSE, show_ggplot_code = FALSE))
   }
 }
