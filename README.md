@@ -90,7 +90,7 @@ gg_dca <-
 
 <div id="ref-pfeiffer2020estimating" class="csl-entry">
 
-Pfeiffer, Ruth M, and Mitchell H Gail. 2020. “Estimating the Decision
+Pfeiffer, Ruth M, and Mitchell H Gail. (2020) “Estimating the Decision
 Curve and Its Precision from Three Study Designs.” *Biometrical Journal*
 62 (3): 764–76.
 
@@ -99,7 +99,7 @@ Curve and Its Precision from Three Study Designs.” *Biometrical Journal*
 <div id="ref-vickers2008extensions" class="csl-entry">
 
 Vickers, Andrew J, Angel M Cronin, Elena B Elkin, and Mithat Gonen.
-2008. “Extensions to Decision Curve Analysis, a Novel Method for
+(2008) “Extensions to Decision Curve Analysis, a Novel Method for
 Evaluating Diagnostic Tests, Prediction Models and Molecular Markers.”
 *BMC Medical Informatics and Decision Making* 8 (1): 1–17.
 
@@ -107,7 +107,7 @@ Evaluating Diagnostic Tests, Prediction Models and Molecular Markers.”
 
 <div id="ref-vickers2006decision" class="csl-entry">
 
-Vickers, Andrew J, and Elena B Elkin. 2006. “Decision Curve Analysis: A
+Vickers, Andrew J, and Elena B Elkin. (2006) “Decision Curve Analysis: A
 Novel Method for Evaluating Prediction Models.” *Medical Decision
 Making* 26 (6): 565–74.
 
