@@ -172,6 +172,18 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   lst_result
 }
 
+
+#' Calculate a test's consequences
+#'
+#' @param outcome outcome vector
+#' @param risk vector of risks
+#' @param thresholds threshold probs vector
+#' @param outcome_type type of outcome
+#' @param time time to calculate risk if Surv() outcome
+#' @param prevalence specifed prevleance (if cannot be estimated from data)
+#'
+#' @noRd
+#' @keywords internal
 .calculate_test_consequences <- function(outcome, risk, thresholds, outcome_type,
                                          prevalence, time) {
   df <-
@@ -253,6 +265,14 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
     )))
 }
 
+
+#' Convert binary outcome to factor
+#'
+#' @param x a vector
+#' @param quiet logical. default is TRUE
+#'
+#' @noRd
+#' @keywords internal
 .convert_to_binary_fct <- function(x, quiet = TRUE) {
   # if not logical, convert to lgl
   if (!inherits(x, "logical")) {
@@ -274,6 +294,16 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   factor(x, levels = c(FALSE, TRUE))
 }
 
+#' Calculate risks
+#'
+#' @param outcome outcome object
+#' @param variable variable
+#' @param outcome_type type of outcome
+#' @param time time to calculate risk if Surv() outcome
+#' @param prevalence specifed prevleance (if cannot be estimated from data)
+#'
+#' @noRd
+#' @keywords internal
 .convert_to_risk <- function(outcome, variable, outcome_type,
                              time = NULL, prevalence = NULL) {
   if (outcome_type == "binary" && !is.null(prevalence)) {
@@ -302,6 +332,14 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
 }
 
 
+#' Convert a `Surv()` object to a n-time risk estimate
+#'
+#' @param outcome `Surv()` object
+#' @param time numeric time
+#' @param quiet logical, default is TRUE
+#'
+#' @noRd
+#' @keywords internal
 .surv_to_risk <- function(outcome, time, quiet = TRUE) {
   df_tidy <-
     survival::survfit(outcome) %>%
@@ -314,10 +352,8 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       purrr::pluck(1)
     df_tidy <- df_tidy %>% dplyr::filter(.data$state %in% .env$state)
     if (!isTRUE(quiet)) {
-      paste0(
-        "Multi-state model detected. Showing probabilities into state '",
-        state, "'"
-      ) %>%
+      glue::glue(
+        "Multi-state model detected. Showing probabilities into state '{state}'") %>%
         message()
     }
   }
