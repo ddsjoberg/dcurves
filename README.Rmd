@@ -64,7 +64,8 @@ dca(Surv(ttcancer, cancer) ~ cancerpredmarker,
   plot(smooth = TRUE)
 ```
 
-Create a customized DCA figure by first printing the ggplot code
+Create a customized DCA figure by first printing the ggplot code.
+Copy and modify the ggplot code as needed.
 
 ```{r show_code}
 gg_dca <-

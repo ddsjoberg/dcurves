@@ -65,7 +65,8 @@ dca(Surv(ttcancer, cancer) ~ cancerpredmarker,
 
 <img src="man/figures/README-example2-1.png" width="100%" />
 
-Create a customized DCA figure by first printing the ggplot code
+Create a customized DCA figure by first printing the ggplot code. Copy
+and modify the ggplot code as needed.
 
 ``` r
 gg_dca <-
