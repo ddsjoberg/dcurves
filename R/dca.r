@@ -26,6 +26,7 @@
 #' @param harm named list of harms associated with a test. Default is `NULL`
 #' @param as_probability character vector including names of variables
 #' that will be converted to a probability.
+#' @param strategies Default strategies to include: 0, 1, or 2 of ("all", "none").
 #' @param time if outcome is survival, `time=` specifies the time the
 #' assessment is made
 #' @param prevalence When `NULL`, the prevalence is estimated from `data=`.
@@ -52,15 +53,25 @@
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(0L),
+                strategies = c("all", "none"),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
   if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
 
   # prepping data --------------------------------------------------------------
-  thresholds <- thresholds[thresholds > 0 & thresholds < 1]
-  label <-
-    list(all = "Treat All", none = "Treat None") %>%
+  thresholds <- thresholds[thresholds >= 0 & thresholds < 1]
+
+  label_start <- list()
+  if ("all" %in% strategies) {
+    label_start$all = "Treat All"
+  }
+
+  if ("none" %in% strategies) {
+    label_start$none = "Treat None"
+  }
+
+  label <- label_start %>%
     purrr::list_modify(!!!label)
   model_frame <- stats::model.frame(formula, data)
   outcome_name <- names(model_frame)[1]
@@ -125,6 +136,14 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       none = 0L,
       .after = .data[[outcome_name]]
     )
+
+  if (!"all" %in% include) {
+    model_frame$all = NULL
+  }
+
+  if (!"none" %in% include) {
+    model_frame$none = NULL
+  }
 
   # calculate net benefit ------------------------------------------------------
   dca_result <-

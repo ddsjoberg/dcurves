@@ -11,6 +11,7 @@ dca(
   label = NULL,
   harm = NULL,
   as_probability = character(0L),
+  strategies = c("all", "none"),
   time = NULL,
   prevalence = NULL
 )
@@ -30,6 +31,8 @@ Default is \code{seq(0.01, 0.99, by = 0.01)}}
 
 \item{as_probability}{character vector including names of variables
 that will be converted to a probability.}
+
+\item{strategies}{Default strategies to include: 0, 1, or 2 of ("all", "none").}
 
 \item{time}{if outcome is survival, \verb{time=} specifies the time the
 assessment is made}
