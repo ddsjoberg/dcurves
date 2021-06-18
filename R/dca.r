@@ -137,11 +137,11 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
       .after = .data[[outcome_name]]
     )
 
-  if (!"all" %in% include) {
+  if (!"all" %in% strategies) {
     model_frame$all = NULL
   }
 
-  if (!"none" %in% include) {
+  if (!"none" %in% strategies) {
     model_frame$none = NULL
   }
 
