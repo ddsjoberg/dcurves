@@ -33,7 +33,7 @@
 #' may be set with this argument.
 #'
 #' @return List including net benefit of each variable
-#' @seealso [`net_intervention_avoided()`], [`plot.dca()`],
+#' @seealso [`net_intervention_avoided()`], [`standardized_net_benefit()`], [`plot.dca()`],
 #' [`as_tibble.dca()`]
 #' @export
 #'

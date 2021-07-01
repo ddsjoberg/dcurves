@@ -32,6 +32,7 @@ reference:
   - contents:
       - dca
       - net_intervention_avoided
+      - standardized_net_benefit
       - plot.dca
       - as_tibble.dca
   - title: Example Data

@@ -72,7 +72,7 @@ dca(cancer ~ cancerpredmarker + marker,
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 }
 \seealso{
-\code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=plot.dca]{plot.dca()}},
+\code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=plot.dca]{plot.dca()}},
 \code{\link[=as_tibble.dca]{as_tibble.dca()}}
 }
 \author{

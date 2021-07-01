@@ -18,9 +18,11 @@
 \item{x}{dca object created with \code{dca()}}
 
 \item{type}{indicates type of plot to produce. Must be one of
-\code{c("net_benefit", "net_intervention_avoided")}. The default is
-\code{"net_benefit"}, unless the net interventions have been calculated
-when \code{"net_intervention_avoided"} is used.}
+\code{c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")}.
+The default is
+\code{"net_benefit"}, unless the net intervention has been calculated
+when \code{"net_intervention_avoided"} is used, or if \code{"standardized_net_benefit"}
+has been calculated.}
 
 \item{smooth}{Logical indicator whether plot will be smooth with
 \code{ggplot2::stat_smooth()}. Default is \code{FALSE}}
@@ -49,7 +51,7 @@ dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   plot(smooth = TRUE, show_ggplot_code = TRUE)
 }
 \seealso{
-\code{\link[=dca]{dca()}}, \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
+\code{\link[=dca]{dca()}}, \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
 }
 \author{
 Daniel D Sjoberg

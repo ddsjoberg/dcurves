@@ -2,9 +2,11 @@
 #'
 #' @param x dca object created with `dca()`
 #' @param type indicates type of plot to produce. Must be one of
-#' `c("net_benefit", "net_intervention_avoided")`. The default is
-#' `"net_benefit"`, unless the net interventions have been calculated
-#' when `"net_intervention_avoided"` is used.
+#' `c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")`.
+#' The default is
+#' `"net_benefit"`, unless the net intervention has been calculated
+#' when `"net_intervention_avoided"` is used, or if `"standardized_net_benefit"`
+#' has been calculated.
 #' @param smooth Logical indicator whether plot will be smooth with
 #' `ggplot2::stat_smooth()`. Default is `FALSE`
 #' @param span when `smooth = TRUE`, Controls the amount of smoothing for
@@ -20,7 +22,7 @@
 #' @return a ggplot2 object
 #' @export
 #' @author Daniel D Sjoberg
-#' @seealso [`dca()`], [`net_intervention_avoided()`], [`as_tibble.dca()`]
+#' @seealso [`dca()`], [`net_intervention_avoided()`], [`standardized_net_benefit()`], [`as_tibble.dca()`]
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
@@ -32,12 +34,19 @@ plot.dca <- function(x,
                          style = c("color", "bw"),
                          show_ggplot_code = FALSE, ...) {
   # set type of figure to create -----------------------------------------------
-  if (is.null(type) && !"net_intervention_avoided" %in% names(x$dca)) {
-    type <- "net_benefit"
-  } else if (is.null(type) && "net_intervention_avoided" %in% names(x$dca)) {
+  if (is.null(type) && "net_intervention_avoided" %in% names(x$dca)) {
     type <- "net_intervention_avoided"
   }
-  type <- match.arg(type, choices = c("net_benefit", "net_intervention_avoided"))
+  else if (is.null(type) && "standardized_net_benefit" %in% names(x$dca)) {
+    type <- "standardized_net_benefit"
+  }
+  else if (is.null(type)) {
+    type <- "net_benefit"
+  }
+
+  type <- match.arg(type, choices = c("net_benefit",
+                                      "net_intervention_avoided",
+                                      "standardized_net_benefit"))
   style <- match.arg(style)
 
   if (type %in% "net_intervention_avoided" &&
@@ -48,6 +57,14 @@ plot.dca <- function(x,
     ) %>%
       stop(call. = FALSE)
   }
+  if (type %in% "standardized_net_benefit" &&
+      !"standardized_net_benefit" %in% names(x$dca)) {
+    paste(
+      "Cannot specify `type = 'standardized_net_benefit' without",
+      "first running `standardized_net_benefit()`."
+    ) %>%
+      stop(call. = FALSE)
+  }
 
   # data prep expressions ------------------------------------------------------
   expr_data_prep <-
@@ -55,6 +72,7 @@ plot.dca <- function(x,
       expr(as_tibble(x)),
       switch(type,
              "net_benefit" = expr(dplyr::filter(!is.na(!!sym("net_benefit")))),
+             "standardized_net_benefit" = expr(dplyr::filter(!is.na(!!sym("standardized_net_benefit")))),
              "net_intervention_avoided" =
                expr(dplyr::filter(!is.na(!!sym("net_intervention_avoided")),
                                   !(!!sym("variable") %in% c("all", "none")))))
@@ -91,6 +109,10 @@ plot.dca <- function(x,
     y_axis_title <- paste("Net reduction in interventions per",
                           x$net_interventions_nper, "patients")
     ylim = c(0, x$net_interventions_nper)
+  }
+  else if (type == "standardized_net_benefit") {
+    y_axis_title <- "Standardized Net Benefit"
+    ylim = c(-0.02, 1.02)
   }
   labs.args <-
     list("Threshold Probability", y_axis_title, "") %>%

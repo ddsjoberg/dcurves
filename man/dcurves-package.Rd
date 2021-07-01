@@ -4,7 +4,7 @@
 \name{dcurves-package}
 \alias{dcurves}
 \alias{dcurves-package}
-\title{dcurves: Decision Curve Analysis}
+\title{dcurves: Decision Curve Analysis for Model Evaluation}
 \description{
 Diagnostic and prognostic models are typically evaluated with
     measures of accuracy that do not address clinical consequences.
@@ -27,7 +27,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel D. Sjoberg \email{danieldsjoberg@gmail.com}
+\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com}
 
 }
 \keyword{internal}
