@@ -21,7 +21,7 @@
 #' markers/covariates to test on the RHS
 #' @param data a data frame containing the variables in `formula=`.
 #' @param thresholds vector of threshold probabilities between 0 and 1.
-#' Default is `seq(0.01, 0.99, by = 0.01)`
+#' Default is `seq(0, 0.99, by = 0.01)`
 #' @param label named list of variable labels, e.g. `list(age = "Age, years)`
 #' @param harm named list of harms associated with a test. Default is `NULL`
 #' @param as_probability character vector including names of variables
@@ -50,7 +50,7 @@
 #'
 #' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
-dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
+dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(0L),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
@@ -156,6 +156,11 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
         .data$tp_rate - .data$threshold /
           (1 - .data$threshold) * .data$fp_rate - .data$harm
     ) %>%
+    # Handle the special case of the 0% threshold for "Treat None", otherwise
+    # the formula will yield a standardized net benefit of 1.
+    dplyr::mutate(net_benefit =
+                    ifelse(label == "Treat None" & .data$threshold == 0,
+                           0, net_benefit)) %>%
     tibble::as_tibble()
 
   # return results -------------------------------------------------------------

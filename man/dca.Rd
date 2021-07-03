@@ -7,7 +7,7 @@
 dca(
   formula,
   data,
-  thresholds = seq(0.01, 0.99, by = 0.01),
+  thresholds = seq(0, 0.99, by = 0.01),
   label = NULL,
   harm = NULL,
   as_probability = character(0L),
@@ -22,7 +22,7 @@ markers/covariates to test on the RHS}
 \item{data}{a data frame containing the variables in \verb{formula=}.}
 
 \item{thresholds}{vector of threshold probabilities between 0 and 1.
-Default is \code{seq(0.01, 0.99, by = 0.01)}}
+Default is \code{seq(0, 0.99, by = 0.01)}}
 
 \item{label}{named list of variable labels, e.g. \verb{list(age = "Age, years)}}
 
