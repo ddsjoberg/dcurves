@@ -59,6 +59,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
 
   # prepping data --------------------------------------------------------------
   thresholds <- thresholds[thresholds >= 0 & thresholds < 1]
+  thresholds[thresholds == 0] <- 10e-10
 
   label <-
     list(all = "Treat All", none = "Treat None") %>%
