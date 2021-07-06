@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Daniel D.",
            family = "Sjoberg",
            role = c("aut", "cre"),
-           email = "danieldsjoberg@gmail.com")
+           email = "danield.sjoberg@gmail.com")
 Description: Diagnostic and prognostic models are typically evaluated with
     measures of accuracy that do not address clinical consequences.
     Decision-analytic techniques allow assessment of clinical outcomes but
