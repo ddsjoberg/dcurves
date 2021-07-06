@@ -21,7 +21,8 @@
 #' markers/covariates to test on the RHS
 #' @param data a data frame containing the variables in `formula=`.
 #' @param thresholds vector of threshold probabilities between 0 and 1.
-#' Default is `seq(0.01, 0.99, by = 0.01)`
+#' Default is `seq(0, 0.99, by = 0.01)`. Thresholds at zero are replaced
+#' with 10e-10.
 #' @param label named list of variable labels, e.g. `list(age = "Age, years)`
 #' @param harm named list of harms associated with a test. Default is `NULL`
 #' @param as_probability character vector including names of variables
@@ -50,7 +51,7 @@
 #'
 #' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
-dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
+dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(0L),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
@@ -58,7 +59,9 @@ dca <- function(formula, data, thresholds = seq(0.01, 0.99, by = 0.01),
   if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
 
   # prepping data --------------------------------------------------------------
-  thresholds <- thresholds[thresholds > 0 & thresholds < 1]
+  thresholds <- thresholds[thresholds >= 0 & thresholds < 1]
+  thresholds[thresholds == 0] <- 10e-10
+
   label <-
     list(all = "Treat All", none = "Treat None") %>%
     purrr::list_modify(!!!label)
