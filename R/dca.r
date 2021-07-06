@@ -122,8 +122,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
   model_frame <-
     model_frame %>%
     dplyr::mutate(
-      all = 1L,
-      none = 0L,
+      all = Inf,
+      none = -Inf,
       .after = .data[[outcome_name]]
     )
 
@@ -156,11 +156,6 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
         .data$tp_rate - .data$threshold /
           (1 - .data$threshold) * .data$fp_rate - .data$harm
     ) %>%
-    # Handle the special case of the 0% threshold for "Treat None", otherwise
-    # the formula will yield a standardized net benefit of 1.
-    dplyr::mutate(net_benefit =
-                    ifelse(label == "Treat None" & .data$threshold == 0,
-                           0, net_benefit)) %>%
     tibble::as_tibble()
 
   # return results -------------------------------------------------------------
