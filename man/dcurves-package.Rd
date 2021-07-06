@@ -27,7 +27,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel D. Sjoberg \email{danieldsjoberg@gmail.com}
+\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com}
 
 }
 \keyword{internal}
