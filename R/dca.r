@@ -124,8 +124,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
   model_frame <-
     model_frame %>%
     dplyr::mutate(
-      all = Inf,
-      none = -Inf,
+      all = 1L,
+      none = 0L,
       .after = .data[[outcome_name]]
     )
 
