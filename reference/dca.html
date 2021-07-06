@@ -95,7 +95,7 @@ Also, see http://www.decisioncurveanalysis.org for more information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ Also, see http://www.decisioncurveanalysis.org for more information.</p>
     <pre class="usage"><span class='fu'>dca</span><span class='op'>(</span>
   <span class='va'>formula</span>,
   <span class='va'>data</span>,
-  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
+  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.99</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
   label <span class='op'>=</span> <span class='cn'>NULL</span>,
   harm <span class='op'>=</span> <span class='cn'>NULL</span>,
   as_probability <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0L</span><span class='op'>)</span>,
@@ -185,7 +185,8 @@ markers/covariates to test on the RHS</p></td>
     <tr>
       <th>thresholds</th>
       <td><p>vector of threshold probabilities between 0 and 1.
-Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0.01, 0.99, by = 0.01)</a></code></p></td>
+Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0, 0.99, by = 0.01)</a></code>. Thresholds at zero are replaced
+with 10e-10.</p></td>
     </tr>
     <tr>
       <th>label</th>
