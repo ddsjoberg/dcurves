@@ -27,6 +27,15 @@ test_that("dca() works", {
   )
 
   expect_error(
+    dca_at_threshold_zero <- dca(cancer ~ famhistory, data = df_binary, thresholds = 0),
+    NA
+  )
+  expect_equal(
+    as_tibble(dca_at_threshold_zero) %>% dplyr::pull(net_benefit),
+    c(0.140, 0, 0.032)
+  )
+
+  expect_error(
     dca_surv1 <- dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1),
     NA
   )
