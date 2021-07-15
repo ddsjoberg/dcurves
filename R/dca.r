@@ -370,8 +370,16 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
     return(NA_real_)
   }
 
+  df_tidy <-
+    df_tidy %>%
+    dplyr::filter(.data$time <= .env$time)
+
+  # if no observed times after time point, return NA
+  if (nrow(df_tidy) == 0L) {
+    return(NA_real_)
+  }
+
   df_tidy %>%
-    dplyr::filter(.data$time <= .env$time) %>%
     dplyr::slice_tail() %>%
     dplyr::pull(.data$estimate)
 }
