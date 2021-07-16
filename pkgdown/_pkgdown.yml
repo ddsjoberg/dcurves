@@ -1,12 +1,12 @@
-url: http://www.danieldsjoberg.com/dca/
+url: http://www.danieldsjoberg.com/dcurves/
 
 template:
   params:
-    ganalytics: UA-145876596-1
+    # ganalytics: UA-145876596-1
     bootswatch: flatly
-# development:
-#   mode: auto
-#   version_label: default
+development:
+  mode: auto
+  version_label: default
 
 authors:
   Daniel D. Sjoberg:

@@ -8,14 +8,13 @@
 \description{
 Diagnostic and prognostic models are typically evaluated with
     measures of accuracy that do not address clinical consequences.
-    Decision-analytic techniques allow assessment of clinical outcomes but
+    Decision-analytic techniques allow assessment of clinical outcomes, but
     often require collection of additional information may be cumbersome
     to apply to models that yield a continuous result. Decision curve
     analysis is a method for evaluating and comparing prediction models
     that incorporates clinical consequences, requires only the data set on
     which the models are tested, and can be applied to models that have
-    either continuous or dichotomous results. The dca function performs
-    decision curve analysis for binary outcomes.
+    either continuous or dichotomous results.
 }
 \seealso{
 Useful links:
@@ -27,7 +26,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com}
+\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com} [copyright holder]
 
 }
 \keyword{internal}

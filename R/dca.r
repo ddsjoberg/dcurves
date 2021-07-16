@@ -13,7 +13,7 @@
 #' Review the
 #' [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
 #' for a detailed walk-through of various applications.
-#' Also, see http://www.decisioncurveanalysis.org for more information.
+#' Also, see [http://www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis) for more information.
 #'
 #' @author Daniel D Sjoberg
 #'

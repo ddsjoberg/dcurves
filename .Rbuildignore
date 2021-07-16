@@ -13,3 +13,4 @@
 ^docs$
 ^pkgdown$
 ^\.covrignore$
+^cran-comments\.md$

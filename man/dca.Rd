@@ -56,7 +56,7 @@ The dca function performs decision curve analysis for binary outcomes.
 Review the
 \href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
 for a detailed walk-through of various applications.
-Also, see http://www.decisioncurveanalysis.org for more information.
+Also, see \href{https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis}{http://www.decisioncurveanalysis.org} for more information.
 }
 \examples{
 # calculate DCA with binary endpoint
