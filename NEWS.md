@@ -1,4 +1,4 @@
-# dca 0.1.0.9000
+# dcurves 0.2.0
 
 * Changed name of package from dca to dcurves.
 
