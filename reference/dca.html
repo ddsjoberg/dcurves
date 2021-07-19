@@ -53,7 +53,7 @@ The dca function performs decision curve analysis for binary outcomes.
 Review the
 DCA Vignette
 for a detailed walk-through of various applications.
-Also, see http://www.decisioncurveanalysis.org for more information." />
+Also, see www.decisioncurveanalysis.org for more information." />
 
 
 
@@ -146,7 +146,7 @@ The dca function performs decision curve analysis for binary outcomes.
 Review the
 <a href='http://www.danieldsjoberg.com/dcurves/articles/dca.html'>DCA Vignette</a>
 for a detailed walk-through of various applications.
-Also, see <a href='https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis'>http://www.decisioncurveanalysis.org</a> for more information.</p>
+Also, see <a href='https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis'>www.decisioncurveanalysis.org</a> for more information.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dca</span><span class='op'>(</span>
@@ -189,7 +189,7 @@ with 10e-10.</p></td>
     <tr>
       <th>as_probability</th>
       <td><p>character vector including names of variables
-that will be converted to a probability.</p></td>
+that will be converted to a probability. Details below.</p></td>
     </tr>
     <tr>
       <th>time</th>
@@ -207,6 +207,25 @@ may be set with this argument.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>List including net benefit of each variable</p>
+    <h2 class="hasAnchor" id="as-probability-argument"><a class="anchor" href="#as-probability-argument"></a>as_probability argument</h2>
+
+    
+
+<p>While the <code>as_probability=</code> argument can be used to convert a marker to the
+probability scale, use the argument only when the consequences are fully
+understood. For example, when the outcome is binary, logistic regression
+is used to convert the marker to a probability. The logistic regression
+model assumes linearity on the log-odds scale and can induce
+miscalibration when this assumption is not true. Miscalibration in a
+model will adversely affect performance on decision curve
+analysis. Similarly, when the outcome is time-to-event, Cox Proportional
+Hazards regression is used to convert the marker to a probability.
+The Cox model also has a linearity assumption and additionally assumes
+proportional hazards over the follow-up period. When these assumptions
+are violated, important miscalibration may occur.</p>
+<p>Instead of using the <code>as_probability=</code> argument, it is suggested to perform
+the regression modeling outside of the <code>dca()</code> function utilizing methods,
+such as non-linear modeling, as appropriate.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='net_intervention_avoided.html'>net_intervention_avoided()</a></code>, <code><a href='standardized_net_benefit.html'>standardized_net_benefit()</a></code>, <code><a href='plot.dca.html'>plot.dca()</a></code>,

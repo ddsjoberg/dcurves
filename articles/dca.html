@@ -86,7 +86,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves">dcurves</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
-<p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring. For more details on DCA, visit <a href="decisioncurveanalysis.org">decisioncurveanalysis.org</a>. You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details. Below we’ll walk you through how to perform DCA for binary and time-to-event outcomes</p>
+<p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring. For more details on DCA, visit <a href="https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis">www.decisioncurveanalysis.org</a>. You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details. Below we’ll walk you through how to perform DCA for binary and time-to-event outcomes</p>
 <div id="binary-outcomes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#binary-outcomes" class="anchor"></a>Binary Outcomes</h2>
@@ -99,12 +99,12 @@
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>
 <span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span><span class="va">mod</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">tbl</span></code></pre></div>
-<div id="xjgxgtebpw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="kiutnuyowu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#xjgxgtebpw .gt_table {
+#kiutnuyowu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -129,7 +129,7 @@
   border-left-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_heading {
+#kiutnuyowu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -141,7 +141,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_title {
+#kiutnuyowu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -151,7 +151,7 @@
   border-bottom-width: 0;
 }
 
-#xjgxgtebpw .gt_subtitle {
+#kiutnuyowu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -161,13 +161,13 @@
   border-top-width: 0;
 }
 
-#xjgxgtebpw .gt_bottom_border {
+#kiutnuyowu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_col_headings {
+#kiutnuyowu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -182,7 +182,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_col_heading {
+#kiutnuyowu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -202,7 +202,7 @@
   overflow-x: hidden;
 }
 
-#xjgxgtebpw .gt_column_spanner_outer {
+#kiutnuyowu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -214,15 +214,15 @@
   padding-right: 4px;
 }
 
-#xjgxgtebpw .gt_column_spanner_outer:first-child {
+#kiutnuyowu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xjgxgtebpw .gt_column_spanner_outer:last-child {
+#kiutnuyowu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xjgxgtebpw .gt_column_spanner {
+#kiutnuyowu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -234,7 +234,7 @@
   width: 100%;
 }
 
-#xjgxgtebpw .gt_group_heading {
+#kiutnuyowu .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -256,7 +256,7 @@
   vertical-align: middle;
 }
 
-#xjgxgtebpw .gt_empty_group_heading {
+#kiutnuyowu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -271,15 +271,15 @@
   vertical-align: middle;
 }
 
-#xjgxgtebpw .gt_from_md > :first-child {
+#kiutnuyowu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xjgxgtebpw .gt_from_md > :last-child {
+#kiutnuyowu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xjgxgtebpw .gt_row {
+#kiutnuyowu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -298,7 +298,7 @@
   overflow-x: hidden;
 }
 
-#xjgxgtebpw .gt_stub {
+#kiutnuyowu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -310,7 +310,7 @@
   padding-left: 12px;
 }
 
-#xjgxgtebpw .gt_summary_row {
+#kiutnuyowu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -320,7 +320,7 @@
   padding-right: 5px;
 }
 
-#xjgxgtebpw .gt_first_summary_row {
+#kiutnuyowu .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -330,7 +330,7 @@
   border-top-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_grand_summary_row {
+#kiutnuyowu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -340,7 +340,7 @@
   padding-right: 5px;
 }
 
-#xjgxgtebpw .gt_first_grand_summary_row {
+#kiutnuyowu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -350,11 +350,11 @@
   border-top-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_striped {
+#kiutnuyowu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xjgxgtebpw .gt_table_body {
+#kiutnuyowu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -363,7 +363,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_footnotes {
+#kiutnuyowu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -377,13 +377,13 @@
   border-right-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_footnote {
+#kiutnuyowu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#xjgxgtebpw .gt_sourcenotes {
+#kiutnuyowu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -397,41 +397,41 @@
   border-right-color: #D3D3D3;
 }
 
-#xjgxgtebpw .gt_sourcenote {
+#kiutnuyowu .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#xjgxgtebpw .gt_left {
+#kiutnuyowu .gt_left {
   text-align: left;
 }
 
-#xjgxgtebpw .gt_center {
+#kiutnuyowu .gt_center {
   text-align: center;
 }
 
-#xjgxgtebpw .gt_right {
+#kiutnuyowu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xjgxgtebpw .gt_font_normal {
+#kiutnuyowu .gt_font_normal {
   font-weight: normal;
 }
 
-#xjgxgtebpw .gt_font_bold {
+#kiutnuyowu .gt_font_bold {
   font-weight: bold;
 }
 
-#xjgxgtebpw .gt_font_italic {
+#kiutnuyowu .gt_font_italic {
   font-style: italic;
 }
 
-#xjgxgtebpw .gt_super {
+#kiutnuyowu .gt_super {
   font-size: 65%;
 }
 
-#xjgxgtebpw .gt_footnote_marks {
+#kiutnuyowu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -667,12 +667,12 @@ S(t) = S_0(t)^{e^{X\beta}}
 
 <span class="co"># show summary of model results</span>
 <span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span><span class="va">cox_model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div id="bedrtccuoy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wfyefmutif" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#bedrtccuoy .gt_table {
+#wfyefmutif .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -697,7 +697,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-left-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_heading {
+#wfyefmutif .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -709,7 +709,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_title {
+#wfyefmutif .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -719,7 +719,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-width: 0;
 }
 
-#bedrtccuoy .gt_subtitle {
+#wfyefmutif .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -729,13 +729,13 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-width: 0;
 }
 
-#bedrtccuoy .gt_bottom_border {
+#wfyefmutif .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_col_headings {
+#wfyefmutif .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -750,7 +750,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_col_heading {
+#wfyefmutif .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -770,7 +770,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#bedrtccuoy .gt_column_spanner_outer {
+#wfyefmutif .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -782,15 +782,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 4px;
 }
 
-#bedrtccuoy .gt_column_spanner_outer:first-child {
+#wfyefmutif .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bedrtccuoy .gt_column_spanner_outer:last-child {
+#wfyefmutif .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bedrtccuoy .gt_column_spanner {
+#wfyefmutif .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -802,7 +802,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   width: 100%;
 }
 
-#bedrtccuoy .gt_group_heading {
+#wfyefmutif .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -824,7 +824,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#bedrtccuoy .gt_empty_group_heading {
+#wfyefmutif .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -839,15 +839,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#bedrtccuoy .gt_from_md > :first-child {
+#wfyefmutif .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bedrtccuoy .gt_from_md > :last-child {
+#wfyefmutif .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bedrtccuoy .gt_row {
+#wfyefmutif .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -866,7 +866,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#bedrtccuoy .gt_stub {
+#wfyefmutif .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -878,7 +878,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-left: 12px;
 }
 
-#bedrtccuoy .gt_summary_row {
+#wfyefmutif .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -888,7 +888,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#bedrtccuoy .gt_first_summary_row {
+#wfyefmutif .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -898,7 +898,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_grand_summary_row {
+#wfyefmutif .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -908,7 +908,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#bedrtccuoy .gt_first_grand_summary_row {
+#wfyefmutif .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -918,11 +918,11 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_striped {
+#wfyefmutif .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bedrtccuoy .gt_table_body {
+#wfyefmutif .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -931,7 +931,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_footnotes {
+#wfyefmutif .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -945,13 +945,13 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_footnote {
+#wfyefmutif .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#bedrtccuoy .gt_sourcenotes {
+#wfyefmutif .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -965,41 +965,41 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#bedrtccuoy .gt_sourcenote {
+#wfyefmutif .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#bedrtccuoy .gt_left {
+#wfyefmutif .gt_left {
   text-align: left;
 }
 
-#bedrtccuoy .gt_center {
+#wfyefmutif .gt_center {
   text-align: center;
 }
 
-#bedrtccuoy .gt_right {
+#wfyefmutif .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bedrtccuoy .gt_font_normal {
+#wfyefmutif .gt_font_normal {
   font-weight: normal;
 }
 
-#bedrtccuoy .gt_font_bold {
+#wfyefmutif .gt_font_bold {
   font-weight: bold;
 }
 
-#bedrtccuoy .gt_font_italic {
+#wfyefmutif .gt_font_italic {
   font-style: italic;
 }
 
-#bedrtccuoy .gt_super {
+#wfyefmutif .gt_super {
   font-size: 65%;
 }
 
-#bedrtccuoy .gt_footnote_marks {
+#wfyefmutif .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
