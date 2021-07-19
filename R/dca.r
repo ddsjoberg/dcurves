@@ -13,7 +13,7 @@
 #' Review the
 #' [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
 #' for a detailed walk-through of various applications.
-#' Also, see [http://www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis) for more information.
+#' Also, see [www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis) for more information.
 #'
 #' @author Daniel D Sjoberg
 #'
@@ -26,12 +26,30 @@
 #' @param label named list of variable labels, e.g. `list(age = "Age, years)`
 #' @param harm named list of harms associated with a test. Default is `NULL`
 #' @param as_probability character vector including names of variables
-#' that will be converted to a probability.
+#' that will be converted to a probability. Details below.
 #' @param time if outcome is survival, `time=` specifies the time the
 #' assessment is made
 #' @param prevalence When `NULL`, the prevalence is estimated from `data=`.
 #' If the data passed is a case-control set, the population prevalence
 #' may be set with this argument.
+#'
+#' @section as_probability argument:
+#' While the `as_probability=` argument can be used to convert a marker to the
+#' probability scale, use the argument only when the consequences are fully
+#' understood. For example, when the outcome is binary, logistic regression
+#' is used to convert the marker to a probability. The logistic regression
+#' model assumes linearity on the log-odds scale and can induce
+#' miscalibration when this assumption is not true. Miscalibration in a
+#' model will adversely affect performance on decision curve
+#' analysis. Similarly, when the outcome is time-to-event, Cox Proportional
+#' Hazards regression is used to convert the marker to a probability.
+#' The Cox model also has a linearity assumption and additionally assumes
+#' proportional hazards over the follow-up period. When these assumptions
+#' are violated, important miscalibration may occur.
+#'
+#' Instead of using the `as_probability=` argument, it is suggested to perform
+#' the regression modeling outside of the `dca()` function utilizing methods,
+#' such as non-linear modeling, as appropriate.
 #'
 #' @return List including net benefit of each variable
 #' @seealso [`net_intervention_avoided()`], [`standardized_net_benefit()`], [`plot.dca()`],

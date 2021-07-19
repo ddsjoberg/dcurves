@@ -30,7 +30,7 @@ with 10e-10.}
 \item{harm}{named list of harms associated with a test. Default is \code{NULL}}
 
 \item{as_probability}{character vector including names of variables
-that will be converted to a probability.}
+that will be converted to a probability. Details below.}
 
 \item{time}{if outcome is survival, \verb{time=} specifies the time the
 assessment is made}
@@ -56,8 +56,28 @@ The dca function performs decision curve analysis for binary outcomes.
 Review the
 \href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
 for a detailed walk-through of various applications.
-Also, see \href{https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis}{http://www.decisioncurveanalysis.org} for more information.
+Also, see \href{https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis}{www.decisioncurveanalysis.org} for more information.
 }
+\section{as_probability argument}{
+
+While the \verb{as_probability=} argument can be used to convert a marker to the
+probability scale, use the argument only when the consequences are fully
+understood. For example, when the outcome is binary, logistic regression
+is used to convert the marker to a probability. The logistic regression
+model assumes linearity on the log-odds scale and can induce
+miscalibration when this assumption is not true. Miscalibration in a
+model will adversely affect performance on decision curve
+analysis. Similarly, when the outcome is time-to-event, Cox Proportional
+Hazards regression is used to convert the marker to a probability.
+The Cox model also has a linearity assumption and additionally assumes
+proportional hazards over the follow-up period. When these assumptions
+are violated, important miscalibration may occur.
+
+Instead of using the \verb{as_probability=} argument, it is suggested to perform
+the regression modeling outside of the \code{dca()} function utilizing methods,
+such as non-linear modeling, as appropriate.
+}
+
 \examples{
 # calculate DCA with binary endpoint
 dca(cancer ~ cancerpredmarker + marker,

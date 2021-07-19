@@ -27,7 +27,7 @@ Decision curve analysis is a method for evaluating and comparing prediction mode
 This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. 
 In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. 
 "Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.
-For more details on DCA, visit [decisioncurveanalysis.org](decisioncurveanalysis.org).
+For more details on DCA, visit [www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis).
 You'll find the original articles explaining the details of the DCA derivation along with other papers providing more details. 
 Below we'll walk you through how to perform DCA for binary and time-to-event outcomes
 
