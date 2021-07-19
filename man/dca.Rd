@@ -10,7 +10,7 @@ dca(
   thresholds = seq(0, 0.99, by = 0.01),
   label = NULL,
   harm = NULL,
-  as_probability = character(0L),
+  as_probability = character(),
   time = NULL,
   prevalence = NULL
 )

@@ -70,7 +70,7 @@
 #' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
-                label = NULL, harm = NULL, as_probability = character(0L),
+                label = NULL, harm = NULL, as_probability = character(),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data)) stop("`data=` must be a data frame")
