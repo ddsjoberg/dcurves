@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//index.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//index.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/as_tibble.dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/as_tibble.dca.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/autoplot.dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/dca.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/dcurves-package.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/dcurves-package.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/df_binary.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/df_binary.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/df_case_control.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/df_case_control.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/df_surv.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/df_surv.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/net_intervention_avoided.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/net_interventions_avoided.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/plot.dca.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/print.dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/print.dca.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//reference/reexports.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/reexports.html</loc>
   </url>
   <url>
-    <loc>http://www.danieldsjoberg.com/dca//articles/dca.html</loc>
+    <loc>http://www.danieldsjoberg.com/dcurves//reference/standardized_net_benefit.html</loc>
+  </url>
+  <url>
+    <loc>http://www.danieldsjoberg.com/dcurves//articles/dca.html</loc>
   </url>
 </urlset>

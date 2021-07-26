@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • dcurves</title>
+<title>Add Net Interventions Avoided — net_intervention_avoided • dcurves</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Add Net Interventions Avoided — net_intervention_avoided" />
+<meta property="og:description" content="Add the number of net interventions avoided to dca() object." />
 
 
 <meta name="robots" content="noindex">
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -113,43 +114,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Add Net Interventions Avoided</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/net_intervention_avoided.R'><code>R/net_intervention_avoided.R</code></a></small>
+    <div class="hidden name"><code>net_intervention_avoided.Rd</code></div>
     </div>
 
-    <div id="dcurves-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#dcurves-development-version" class="anchor"></a>dcurves (development version)<small> Unreleased </small>
-</h1>
-</div>
-    <div id="dcurves-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#dcurves-020" class="anchor"></a>dcurves 0.2.0<small> 2021-07-20 </small>
-</h1>
-<ul>
-<li><p>Changed name of package from dca to dcurves.</p></li>
-<li><p>Major changes to API of all function in the dcurves package.</p></li>
-<li><p>Added functions <code><a href="../reference/plot.dca.html">plot.dca()</a></code>, <code><a href="../reference/as_tibble.dca.html">as_tibble.dca()</a></code>, <code><a href="../reference/net_intervention_avoided.html">net_intervention_avoided()</a></code>, and <code><a href="../reference/standardized_net_benefit.html">standardized_net_benefit()</a></code>.</p></li>
-<li><p>Added vignettes.</p></li>
-<li><p>Allowing 0 to be included in threshold probabilities. (<a href='https://github.com/ddsjoberg/dcurves/issues/3'>#3</a> by <a href='https://github.com/ck37'>@ck37</a>)</p></li>
-</ul>
-</div>
-    <div id="dca-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#dca-010" class="anchor"></a>dca 0.1.0<small> Unreleased </small>
-</h1>
-<ul>
-<li>First release of the R package to implement Decision Curve Analysis.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Add the number of net interventions avoided to <code><a href='dca.html'>dca()</a></code> object.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>net_intervention_avoided</span><span class='op'>(</span><span class='va'>x</span>, nper <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>object of class <code>'dca'</code> calculated with <code><a href='dca.html'>dca()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>nper</th>
+      <td><p>Number to report net interventions per. Default is 100.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>'dca' object</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='dca.html'>dca()</a></code>, <code><a href='standardized_net_benefit.html'>standardized_net_benefit()</a></code>, <code><a href='plot.dca.html'>plot.dca()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Daniel D Sjoberg</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>net_intervention_avoided</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE, show_ggplot_code = FALSE)`</span></div><div class='img'><img src='net_intervention_avoided-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttcancer</span>, <span class='va'>cancer</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_surv</span>, time <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>net_intervention_avoided</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE, show_ggplot_code = FALSE)`</span></div><div class='img'><img src='net_intervention_avoided-2.png' alt='' width='700' height='433' /></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

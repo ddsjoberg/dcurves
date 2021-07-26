@@ -3,8 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   dca: dca.html
-last_built: 2021-05-31T16:20Z
+last_built: 2021-07-26T18:20Z
 urls:
-  reference: http://www.danieldsjoberg.com/dca//reference
-  article: http://www.danieldsjoberg.com/dca//articles
+  reference: http://www.danieldsjoberg.com/dcurves//reference
+  article: http://www.danieldsjoberg.com/dcurves//articles
 

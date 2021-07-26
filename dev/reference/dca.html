@@ -47,11 +47,13 @@ require collection of additional information may be cumbersome to apply to
 models that yield a continuous result. Decision curve analysis is a method
 for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
-and can be applied to models that have either continuous or dichotomous results.
+and can be applied to models that have either continuous or dichotomous
+results.
 The dca function performs decision curve analysis for binary outcomes.
-Review the DCA Vignette
+Review the
+DCA Vignette
 for a detailed walk-through of various applications.
-Also, see http://www.decisioncurveanalysis.org for more information." />
+Also, see www.decisioncurveanalysis.org for more information." />
 
 
 <meta name="robots" content="noindex">
@@ -65,16 +67,6 @@ Also, see http://www.decisioncurveanalysis.org for more information." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145876596-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-145876596-1');
-</script>
 
 
   </head>
@@ -93,7 +85,7 @@ Also, see http://www.decisioncurveanalysis.org for more information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -101,7 +93,7 @@ Also, see http://www.decisioncurveanalysis.org for more information." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -118,7 +110,7 @@ Also, see http://www.decisioncurveanalysis.org for more information." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ddsjoberg/dca">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -148,20 +140,22 @@ require collection of additional information may be cumbersome to apply to
 models that yield a continuous result. Decision curve analysis is a method
 for evaluating and comparing prediction models that incorporates clinical
 consequences, requires only the data set on which the models are tested,
-and can be applied to models that have either continuous or dichotomous results.
+and can be applied to models that have either continuous or dichotomous
+results.
 The dca function performs decision curve analysis for binary outcomes.
-Review the <a href='http://www.danieldsjoberg.com/dcurves/articles/dca.html'>DCA Vignette</a>
+Review the
+<a href='http://www.danieldsjoberg.com/dcurves/articles/dca.html'>DCA Vignette</a>
 for a detailed walk-through of various applications.
-Also, see http://www.decisioncurveanalysis.org for more information.</p>
+Also, see <a href='https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis'>www.decisioncurveanalysis.org</a> for more information.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dca</span><span class='op'>(</span>
   <span class='va'>formula</span>,
   <span class='va'>data</span>,
-  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
+  thresholds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.99</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
   label <span class='op'>=</span> <span class='cn'>NULL</span>,
   harm <span class='op'>=</span> <span class='cn'>NULL</span>,
-  as_probability <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0L</span><span class='op'>)</span>,
+  as_probability <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
   time <span class='op'>=</span> <span class='cn'>NULL</span>,
   prevalence <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -171,8 +165,8 @@ Also, see http://www.decisioncurveanalysis.org for more information.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>formula</th>
-      <td><p>a formula with the outcome on the LHS and a sum of markers/covariates
-to test on the RHS</p></td>
+      <td><p>a formula with the outcome on the LHS and a sum of
+markers/covariates to test on the RHS</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -181,7 +175,8 @@ to test on the RHS</p></td>
     <tr>
       <th>thresholds</th>
       <td><p>vector of threshold probabilities between 0 and 1.
-Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0.01, 0.99, by = 0.01)</a></code></p></td>
+Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0, 0.99, by = 0.01)</a></code>. Thresholds at zero are replaced
+with 10e-10.</p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -194,7 +189,7 @@ Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0.01, 0.99, by = 
     <tr>
       <th>as_probability</th>
       <td><p>character vector including names of variables
-that will be converted to a probability.</p></td>
+that will be converted to a probability. Details below.</p></td>
     </tr>
     <tr>
       <th>time</th>
@@ -212,26 +207,47 @@ may be set with this argument.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>List including net benefit of each variable</p>
+    <h2 class="hasAnchor" id="as-probability-argument"><a class="anchor" href="#as-probability-argument"></a>as_probability argument</h2>
+
+    
+
+<p>While the <code>as_probability=</code> argument can be used to convert a marker to the
+probability scale, use the argument only when the consequences are fully
+understood. For example, when the outcome is binary, logistic regression
+is used to convert the marker to a probability. The logistic regression
+model assumes linearity on the log-odds scale and can induce
+miscalibration when this assumption is not true. Miscalibration in a
+model will adversely affect performance on decision curve
+analysis. Similarly, when the outcome is time-to-event, Cox Proportional
+Hazards regression is used to convert the marker to a probability.
+The Cox model also has a linearity assumption and additionally assumes
+proportional hazards over the follow-up period. When these assumptions
+are violated, important miscalibration may occur.</p>
+<p>Instead of using the <code>as_probability=</code> argument, it is suggested to perform
+the regression modeling outside of the <code>dca()</code> function utilizing methods,
+such as non-linear modeling, as appropriate.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='net_interventions_avoided.html'>net_interventions_avoided()</a></code>, <code><a href='autoplot.dca.html'>autoplot.dca()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='net_intervention_avoided.html'>net_intervention_avoided()</a></code>, <code><a href='standardized_net_benefit.html'>standardized_net_benefit()</a></code>, <code><a href='plot.dca.html'>plot.dca()</a></code>,
+<code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Daniel D Sjoberg</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># calculate DCA with binary endpoint</span>
-<span class='fu'>dca</span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>,
+<span class='fu'>dca</span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span> <span class='op'>+</span> <span class='va'>marker</span>,
     data <span class='op'>=</span> <span class='va'>df_binary</span>,
-    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cancerpredmarker <span class='op'>=</span> <span class='st'>"Prediction Model"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    as_probability <span class='op'>=</span> <span class='st'>"marker"</span>,
+    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cancerpredmarker <span class='op'>=</span> <span class='st'>"Prediction Model"</span>, marker <span class='op'>=</span> <span class='st'>"Biomarker"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='co'># plot DCA curves with ggplot</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># add ggplot formatting</span>
   <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Treatment Threshold Probability"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Assuming '1' is [Event] and '0' is [non-Event]</span></div><div class='img'><img src='dca-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='dca-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate DCA with time to event endpoint</span>
 <span class='fu'>dca</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttcancer</span>, <span class='va'>cancer</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_surv</span>, time <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Printing with `autoplot(x, type = 'net_benefit', smooth = FALSE)`</span></div><div class='img'><img src='dca-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>Printing with `plot(x, type = 'net_benefit', smooth = FALSE, show_ggplot_code = FALSE)`</span></div><div class='img'><img src='dca-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

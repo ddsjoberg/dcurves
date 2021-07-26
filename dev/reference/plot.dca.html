@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>dcurves: Decision Curve Analysis for Model Evaluation — dcurves-package • dcurves</title>
+<title>Plot DCA Object with ggplot — plot.dca • dcurves</title>
 
 
 <!-- jquery -->
@@ -39,19 +39,8 @@
 
 
 
-<meta property="og:title" content="dcurves: Decision Curve Analysis for Model Evaluation — dcurves-package" />
-<meta property="og:description" content="Diagnostic and prognostic models are typically evaluated with
-    measures of accuracy that do not address clinical consequences.
-    Decision-analytic techniques allow assessment of clinical outcomes,
-    but often require collection of additional information may be
-    cumbersome to apply to models that yield a continuous result. Decision
-    curve analysis is a method for evaluating and comparing prediction
-    models that incorporates clinical consequences, requires only the data
-    set on which the models are tested, and can be applied to models that
-    have either continuous or dichotomous results. See the following references 
-    for details on the methods: Vickers (2006) &amp;lt;doi:10.1177/0272989X06295361&amp;gt;,
-    Vickers (2008) &amp;lt;doi:10.1186/1472-6947-8-53&amp;gt;, 
-    and Pfeiffer (2020) &amp;lt;doi:10.1002/bimj.201800240&amp;gt;." />
+<meta property="og:title" content="Plot DCA Object with ggplot — plot.dca" />
+<meta property="og:description" content="Plot DCA Object with ggplot" />
 
 
 <meta name="robots" content="noindex">
@@ -125,41 +114,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>dcurves: Decision Curve Analysis for Model Evaluation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/dcurves-package.R'><code>R/dcurves-package.R</code></a></small>
-    <div class="hidden name"><code>dcurves-package.Rd</code></div>
+    <h1>Plot DCA Object with ggplot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddsjoberg/dcurves/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot.dca.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Diagnostic and prognostic models are typically evaluated with
-    measures of accuracy that do not address clinical consequences.
-    Decision-analytic techniques allow assessment of clinical outcomes,
-    but often require collection of additional information may be
-    cumbersome to apply to models that yield a continuous result. Decision
-    curve analysis is a method for evaluating and comparing prediction
-    models that incorporates clinical consequences, requires only the data
-    set on which the models are tested, and can be applied to models that
-    have either continuous or dichotomous results. See the following references 
-    for details on the methods: Vickers (2006) &lt;doi:10.1177/0272989X06295361&gt;,
-    Vickers (2008) &lt;doi:10.1186/1472-6947-8-53&gt;, 
-    and Pfeiffer (2020) &lt;doi:10.1002/bimj.201800240&gt;.</p>
+    <p>Plot DCA Object with ggplot</p>
     </div>
 
+    <pre class="usage"><span class='co'># S3 method for dca</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  span <span class='op'>=</span> <span class='fl'>0.2</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"color"</span>, <span class='st'>"bw"</span><span class='op'>)</span>,
+  show_ggplot_code <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>dca object created with <code><a href='dca.html'>dca()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>indicates type of plot to produce. Must be one of
+<code><a href='https://rdrr.io/r/base/c.html'>c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")</a></code>.
+The default is
+<code>"net_benefit"</code>, unless the net intervention has been calculated
+when <code>"net_intervention_avoided"</code> is used, or if <code>"standardized_net_benefit"</code>
+has been calculated.</p></td>
+    </tr>
+    <tr>
+      <th>smooth</th>
+      <td><p>Logical indicator whether plot will be smooth with
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>ggplot2::stat_smooth()</a></code>. Default is <code>FALSE</code></p></td>
+    </tr>
+    <tr>
+      <th>span</th>
+      <td><p>when <code>smooth = TRUE</code>, Controls the amount of smoothing for
+loess smoother. Smaller numbers produce wigglier lines, larger numbers
+produce smoother lines. Default is <code>0.2</code>.</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>Must be one of <code><a href='https://rdrr.io/r/base/c.html'>c("color", "bw")</a></code>. Default is <code>"color"</code>, and
+<code>"bw"</code> will print a black and white figure</p></td>
+    </tr>
+    <tr>
+      <th>show_ggplot_code</th>
+      <td><p>Logical indicating whether to print ggplot2 code used to
+create figure. Default is <code>FALSE</code>. Set to <code>TRUE</code> to perform advanced figure
+customization</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a ggplot2 object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/ddsjoberg/dcurves'>https://github.com/ddsjoberg/dcurves</a></p></li>
-<li><p><a href='http://www.danieldsjoberg.com/dcurves/'>http://www.danieldsjoberg.com/dcurves/</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/ddsjoberg/dcurves/issues'>https://github.com/ddsjoberg/dcurves/issues</a></p></li>
-</ul>
-
-</div>
+    <div class='dont-index'><p><code><a href='dca.html'>dca()</a></code>, <code><a href='net_intervention_avoided.html'>net_intervention_avoided()</a></code>, <code><a href='standardized_net_benefit.html'>standardized_net_benefit()</a></code>, <code><a href='as_tibble.dca.html'>as_tibble.dca()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p><strong>Maintainer</strong>: Daniel D. Sjoberg <a href='mailto:danield.sjoberg@gmail.com'>danield.sjoberg@gmail.com</a> [copyright holder]</p>
+    <p>Daniel D Sjoberg</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span>, show_ggplot_code <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # ggplot2 code to create DCA figure -------------------------------
+#&gt; as_tibble(x) %&gt;%
+#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%
+#&gt;   ggplot(aes(x = threshold, y = net_benefit, color = label)) +
+#&gt;   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", 
+#&gt;     span = 0.2) +
+#&gt;   coord_cartesian(ylim = c(-0.014, 0.14)) +
+#&gt;   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +
+#&gt;   theme_bw()</div><div class='img'><img src='plot.dca-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
