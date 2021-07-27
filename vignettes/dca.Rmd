@@ -42,7 +42,6 @@ A clinical chemist has recently discovered a marker that she believes can distin
 We wish to assess whether or not the new marker does indeed identify patients with and without cancer. 
 If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.
 
-
 First, we want to confirm family history of cancer is indeed associated with the biopsy result. 
 
 ```{r}
