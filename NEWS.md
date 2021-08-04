@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Added line break in net intervention avoided y-axis label. (#6)
+
 # dcurves 0.2.0
 
 * Changed name of package from dca to dcurves.

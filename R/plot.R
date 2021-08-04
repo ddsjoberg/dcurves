@@ -106,7 +106,7 @@ plot.dca <- function(x,
     ylim = c(x$prevalence * -0.1, x$prevalence) %>% unname()
   }
   else if (type == "net_intervention_avoided") {
-    y_axis_title <- paste("Net reduction in interventions per",
+    y_axis_title <- paste("Net reduction in interventions\nper",
                           x$net_interventions_nper, "patients")
     ylim = c(0, x$net_interventions_nper)
   }
