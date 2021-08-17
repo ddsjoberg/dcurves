@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Adding more consistency checks for the arguments in the `dca()` function.
+
 * Added line break in net intervention avoided y-axis label. (#6)
 
 # dcurves 0.2.0

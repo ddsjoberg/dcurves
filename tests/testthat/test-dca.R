@@ -107,4 +107,19 @@ test_that("dca() errors print with bad inputs", {
   expect_error(
     dca_surv <- dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1000)
   )
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary, label = letters)
+  )
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary, label = as.list(letters))
+  )
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary, harm = letters)
+  )
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary, harm = as.list(letters))
+  )
+  expect_error(
+    dca(cancer ~ cancerpredmarker, data = df_binary, as_probability = 1:5)
+  )
 })

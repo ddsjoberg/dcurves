@@ -73,8 +73,16 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(),
                 time = NULL, prevalence = NULL) {
   # checking inputs ------------------------------------------------------------
-  if (!is.data.frame(data)) stop("`data=` must be a data frame")
-  if (!inherits(formula, "formula")) stop("`formula=` must be a formula")
+  if (!is.data.frame(data))
+    stop("`data=` must be a data frame", call. = FALSE)
+  if (!inherits(formula, "formula"))
+    stop("`formula=` must be a formula", call. = FALSE)
+  if (!is.null(label) && (!rlang::is_list(label) || !rlang::is_named(label)))
+    stop("`label=` must be a named list or NULL.", call. = FALSE)
+  if (!is.null(harm) && (!rlang::is_list(harm) || !rlang::is_named(harm)))
+    stop("`harm=` must be a named list or NULL.", call. = FALSE)
+  if (!is.character(as_probability))
+    stop("`as_probability=` must be character.", call. = FALSE)
 
   # prepping data --------------------------------------------------------------
   thresholds <- thresholds[thresholds >= 0 & thresholds < 1]
@@ -87,8 +95,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
   outcome_name <- names(model_frame)[1]
   if (any(c("all", "none") %in% names(model_frame))) {
     stop("Variables cannot be named 'all' or 'none': they are reserved.",
-      call. = FALSE
-    )
+         call. = FALSE)
   }
 
   outcome_type <-
