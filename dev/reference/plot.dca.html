@@ -144,7 +144,7 @@
     <tr>
       <th>type</th>
       <td><p>indicates type of plot to produce. Must be one of
-<code><a href='https://rdrr.io/r/base/c.html'>c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")</a></code>.
+<code>c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")</code>.
 The default is
 <code>"net_benefit"</code>, unless the net intervention has been calculated
 when <code>"net_intervention_avoided"</code> is used, or if <code>"standardized_net_benefit"</code>
@@ -163,7 +163,7 @@ produce smoother lines. Default is <code>0.2</code>.</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>Must be one of <code><a href='https://rdrr.io/r/base/c.html'>c("color", "bw")</a></code>. Default is <code>"color"</code>, and
+      <td><p>Must be one of <code>c("color", "bw")</code>. Default is <code>"color"</code>, and
 <code>"bw"</code> will print a black and white figure</p></td>
     </tr>
     <tr>
@@ -189,18 +189,20 @@ customization</p></td>
     <p>Daniel D Sjoberg</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span>, show_ggplot_code <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; # ggplot2 code to create DCA figure -------------------------------
-#&gt; as_tibble(x) %&gt;%
-#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%
-#&gt;   ggplot(aes(x = threshold, y = net_benefit, color = label)) +
-#&gt;   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", 
-#&gt;     span = 0.2) +
-#&gt;   coord_cartesian(ylim = c(-0.014, 0.14)) +
-#&gt;   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
-#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +
-#&gt;   theme_bw()</div><div class='img'><img src='plot.dca-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='dca.html'>dca</a></span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_binary</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span>, show_ggplot_code <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> # ggplot2 code to create DCA figure -------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> as_tibble(x) %&gt;%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   dplyr::filter(!is.na(net_benefit)) %&gt;%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ggplot(aes(x = threshold, y = net_benefit, color = label)) +</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     span = 0.2) +</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   coord_cartesian(ylim = c(-0.014, 0.14)) +</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   theme_bw()</span>
+<span class='r-plt img'><img src='plot.dca-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

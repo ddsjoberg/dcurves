@@ -110,7 +110,7 @@
     data <span class="op">=</span> <span class="va">df_binary</span>,
     thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
     label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>,
-                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example1-1.png" width="100%"></p>
 <p>Time-to-event or survival endpoints</p>
@@ -119,7 +119,7 @@
     data <span class="op">=</span> <span class="va">df_surv</span>, 
     time <span class="op">=</span> <span class="fl">1</span>,
     thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.50</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example2-1.png" width="100%"></p>
 <p>Create a customized DCA figure by first printing the ggplot code. Copy and modify the ggplot code as needed.</p>
@@ -128,7 +128,7 @@
   <span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
     data <span class="op">=</span> <span class="va">df_binary</span>,
     thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; # ggplot2 code to create DCA figure -------------------------------</span>
 <span class="co">#&gt; as_tibble(x) %&gt;%</span>

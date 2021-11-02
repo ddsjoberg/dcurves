@@ -175,7 +175,7 @@ markers/covariates to test on the RHS</p></td>
     <tr>
       <th>thresholds</th>
       <td><p>vector of threshold probabilities between 0 and 1.
-Default is <code><a href='https://rdrr.io/r/base/seq.html'>seq(0, 0.99, by = 0.01)</a></code>. Thresholds at zero are replaced
+Default is <code>seq(0, 0.99, by = 0.01)</code>. Thresholds at zero are replaced
 with 10e-10.</p></td>
     </tr>
     <tr>
@@ -235,19 +235,22 @@ such as non-linear modeling, as appropriate.</p>
     <p>Daniel D Sjoberg</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># calculate DCA with binary endpoint</span>
-<span class='fu'>dca</span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span> <span class='op'>+</span> <span class='va'>marker</span>,
-    data <span class='op'>=</span> <span class='va'>df_binary</span>,
-    as_probability <span class='op'>=</span> <span class='st'>"marker"</span>,
-    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cancerpredmarker <span class='op'>=</span> <span class='st'>"Prediction Model"</span>, marker <span class='op'>=</span> <span class='st'>"Biomarker"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='co'># plot DCA curves with ggplot</span>
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='co'># add ggplot formatting</span>
-  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Treatment Threshold Probability"</span><span class='op'>)</span>
-</div><div class='img'><img src='dca-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate DCA with time to event endpoint</span>
-<span class='fu'>dca</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttcancer</span>, <span class='va'>cancer</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_surv</span>, time <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Printing with `plot(x, type = 'net_benefit', smooth = FALSE, show_ggplot_code = FALSE)`</span></div><div class='img'><img src='dca-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># calculate DCA with binary endpoint</span></span>
+<span class='r-in'><span class='fu'>dca</span><span class='op'>(</span><span class='va'>cancer</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span> <span class='op'>+</span> <span class='va'>marker</span>,</span>
+<span class='r-in'>    data <span class='op'>=</span> <span class='va'>df_binary</span>,</span>
+<span class='r-in'>    as_probability <span class='op'>=</span> <span class='st'>"marker"</span>,</span>
+<span class='r-in'>    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cancerpredmarker <span class='op'>=</span> <span class='st'>"Prediction Model"</span>, marker <span class='op'>=</span> <span class='st'>"Biomarker"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='co'># plot DCA curves with ggplot</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='co'># add ggplot formatting</span></span>
+<span class='r-in'>  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Treatment Threshold Probability"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='dca-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate DCA with time to event endpoint</span></span>
+<span class='r-in'><span class='fu'>dca</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttcancer</span>, <span class='va'>cancer</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>cancerpredmarker</span>, data <span class='op'>=</span> <span class='va'>df_surv</span>, time <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Printing with `plot(x, type = 'net_benefit', smooth = FALSE, show_ggplot_code = FALSE)`</span>
+<span class='r-plt img'><img src='dca-2.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
