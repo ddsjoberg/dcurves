@@ -21,3 +21,4 @@ Print \code{dca()} object
 dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   print()
 }
+\keyword{internal}

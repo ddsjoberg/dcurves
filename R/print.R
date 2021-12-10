@@ -5,6 +5,7 @@
 #'
 #' @return a ggplot
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
