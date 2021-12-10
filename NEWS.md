@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Added CRAN badge to README.
+
 * Adding more consistency checks for the arguments in the `dca()` function.
 
 * Added line break in net intervention avoided y-axis label. (#6)
