@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -67,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ddsjoberg/dca">
+  <a href="https://github.com/ddsjoberg/dca" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -86,50 +88,50 @@
   <div class="contents col-md-9">
 
 
-<div id="decision-curve-analysis" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#decision-curve-analysis" class="anchor"></a>Decision Curve Analysis</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="decision-curve-analysis">Decision Curve Analysis<a class="anchor" aria-label="anchor" href="#decision-curve-analysis"></a>
+</h1></div>
 <p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.</p>
 <p>The <strong>dcurves</strong> package includes methods for evaluating predictive models with binary (Vickers and Elkin 2006) and time-to-event endpoints (Vickers et al. 2008). The package also includes methods for model evaluation in the case-control setting (Pfeiffer and Gail 2020).</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install dcurves from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install dcurves from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ddsjoberg/dcurves"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>Assess models predicting binary endpoints.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves">dcurves</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves" class="external-link">dcurves</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span> <span class="op">+</span> <span class="va">famhistory</span>, 
     data <span class="op">=</span> <span class="va">df_binary</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>,
-                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
+    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>,
+                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example1-1.png" width="100%"></p>
 <p>Time-to-event or survival endpoints</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
+<code class="sourceCode R"><span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
     data <span class="op">=</span> <span class="va">df_surv</span>, 
     time <span class="op">=</span> <span class="fl">1</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.50</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.50</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
+    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example2-1.png" width="100%"></p>
 <p>Create a customized DCA figure by first printing the ggplot code. Copy and modify the ggplot code as needed.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gg_dca</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
     data <span class="op">=</span> <span class="va">df_binary</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
+    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; # ggplot2 code to create DCA figure -------------------------------</span>
 <span class="co">#&gt; as_tibble(x) %&gt;%</span>
 <span class="co">#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%</span>
@@ -141,9 +143,9 @@
 <span class="co">#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +</span>
 <span class="co">#&gt;   theme_bw()</span></code></pre></div>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>Pfeiffer, Ruth M, and Mitchell H Gail. (2020) “Estimating the Decision Curve and Its Precision from Three Study Designs.” <em>Biometrical Journal</em> 62 (3): 764–76.</p>
 <p>Vickers, Andrew J, Angel M Cronin, Elena B Elkin, and Mithat Gonen. (2008)“Extensions to Decision Curve Analysis, a Novel Method for Evaluating Diagnostic Tests, Prediction Models and Molecular Markers.” <em>BMC Medical Informatics and Decision Making</em> 8 (1): 1–17.</p>
 <p>Vickers, Andrew J, and Elena B Elkin. (2006) “Decision Curve Analysis: A Novel Method for Evaluating Prediction Models.” <em>Medical Decision Making</em> 26 (6): 565–74.</p>
@@ -154,48 +156,59 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=dcurves">https://​cloud.r-project.org/​package=dcurves</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/ddsjoberg/dcurves/">https://​github.com/​ddsjoberg/​dcurves/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/ddsjoberg/dcurves/issues">https://​github.com/​ddsjoberg/​dcurves/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>
-<a href="http://www.danieldsjoberg.com/">Daniel D. Sjoberg</a> <br><small class="roles"> Author, maintainer, copyright holder </small>  </li>
+<li><a href="https://cloud.r-project.org/package=dcurves" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/ddsjoberg/dcurves/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ddsjoberg/dcurves/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ddsjoberg/dcurves/actions"><img src="https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/ddsjoberg/dcurves?branch=master"><img src="https://codecov.io/gh/ddsjoberg/dcurves/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing dcurves</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>
+<a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a> <br><small class="roles"> Author, maintainer, copyright holder </small>  </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/ddsjoberg/dcurves/actions" class="external-link"><img src="https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/ddsjoberg/dcurves?branch=main" class="external-link"><img src="https://codecov.io/gh/ddsjoberg/dcurves/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://cran.r-project.org/package=dcurves" class="external-link"><img src="https://www.r-pkg.org/badges/version/dcurves" alt="CRAN status"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://www.danieldsjoberg.com/">Daniel D. Sjoberg</a>.</p>
+  <p></p>
+<p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -203,6 +216,8 @@
 
   
 
+
+  
 
   </body>
 </html>
