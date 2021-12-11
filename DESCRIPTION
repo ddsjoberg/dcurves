@@ -2,10 +2,14 @@ Package: dcurves
 Title: Decision Curve Analysis for Model Evaluation
 Version: 0.2.0.9001
 Authors@R: 
-    person(given = "Daniel D.",
+    c(person(given = "Daniel D.",
            family = "Sjoberg",
            role = c("aut", "cre", "cph"),
-           email = "danield.sjoberg@gmail.com")
+           email = "danield.sjoberg@gmail.com"),
+    person(given = "Emily",
+           family = "Vertosick",
+           role = "ctb",
+           email = "vertosie@mskcc.org"))
 Description: Diagnostic and prognostic models are typically evaluated with
     measures of accuracy that do not address clinical consequences.
     Decision-analytic techniques allow assessment of clinical outcomes,
@@ -25,7 +29,7 @@ BugReports: https://github.com/ddsjoberg/dcurves/issues
 Depends:
     R (>= 3.5)
 Imports: 
-    broom (>= 0.7.6),
+    broom (>= 0.7.10),
     dplyr (>= 1.0.5),
     ggplot2 (>= 3.3.3),
     glue (>= 1.4.2),
