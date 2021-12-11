@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com} [copyright holder]
 
+Other contributors:
+\itemize{
+  \item Emily Vertosick \email{vertosie@mskcc.org} [contributor]
+}
+
 }
 \keyword{internal}
