@@ -7,8 +7,8 @@
 test_consequences(
   formula,
   data,
-  statistics = c("pos_rate", "neg_rate", "tp_rate", "fp_rate", "tn_rate", "fn_rate",
-    "test_pos_rate", "test_neg_rate", "ppv", "npv", "sens", "spec", "lr_pos", "lr_neg"),
+  statistics = c("pos_rate", "neg_rate", "test_pos_rate", "test_neg_rate", "tp_rate",
+    "fp_rate", "fn_rate", "tn_rate", "ppv", "npv", "sens", "spec", "lr_pos", "lr_neg"),
   thresholds = seq(0, 1, by = 0.25),
   label = NULL,
   time = NULL,
@@ -51,12 +51,12 @@ The following diagnostic statistics are available to return.
    \strong{Statistic} \tab \strong{Abbreviation} \tab \strong{Definition} \cr
    Outcome Positive Rate \tab \code{"pos_rate"} \tab \code{(a + c) / (a + b + c + d)} \cr
    Outcome Negative Rate \tab \code{"neg_rate"} \tab \code{(b + d) / (a + b + c + d)} \cr
+   Test Positive Rate \tab \code{"test_pos_rate"} \tab \code{(a + b) / (a + b + c + d)} \cr
+   Test Negative Rate \tab \code{"test_neg_rate"} \tab \code{(c + d) / (a + b + c + d)} \cr
    True Positive Rate \tab \code{"tp_rate"} \tab \code{a / (a + b + c + d)} \cr
    False Positive Rate \tab \code{"fp_rate"} \tab \code{b / (a + b + c + d)} \cr
    False Negative Rate \tab \code{"fn_rate"} \tab \code{c / (a + b + c + d)} \cr
    True Negative Rate \tab \code{"tn_rate"} \tab \code{d / (a + b + c + d)} \cr
-   Test Positive Rate \tab \code{"test_pos_rate"} \tab \code{(a + b) / (a + b + c + d)} \cr
-   Test Negative Rate \tab \code{"test_neg_rate"} \tab \code{(c + d) / (a + b + c + d)} \cr
    Positive Predictive Value \tab \code{"ppv"} \tab \code{a / (a + b)} \cr
    Negative Predictive Value \tab \code{"npv"} \tab \code{d / (c + d)} \cr
    Sensitivity \tab \code{"sens"} \tab \code{a / (a + c)} \cr
