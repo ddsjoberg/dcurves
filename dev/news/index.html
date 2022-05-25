@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -58,7 +58,10 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="dcurves-development-version">dcurves (development version)<a class="anchor" aria-label="anchor" href="#dcurves-development-version"></a></h2>
-<ul><li><p>Added CRAN badge to README.</p></li>
+<ul><li><p>Added function <code><a href="../reference/test_consequences.html">test_consequences()</a></code> to calculate the diagnostic accuracy of a risk at several thresholds.</p></li>
+<li><p>The returned tibble updated the column name from <code>"prevalence"</code> to <code>"pos_rate"</code>.</p></li>
+<li><p>Allowing users to pass zero and one in <code>dca(thresholds=)</code></p></li>
+<li><p>Added CRAN badge to README.</p></li>
 <li><p>Adding more consistency checks for the arguments in the <code><a href="../reference/dca.html">dca()</a></code> function.</p></li>
 <li><p>Added line break in net intervention avoided y-axis label. (<a href="https://github.com/ddsjoberg/dcurves/issues/6" class="external-link">#6</a>)</p></li>
 </ul></div>
@@ -84,7 +87,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
