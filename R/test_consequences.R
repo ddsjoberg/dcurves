@@ -1,7 +1,7 @@
 #' Test Consequences
 #'
 #' @inheritParams dca
-#' @param statistics Charactger vector with statistics to return. See below for details
+#' @param statistics Character vector with statistics to return. See below for details
 #'
 #' @section statistics:
 #'
@@ -23,7 +23,7 @@
 #'     "Test Negative Rate",        '`"test_neg_rate"`', "`(c + d) / (a + b + c + d)`",
 #'     "Positive Predictive Value", '`"ppv"`',           "`a / (a + b)`",
 #'     "Negative Predictive Value", '`"npv"`',           "`d / (c + d)`",
-#'     "Sensitivity",               '`"sens"`',          "`1 / (a + c)`",
+#'     "Sensitivity",               '`"sens"`',          "`a / (a + c)`",
 #'     "Specificity",               '`"spec"`',          "`d / (b + d)`",
 #'     "Positive Likelihood Ratio", '`"lr_pos"`',        "`sens / (1 - spec)`",
 #'     "Negative Likelihood Ratio", '`"lr_neg"`',        "`(1 - sens) / spec`"

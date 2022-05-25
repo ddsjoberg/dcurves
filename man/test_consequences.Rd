@@ -21,7 +21,7 @@ markers/covariates to test on the RHS}
 
 \item{data}{a data frame containing the variables in \verb{formula=}.}
 
-\item{statistics}{Charactger vector with statistics to return. See below for details}
+\item{statistics}{Character vector with statistics to return. See below for details}
 
 \item{thresholds}{vector of threshold probabilities between 0 and 1.
 Default is \code{seq(0, 0.99, by = 0.01)}. Thresholds at zero are replaced
@@ -59,7 +59,7 @@ The following diagnostic statistics are available to return.
    Test Negative Rate \tab \code{"test_neg_rate"} \tab \code{(c + d) / (a + b + c + d)} \cr
    Positive Predictive Value \tab \code{"ppv"} \tab \code{a / (a + b)} \cr
    Negative Predictive Value \tab \code{"npv"} \tab \code{d / (c + d)} \cr
-   Sensitivity \tab \code{"sens"} \tab \code{1 / (a + c)} \cr
+   Sensitivity \tab \code{"sens"} \tab \code{a / (a + c)} \cr
    Specificity \tab \code{"spec"} \tab \code{d / (b + d)} \cr
    Positive Likelihood Ratio \tab \code{"lr_pos"} \tab \code{sens / (1 - spec)} \cr
    Negative Likelihood Ratio \tab \code{"lr_neg"} \tab \code{(1 - sens) / spec} \cr
