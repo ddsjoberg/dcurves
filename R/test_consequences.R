@@ -39,7 +39,7 @@
 test_consequences <- function(formula, data,
                               statistics = c("pos_rate", "neg_rate",
                                              "tp_rate", "fp_rate",
-                                             "tn_rate", "fn_rate",
+                                             "fn_rate", "tn_rate",
                                              "test_pos_rate", "test_neg_rate",
                                              "ppv", "npv",
                                              "sens", "spec",
