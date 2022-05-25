@@ -2,9 +2,9 @@
 
 * Added function `test_consequences()` to calculate the diagnostic accuracy of a risk at several thresholds.
 
-* The returned tibble updated the column name from `"prevalence"` to `"pos_rate"`.
+* The returned tibble from `as_tibble.dca()` updated the column name from `"prevalence"` to `"pos_rate"`.
 
-* Allowing users to pass zero and one in `dca(thresholds=)`
+* Users are now able to pass zero and one in `dca(thresholds=)`
 
 * Added CRAN badge to README.
 
