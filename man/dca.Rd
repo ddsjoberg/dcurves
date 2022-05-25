@@ -54,7 +54,7 @@ and can be applied to models that have either continuous or dichotomous
 results.
 The dca function performs decision curve analysis for binary outcomes.
 Review the
-\href{http://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
+\href{https://www.danieldsjoberg.com/dcurves/articles/dca.html}{DCA Vignette}
 for a detailed walk-through of various applications.
 Also, see \href{https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis}{www.decisioncurveanalysis.org} for more information.
 }

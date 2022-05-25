@@ -11,7 +11,7 @@
 #' results.
 #' The dca function performs decision curve analysis for binary outcomes.
 #' Review the
-#' [DCA Vignette](http://www.danieldsjoberg.com/dcurves/articles/dca.html)
+#' [DCA Vignette](https://www.danieldsjoberg.com/dcurves/articles/dca.html)
 #' for a detailed walk-through of various applications.
 #' Also, see [www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis) for more information.
 #'

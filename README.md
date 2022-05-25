@@ -4,7 +4,7 @@
 
 [![R-CMD-check](https://github.com/ddsjoberg/dcurves/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/dcurves/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ddsjoberg/dcurves/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/dcurves?branch=main)
+coverage](https://codecov.io/gh/ddsjoberg/dcurves/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ddsjoberg/dcurves?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dcurves)](https://cran.r-project.org/package=dcurves)
 <!-- badges: end -->

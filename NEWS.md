@@ -1,4 +1,4 @@
-# dcurves (development version)
+# dcurves 0.3.0
 
 * Added function `test_consequences()` to calculate the diagnostic accuracy of a risk at several thresholds.
 
