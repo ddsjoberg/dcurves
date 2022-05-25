@@ -1,10 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   dca: dca.html
-last_built: 2021-07-19T13:23Z
+last_built: 2022-05-25T21:44Z
 urls:
-  reference: http://www.danieldsjoberg.com/dcurves//reference
-  article: http://www.danieldsjoberg.com/dcurves//articles
+  reference: http://www.danieldsjoberg.com/dcurves/reference
+  article: http://www.danieldsjoberg.com/dcurves/articles
 
