@@ -47,7 +47,7 @@ Test Consequences
 
 The following diagnostic statistics are available to return.
 
-\if{html}{\figure{two-by-two-table.jpg}{options: width=25\%}}\tabular{lll}{
+\if{html}{\figure{two-by-two-table.png}{options: width=35\%}}\tabular{lll}{
    \strong{Statistic} \tab \strong{Abbreviation} \tab \strong{Definition} \cr
    Outcome Positive Rate \tab \code{"pos_rate"} \tab \code{(a + c) / (a + b + c + d)} \cr
    Outcome Negative Rate \tab \code{"neg_rate"} \tab \code{(b + d) / (a + b + c + d)} \cr

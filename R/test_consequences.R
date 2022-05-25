@@ -7,7 +7,7 @@
 #'
 #' The following diagnostic statistics are available to return.
 #'
-#' \if{html}{\figure{two-by-two-table.jpg}{options: width=25\%}}
+#' \if{html}{\figure{two-by-two-table.png}{options: width=35\%}}
 #'
 #' ```{r, eval = TRUE, echo = FALSE}
 #' knitr::kable(
