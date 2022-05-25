@@ -83,7 +83,7 @@ Note that in our example data set, this variable actually already exists so it w
 
 ```{r}
 glm(cancer ~ marker + age + famhistory, df_binary, family = binomial) %>%
-  broom::augment(newdata = df_binary, type.predict = "response") 
+  broom::augment(newdata = df_binary, type.predict = "response")
 ```
 
 We now want to compare our different approaches to cancer detection: biopsying everyone, biopsying no-one, biopsying on the basis of family history, or biopsying on the basis of a multivariable statistical model including the marker, age and family history of cancer. 

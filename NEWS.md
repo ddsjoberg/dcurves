@@ -1,5 +1,11 @@
 # dcurves (development version)
 
+* Added function `test_consequences()` to calculate the diagnostic accuracy of a risk at several thresholds.
+
+* The returned tibble updated the column name from `"prevalence"` to `"pos_rate"`.
+
+* Allowing users to pass zero and one in `dca(thresholds=)`
+
 * Added CRAN badge to README.
 
 * Adding more consistency checks for the arguments in the `dca()` function.

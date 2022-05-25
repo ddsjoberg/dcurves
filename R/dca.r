@@ -85,8 +85,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
     stop("`as_probability=` must be character.", call. = FALSE)
 
   # prepping data --------------------------------------------------------------
-  thresholds <- thresholds[thresholds >= 0 & thresholds < 1]
-  thresholds[thresholds == 0] <- 10e-10
+  thresholds <- thresholds[thresholds >= 0 & thresholds <= 1]
 
   label <-
     list(all = "Treat All", none = "Treat None") %>%
@@ -98,92 +97,37 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
          call. = FALSE)
   }
 
-  outcome_type <-
-    dplyr::case_when(
-      inherits(model_frame[[outcome_name]], "Surv") ~ "survival",
-      length(unique(model_frame[[outcome_name]])) == 2L ~ "binary",
-      length(unique(model_frame[[outcome_name]])) == 1L &&
-        inherits(model_frame[[outcome_name]], "factor") &&
-        length(attr(model_frame[[outcome_name]], "level")) == 2L ~ "binary",
-      length(unique(model_frame[[outcome_name]])) == 1L &&
-        inherits(model_frame[[outcome_name]], "logical") ~ "binary"
-    )
-  if (is.na(outcome_type)) {
-    paste(
-      "Outcome type not supported. Expecting a binary endpoint",
-      "or an object of class 'Surv'."
-    ) %>%
-      stop(call. = FALSE)
-  }
-  if (outcome_type == "survival" && is.null(time)) {
-    stop("`time=` must be specified for survival endpoints.")
-  }
-
-  # for binary outcomes, make the outcome a factor
-  # so both levels always appear in `table()` results
-  if (outcome_type == "binary") {
-    model_frame[[outcome_name]] <-
-      .convert_to_binary_fct(model_frame[[outcome_name]], quiet = FALSE)
-  }
+  outcome_type <- .outcome_type(model_frame, outcome_name, time)
 
   # convert to probability if requested ----------------------------------------
-  as_probability <-
-    model_frame %>%
-    dplyr::select(-dplyr::all_of(outcome_name)) %>%
-    dplyr::select(dplyr::all_of(as_probability))
-  for (v in names(as_probability)) {
-    model_frame[[v]] <- .convert_to_risk(model_frame[[outcome_name]],
-      model_frame[[v]],
-      outcome_type = outcome_type,
-      time = time
-    )
-  }
-  for (v in names(model_frame) %>% setdiff(outcome_name)) {
-    if (any(!dplyr::between(model_frame[[v]], 0L, 1L))) {
-      glue::glue("Error in {v}. All covariates/risks must be between 0 and 1.") %>%
-        stop(call. = FALSE)
-    }
-  }
+  model_frame <- .as_probability(model_frame, outcome_name, outcome_type, as_probability, time)
 
   # add treat all and treat none -----------------------------------------------
   model_frame <-
     model_frame %>%
     dplyr::mutate(
-      all = 1L,
-      none = 0L,
+      all = 1,
+      none = 0,
+      dplyr::across(.cols = -dplyr::all_of(outcome_name),
+                    .fns = ~dplyr::case_when(. == 0 ~ 0 - .Machine$double.eps,
+                                             . == 1 ~ 1 + .Machine$double.eps,
+                                             TRUE ~ .)),
       .after = .data[[outcome_name]]
     )
 
   # calculate net benefit ------------------------------------------------------
   dca_result <-
-    names(model_frame) %>%
-    setdiff(outcome_name) %>%
-    lapply(
-      function(x) {
-        .calculate_test_consequences(model_frame[[outcome_name]],
-          model_frame[[x]],
-          thresholds = thresholds,
-          outcome_type = outcome_type,
-          prevalence = prevalence,
-          time = time
-        ) %>%
-          dplyr::mutate(
-            variable = x,
-            label = .env$label[[x]] %||% attr(model_frame[[x]], "label") %||% x,
-            harm = .env$harm[[x]] %||% 0,
-            .before = .data$threshold
-          )
-      }
-    ) %>%
-    dplyr::bind_rows() %>%
-    dplyr::mutate(
-      label = factor(.data$label, levels = unique(.data$label)),
-      harm = dplyr::coalesce(harm, 0),
-      net_benefit =
-        .data$tp_rate - .data$threshold /
-          (1 - .data$threshold) * .data$fp_rate - .data$harm
-    ) %>%
-    tibble::as_tibble()
+    test_consequences_data_frame(
+      model_frame = model_frame,
+      outcome_name = outcome_name,
+      outcome_type = outcome_type,
+      statistics = c("pos_rate", "tp_rate", "fp_rate", "harm", "net_benefit"),
+      thresholds = thresholds,
+      label = label,
+      time = time,
+      prevalence = prevalence,
+      harm = harm
+    )
 
   # return results -------------------------------------------------------------
   lst_result <-
@@ -191,7 +135,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
       call = match.call(),
       y = outcome_name,
       n = dca_result$n[1],
-      prevalence = dca_result$prevalence[1],
+      prevalence = dca_result$pos_rate[1],
       time = time,
       dca = dca_result
     ) %>%
@@ -201,134 +145,13 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
 }
 
 
-#' Calculate a test's consequences
-#'
-#' @param outcome outcome vector
-#' @param risk vector of risks
-#' @param thresholds threshold probs vector
-#' @param outcome_type type of outcome
-#' @param time time to calculate risk if Surv() outcome
-#' @param prevalence specifed prevleance (if cannot be estimated from data)
-#'
-#' @noRd
-#' @keywords internal
-.calculate_test_consequences <- function(outcome, risk, thresholds, outcome_type,
-                                         prevalence, time) {
-  df <-
-    tibble::tibble(
-      threshold = thresholds,
-      n = length(outcome)
-    )
-  # case-control population prev
-  if (!is.null(prevalence)) {
-    df$prevalence <- prevalence
-  } # survival endpoint prev
-  else if (outcome_type == "survival") {
-    outcome_prev <- .surv_to_risk(outcome ~ 1, time = time, quiet = TRUE) # TODO: print the multistate model note only once
-    if (is.na(outcome_prev)) {
-      paste(
-        "Cannot calculate outcome prevalence at specified time,",
-        "likely due to no observed data beyond selected time."
-      ) %>%
-        stop(call. = FALSE)
-    }
-    df$prevalence <- outcome_prev
-  }
-  # typical binary prev
-  else {
-    df$prevalence <- table(outcome)[2] / length(outcome)
-  }
-
-  if (outcome_type == "binary") {
-    df <-
-      df %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(
-        test_pos_rate =
-          .convert_to_binary_fct(risk >= .data$threshold) %>%
-            table() %>%
-            purrr::pluck(2) %>% {
-              . / .data$n
-            },
-        tp_rate =
-          mean(risk[outcome == "TRUE"] >= .data$threshold) * .data$prevalence %>%
-          unname(),
-        fp_rate =
-          mean(risk[outcome == "FALSE"] >= .data$threshold) * (1 - .data$prevalence) %>%
-          unname(),
-      )
-  }
-  else if (outcome_type == "survival") {
-    df <-
-      df %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(
-        test_pos_rate =
-          .convert_to_binary_fct(risk >= .data$threshold) %>%
-            table() %>%
-            purrr::pluck(2) %>%
-            {. / .data$n},
-        risk_rate_among_test_pos =
-          tryCatch(
-            .surv_to_risk(outcome[risk >= .data$threshold] ~ 1, time = time),
-            error = function(e) {
-              if (length(outcome[risk >= .data$threshold]) == 0L) {
-                return(0)
-              }
-              NA_real_
-            }
-          ),
-        tp_rate = .data$risk_rate_among_test_pos * .data$test_pos_rate %>%
-          unname(),
-        fp_rate = (1 - .data$risk_rate_among_test_pos) * .data$test_pos_rate %>%
-          unname(),
-      )
-  }
-
-  df %>%
-    dplyr::ungroup() %>%
-    dplyr::select(dplyr::any_of(c(
-      "threshold", "prevalence",
-      "n", "tp_rate", "fp_rate"
-    )))
-}
-
-
-#' Convert binary outcome to factor
-#'
-#' @param x a vector
-#' @param quiet logical. default is TRUE
-#'
-#' @noRd
-#' @keywords internal
-.convert_to_binary_fct <- function(x, quiet = TRUE) {
-  # if not logical, convert to lgl
-  if (!inherits(x, "logical")) {
-    outcome_levels_sorted <- unique(x) %>% sort()
-    if (!quiet) {
-      glue::glue(
-        "Assuming '{outcome_levels_sorted[2]}' is [Event] ",
-        "and '{outcome_levels_sorted[1]}' is [non-Event]"
-      ) %>%
-        message()
-    }
-    x <-
-      dplyr::case_when(
-        x %in% outcome_levels_sorted[1] ~ FALSE,
-        x %in% outcome_levels_sorted[2] ~ TRUE
-      )
-  }
-  # convert lgl to fct
-  factor(x, levels = c(FALSE, TRUE))
-}
-
 #' Calculate risks
 #'
 #' @param outcome outcome object
 #' @param variable variable
 #' @param outcome_type type of outcome
 #' @param time time to calculate risk if Surv() outcome
-#' @param prevalence specifed prevleance (if cannot be estimated from data)
+#' @param prevalence specified prevalence (if cannot be estimated from data)
 #'
 #' @noRd
 #' @keywords internal
@@ -408,3 +231,21 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
     dplyr::slice_tail() %>%
     dplyr::pull(.data$estimate)
 }
+
+.as_probability <- function(model_frame, outcome_name, outcome_type, as_probability, time) {
+  as_probability <-
+    model_frame %>%
+    dplyr::select(-dplyr::all_of(outcome_name)) %>%
+    dplyr::select(dplyr::all_of(as_probability))
+  for (v in names(as_probability)) {
+    model_frame[[v]] <- .convert_to_risk(model_frame[[outcome_name]],
+                                         model_frame[[v]],
+                                         outcome_type = outcome_type,
+                                         time = time
+    )
+  }
+  .check_probability_range(model_frame, outcome_name)
+
+  model_frame
+}
+

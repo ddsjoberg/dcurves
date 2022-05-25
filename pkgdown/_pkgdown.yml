@@ -35,6 +35,7 @@ reference:
       - standardized_net_benefit
       - plot.dca
       - as_tibble.dca
+      - test_consequences
   - title: Example Data
   - contents:
       - df_binary
