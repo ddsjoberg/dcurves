@@ -6,7 +6,7 @@
 \alias{dcurves-package}
 \title{dcurves: Decision Curve Analysis for Model Evaluation}
 \description{
-Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes, but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. See the following references for details on the methods: Vickers (2006) <doi:10.1177/0272989X06295361>, Vickers (2008) <doi:10.1186/1472-6947-8-53>, and Pfeiffer (2020) <doi:10.1002/bimj.201800240>.
+Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes, but often require collection of additional information may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. See the following references for details on the methods: Vickers (2006) \doi{10.1177/0272989X06295361}, Vickers (2008) \doi{10.1186/1472-6947-8-53}, and Pfeiffer (2020) \doi{10.1002/bimj.201800240}.
 }
 \seealso{
 Useful links:

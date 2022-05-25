@@ -16,8 +16,7 @@ standardized_net_benefit <- function(x) {
   # checking inputs ------------------------------------------------------------
   if (!inherits(x, "dca")) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
-         call. = FALSE
-    )
+         call. = FALSE)
   }
 
   if (sum(x$dca$harm) > 0) {
@@ -27,7 +26,7 @@ standardized_net_benefit <- function(x) {
   # add standardized net benefit to the dca tibble -----------------------------
   x$dca <-
     x$dca %>%
-    dplyr::mutate(standardized_net_benefit = .data$net_benefit / .data$prevalence)
+    dplyr::mutate(standardized_net_benefit = .data$net_benefit / .data$pos_rate)
 
   x
 }
