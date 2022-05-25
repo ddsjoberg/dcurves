@@ -108,6 +108,10 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
     dplyr::mutate(
       all = 1 + .Machine$double.eps,
       none = 0 - .Machine$double.eps,
+      dplyr::across(.cols = -dplyr::all_of(outcome_name),
+                    .fns = ~dplyr::case_when(. == 0 ~ 0 - .Machine$double.eps,
+                                             . == 1 ~ 1 + .Machine$double.eps,
+                                             TRUE ~ .)),
       .after = .data[[outcome_name]]
     )
 
