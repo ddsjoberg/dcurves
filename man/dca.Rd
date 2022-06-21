@@ -25,7 +25,7 @@ markers/covariates to test on the RHS}
 Default is \code{seq(0, 0.99, by = 0.01)}. Thresholds at zero are replaced
 with 10e-10.}
 
-\item{label}{named list of variable labels, e.g. \verb{list(age = "Age, years)}}
+\item{label}{named list of variable labels, e.g. \code{list(age = "Age, years")}}
 
 \item{harm}{named list of harms associated with a test. Default is \code{NULL}}
 
