@@ -79,27 +79,42 @@
     <dl><dt>formula</dt>
 <dd><p>a formula with the outcome on the LHS and a sum of
 markers/covariates to test on the RHS</p></dd>
+
+
 <dt>data</dt>
 <dd><p>a data frame containing the variables in <code>formula=</code>.</p></dd>
+
+
 <dt>statistics</dt>
 <dd><p>Character vector with statistics to return. See below for details</p></dd>
+
+
 <dt>thresholds</dt>
 <dd><p>vector of threshold probabilities between 0 and 1.
 Default is <code>seq(0, 0.99, by = 0.01)</code>. Thresholds at zero are replaced
 with 10e-10.</p></dd>
+
+
 <dt>label</dt>
-<dd><p>named list of variable labels, e.g. <code>list(age = "Age, years)</code></p></dd>
+<dd><p>named list of variable labels, e.g. <code>list(age = "Age, years")</code></p></dd>
+
+
 <dt>time</dt>
 <dd><p>if outcome is survival, <code>time=</code> specifies the time the
 assessment is made</p></dd>
+
+
 <dt>prevalence</dt>
 <dd><p>When <code>NULL</code>, the prevalence is estimated from <code>data=</code>.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a tibble with test consequences</p>
+    
+
+<p>a tibble with test consequences</p>
     </div>
     <div id="statistics">
     <h2>statistics</h2>
@@ -137,7 +152,7 @@ may be set with this argument.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
