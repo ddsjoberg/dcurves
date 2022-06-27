@@ -339,7 +339,7 @@ dca(Surv(ttcancer, cancer_cr) ~ pr_failure18,
 
 ## Case-Control Data
 
-Case-control data are handled similarly to binary data, expect that the prevalence of the outcome must be specified as it cannot be estimated from the data.
+Case-control data are handled similarly to binary data, except that the prevalence of the outcome must be specified as it cannot be estimated from the data.
 
 ```{r}
 dca(casecontrol ~ cancerpredmarker, 
