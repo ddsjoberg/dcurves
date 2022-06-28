@@ -88,16 +88,16 @@ Also, see <a href="https://www.mskcc.org/departments/epidemiology-biostatistics/
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dca</span><span class="op">(</span>
-  <span class="va">formula</span>,
-  <span class="va">data</span>,
-  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.99</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  harm <span class="op">=</span> <span class="cn">NULL</span>,
-  as_probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,
-  time <span class="op">=</span> <span class="cn">NULL</span>,
-  prevalence <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dca</span><span class="op">(</span></span>
+<span>  <span class="va">formula</span>,</span>
+<span>  <span class="va">data</span>,</span>
+<span>  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.99</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  harm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  as_probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prevalence <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -179,19 +179,19 @@ such as non-linear modeling, as appropriate.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># calculate DCA with binary endpoint</span></span>
-<span class="r-in"><span class="fu">dca</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span> <span class="op">+</span> <span class="va">marker</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="va">df_binary</span>,</span>
-<span class="r-in">    as_probability <span class="op">=</span> <span class="st">"marker"</span>,</span>
-<span class="r-in">    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>, marker <span class="op">=</span> <span class="st">"Biomarker"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="co"># plot DCA curves with ggplot</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="co"># add ggplot formatting</span></span>
-<span class="r-in">  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Treatment Threshold Probability"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># calculate DCA with binary endpoint</span></span></span>
+<span class="r-in"><span><span class="fu">dca</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span> <span class="op">+</span> <span class="va">marker</span>,</span></span>
+<span class="r-in"><span>    data <span class="op">=</span> <span class="va">df_binary</span>,</span></span>
+<span class="r-in"><span>    as_probability <span class="op">=</span> <span class="st">"marker"</span>,</span></span>
+<span class="r-in"><span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>, marker <span class="op">=</span> <span class="st">"Biomarker"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="co"># plot DCA curves with ggplot</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="co"># add ggplot formatting</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Treatment Threshold Probability"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="dca-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate DCA with time to event endpoint</span></span>
-<span class="r-in"><span class="fu">dca</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_surv</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate DCA with time to event endpoint</span></span></span>
+<span class="r-in"><span><span class="fu">dca</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_surv</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Printing with `plot(x, type = 'net_benefit', smooth = FALSE, show_ggplot_code = FALSE)`</span>
 <span class="r-plt img"><img src="dca-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -208,7 +208,7 @@ such as non-linear modeling, as appropriate.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

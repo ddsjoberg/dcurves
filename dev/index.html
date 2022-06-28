@@ -98,50 +98,50 @@
 </h2>
 <p>You can install dcurves from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ddsjoberg/dcurves"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ddsjoberg/dcurves"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <p>Assess models predicting binary endpoints.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves" class="external-link">dcurves</a></span><span class="op">)</span>
-
-<span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span> <span class="op">+</span> <span class="va">famhistory</span>, 
-    data <span class="op">=</span> <span class="va">df_binary</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>,
-                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves" class="external-link">dcurves</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span> <span class="op">+</span> <span class="va">famhistory</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span>,</span>
+<span>                 famhistory <span class="op">=</span> <span class="st">"Family History"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example1-1.png" width="100%"></p>
 <p>Time-to-event or survival endpoints</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
-    data <span class="op">=</span> <span class="va">df_surv</span>, 
-    time <span class="op">=</span> <span class="fl">1</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.50</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_surv</span>, </span>
+<span>    time <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.50</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-1.png" width="100%"></p>
 <p>Create a customized DCA figure by first printing the ggplot code. Copy and modify the ggplot code as needed.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gg_dca</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
-    data <span class="op">=</span> <span class="va">df_binary</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,
-    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # ggplot2 code to create DCA figure -------------------------------</span>
-<span class="co">#&gt; as_tibble(x) %&gt;%</span>
-<span class="co">#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%</span>
-<span class="co">#&gt;   ggplot(aes(x = threshold, y = net_benefit, color = label)) +</span>
-<span class="co">#&gt;   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", </span>
-<span class="co">#&gt;     span = 0.2) +</span>
-<span class="co">#&gt;   coord_cartesian(ylim = c(-0.014, 0.14)) +</span>
-<span class="co">#&gt;   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +</span>
-<span class="co">#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +</span>
-<span class="co">#&gt;   theme_bw()</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gg_dca</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cancerpredmarker <span class="op">=</span> <span class="st">"Prediction Model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # ggplot2 code to create DCA figure -------------------------------</span></span>
+<span><span class="co">#&gt; as_tibble(x) %&gt;%</span></span>
+<span><span class="co">#&gt;   dplyr::filter(!is.na(net_benefit)) %&gt;%</span></span>
+<span><span class="co">#&gt;   ggplot(aes(x = threshold, y = net_benefit, color = label)) +</span></span>
+<span><span class="co">#&gt;   stat_smooth(method = "loess", se = FALSE, formula = "y ~ x", </span></span>
+<span><span class="co">#&gt;     span = 0.2) +</span></span>
+<span><span class="co">#&gt;   coord_cartesian(ylim = c(-0.014, 0.14)) +</span></span>
+<span><span class="co">#&gt;   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +</span></span>
+<span><span class="co">#&gt;   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +</span></span>
+<span><span class="co">#&gt;   theme_bw()</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -209,7 +209,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

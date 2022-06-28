@@ -62,16 +62,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">test_consequences</span><span class="op">(</span>
-  <span class="va">formula</span>,
-  <span class="va">data</span>,
-  statistics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pos_rate"</span>, <span class="st">"neg_rate"</span>, <span class="st">"test_pos_rate"</span>, <span class="st">"test_neg_rate"</span>, <span class="st">"tp_rate"</span>,
-    <span class="st">"fp_rate"</span>, <span class="st">"fn_rate"</span>, <span class="st">"tn_rate"</span>, <span class="st">"ppv"</span>, <span class="st">"npv"</span>, <span class="st">"sens"</span>, <span class="st">"spec"</span>, <span class="st">"lr_pos"</span>, <span class="st">"lr_neg"</span><span class="op">)</span>,
-  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  time <span class="op">=</span> <span class="cn">NULL</span>,
-  prevalence <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">test_consequences</span><span class="op">(</span></span>
+<span>  <span class="va">formula</span>,</span>
+<span>  <span class="va">data</span>,</span>
+<span>  statistics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pos_rate"</span>, <span class="st">"neg_rate"</span>, <span class="st">"test_pos_rate"</span>, <span class="st">"test_neg_rate"</span>, <span class="st">"tp_rate"</span>,</span>
+<span>    <span class="st">"fp_rate"</span>, <span class="st">"fn_rate"</span>, <span class="st">"tn_rate"</span>, <span class="st">"ppv"</span>, <span class="st">"npv"</span>, <span class="st">"sens"</span>, <span class="st">"spec"</span>, <span class="st">"lr_pos"</span>, <span class="st">"lr_neg"</span><span class="op">)</span>,</span>
+<span>  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prevalence <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -126,7 +126,7 @@ may be set with this argument.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">test_consequences</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">test_consequences</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   variable   label     n threshold pos_rate neg_rate test_pos_rate test_neg_rate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -152,7 +152,7 @@ may be set with this argument.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

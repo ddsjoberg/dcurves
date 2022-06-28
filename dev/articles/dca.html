@@ -87,8 +87,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves" class="external-link">dcurves</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary" class="external-link">gtsummary</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/dcurves" class="external-link">dcurves</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary" class="external-link">gtsummary</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
 <p>Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences. Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result. Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results. This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. “Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring. For more details on DCA, visit <a href="https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis" class="external-link">www.decisioncurveanalysis.org</a>. You’ll find the original articles explaining the details of the DCA derivation along with other papers providing more details. Below we’ll walk you through how to perform DCA for binary and time-to-event outcomes</p>
 <div class="section level2">
 <h2 id="binary-outcomes">Binary Outcomes<a class="anchor" aria-label="anchor" href="#binary-outcomes"></a>
@@ -99,15 +99,15 @@
 <p>We’ll be working with the example dataset <code>df_binary</code> included with the package. The dataset includes information on 750 patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer. Each patient has been biopsied and we know their cancer status. It is known that older patients with a family history of cancer have a higher probability of harboring cancer. A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer. We wish to assess whether or not the new marker does indeed identify patients with and without cancer. If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.</p>
 <p>First, we want to confirm family history of cancer is indeed associated with the biopsy result.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>
-<span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">mod</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">tbl</span></code></pre></div>
-<div id="nbpezizowm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
+<span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">mod</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">tbl</span></span></code></pre></div>
+<div id="qbyvudqhds" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#nbpezizowm .gt_table {
+#qbyvudqhds .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -132,7 +132,7 @@
   border-left-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_heading {
+#qbyvudqhds .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -144,7 +144,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_title {
+#qbyvudqhds .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -156,7 +156,7 @@
   border-bottom-width: 0;
 }
 
-#nbpezizowm .gt_subtitle {
+#qbyvudqhds .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -168,13 +168,13 @@
   border-top-width: 0;
 }
 
-#nbpezizowm .gt_bottom_border {
+#qbyvudqhds .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_col_headings {
+#qbyvudqhds .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -189,7 +189,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_col_heading {
+#qbyvudqhds .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -209,7 +209,7 @@
   overflow-x: hidden;
 }
 
-#nbpezizowm .gt_column_spanner_outer {
+#qbyvudqhds .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -221,15 +221,15 @@
   padding-right: 4px;
 }
 
-#nbpezizowm .gt_column_spanner_outer:first-child {
+#qbyvudqhds .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nbpezizowm .gt_column_spanner_outer:last-child {
+#qbyvudqhds .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nbpezizowm .gt_column_spanner {
+#qbyvudqhds .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -241,7 +241,7 @@
   width: 100%;
 }
 
-#nbpezizowm .gt_group_heading {
+#qbyvudqhds .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -266,7 +266,7 @@
   vertical-align: middle;
 }
 
-#nbpezizowm .gt_empty_group_heading {
+#qbyvudqhds .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -281,15 +281,15 @@
   vertical-align: middle;
 }
 
-#nbpezizowm .gt_from_md > :first-child {
+#qbyvudqhds .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nbpezizowm .gt_from_md > :last-child {
+#qbyvudqhds .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nbpezizowm .gt_row {
+#qbyvudqhds .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -308,7 +308,7 @@
   overflow-x: hidden;
 }
 
-#nbpezizowm .gt_stub {
+#qbyvudqhds .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -321,7 +321,7 @@
   padding-right: 5px;
 }
 
-#nbpezizowm .gt_stub_row_group {
+#qbyvudqhds .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -335,11 +335,11 @@
   vertical-align: top;
 }
 
-#nbpezizowm .gt_row_group_first td {
+#qbyvudqhds .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nbpezizowm .gt_summary_row {
+#qbyvudqhds .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -349,16 +349,16 @@
   padding-right: 5px;
 }
 
-#nbpezizowm .gt_first_summary_row {
+#qbyvudqhds .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_first_summary_row.thick {
+#qbyvudqhds .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nbpezizowm .gt_last_summary_row {
+#qbyvudqhds .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -368,7 +368,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_grand_summary_row {
+#qbyvudqhds .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -378,7 +378,7 @@
   padding-right: 5px;
 }
 
-#nbpezizowm .gt_first_grand_summary_row {
+#qbyvudqhds .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -388,11 +388,11 @@
   border-top-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_striped {
+#qbyvudqhds .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nbpezizowm .gt_table_body {
+#qbyvudqhds .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -401,7 +401,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_footnotes {
+#qbyvudqhds .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -415,7 +415,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_footnote {
+#qbyvudqhds .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -424,7 +424,7 @@
   padding-right: 5px;
 }
 
-#nbpezizowm .gt_sourcenotes {
+#qbyvudqhds .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -438,7 +438,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nbpezizowm .gt_sourcenote {
+#qbyvudqhds .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -446,36 +446,36 @@
   padding-right: 5px;
 }
 
-#nbpezizowm .gt_left {
+#qbyvudqhds .gt_left {
   text-align: left;
 }
 
-#nbpezizowm .gt_center {
+#qbyvudqhds .gt_center {
   text-align: center;
 }
 
-#nbpezizowm .gt_right {
+#qbyvudqhds .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nbpezizowm .gt_font_normal {
+#qbyvudqhds .gt_font_normal {
   font-weight: normal;
 }
 
-#nbpezizowm .gt_font_bold {
+#qbyvudqhds .gt_font_bold {
   font-weight: bold;
 }
 
-#nbpezizowm .gt_font_italic {
+#qbyvudqhds .gt_font_italic {
   font-style: italic;
 }
 
-#nbpezizowm .gt_super {
+#qbyvudqhds .gt_super {
   font-size: 65%;
 }
 
-#nbpezizowm .gt_two_val_uncert {
+#qbyvudqhds .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -484,31 +484,31 @@
   margin-left: 0.1em;
 }
 
-#nbpezizowm .gt_footnote_marks {
+#qbyvudqhds .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#nbpezizowm .gt_asterisk {
+#qbyvudqhds .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nbpezizowm .gt_slash_mark {
+#qbyvudqhds .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#nbpezizowm .gt_fraction_numerator {
+#qbyvudqhds .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#nbpezizowm .gt_fraction_denominator {
+#qbyvudqhds .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -539,13 +539,13 @@
 </div>
 <p>Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome OR 1.80 (95% CI 1.07, 2.96; p=0.022). The DCA can help us address the clinical utility of using family history to predict biopsy outcome.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>First, note that there are many threshold probabilities shown here that are not of interest. For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. Let’s do the DCA again, this time restricting the output to threshold probabilities a more clinically reasonable range, between 0% and 35%.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Now that the graph is showing a more reasonable range of threshold probabilities, let’s assess the clinical utility of family history alone. We can see here that although family history is significantly associated with biopsy outcome, it only adds value to a small range of threshold probabilities near 13% - 20%. If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy. However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme.</p>
 </div>
@@ -557,28 +557,28 @@
 </h4>
 <p>We wanted to examine the value of a statistical model that incorporates family history, age, and the marker. First we will build the logistic regression model with all three variables, and second we would have saved out the predicted probability of having cancer based on the model. Note that in our example data set, this variable actually already exists so it wouldn’t be necessary to create the predicted probabilities once again.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">marker</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">df_binary</span>, type.predict <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 9</span></span>
-<span class="co">#&gt;    patientid cancer  dead risk_group     age famhistory marker cancerpredmarker</span>
-<span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>         1 FALSE      0 low           64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>         2 FALSE      0 high          78.5          0 0.267           0.579  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>         3 FALSE      0 low           64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>         4 FALSE      0 low           58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>         5 FALSE      0 low           64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>         6 FALSE      0 intermediate  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>         7 FALSE      1 intermediate  71.9          0 0.942           0.296  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>         8 TRUE       0 intermediate  66.6          0 2.91            0.387  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>         9 FALSE      0 low           64.3          0 0.715           0.037<span style="text-decoration: underline;">3</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>        10 FALSE      0 intermediate  65.7          0 0.129           0.032<span style="text-decoration: underline;">0</span> </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 1 more variable: .fitted &lt;dbl&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">marker</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">df_binary</span>, type.predict <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 9</span></span></span>
+<span><span class="co">#&gt;    patientid cancer  dead risk_group     age famhistory marker cancerpredmarker</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>         1 FALSE      0 low           64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>         2 FALSE      0 high          78.5          0 0.267           0.579  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>         3 FALSE      0 low           64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>         4 FALSE      0 low           58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>         5 FALSE      0 low           64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>         6 FALSE      0 intermediate  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>         7 FALSE      1 intermediate  71.9          0 0.942           0.296  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>         8 TRUE       0 intermediate  66.6          0 2.91            0.387  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>         9 FALSE      0 low           64.3          0 0.715           0.037<span style="text-decoration: underline;">3</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>        10 FALSE      0 intermediate  65.7          0 0.129           0.032<span style="text-decoration: underline;">0</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 1 more variable: .fitted &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>We now want to compare our different approaches to cancer detection: biopsying everyone, biopsying no-one, biopsying on the basis of family history, or biopsying on the basis of a multivariable statistical model including the marker, age and family history of cancer.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span> <span class="op">+</span> <span class="va">cancerpredmarker</span>, 
-    data <span class="op">=</span> <span class="va">df_binary</span>, 
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span> <span class="op">+</span> <span class="va">cancerpredmarker</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary</span>, </span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>The key aspect of decision curve analysis is to look at which strategy leads to the largest net benefit (i.e. the “highest” line), which in this example would correspond to the model that includes age, family history of cancer, and the marker. It is clear that, across the range of reasonable threshold probabilities, one cannot go wrong basing decisions on this multivariate model: it is superior, and unlike any alternative strategy, it is never worse.</p>
 <p>A few points are worth noting. First, look at the green line, the net benefit for “treat all”, that is, biopsy everyone. This crosses the y axis at the prevalence. Imagine that a man had a risk threshold of 14%, and asked his risk under the “biopsy all” strategy. He would be told that his risk was the prevalence (14%). When a patient’s risk threshold is the same as his predicted risk, the net benefit of biopsying and not biopsying are the same. Second, the decision curve for the binary variable (family history of cancer, the brown line) crosses the “biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer. The decision curve for a binary variable is equivalent to biopsy no-one at the positive predictive value. This is because for a binary variable, a patient with the characteristic is given a risk at the positive predictive value.</p>
@@ -588,18 +588,18 @@
 </h4>
 <p>Imagine that a model was published by Brown et al. with respect to our cancer biopsy data set. The authors reported a statistical model with coefficients of 0.75 for a positive family history of cancer; 0.26 for each increased year of age, and an intercept of -17.5. To test this formula on our dataset:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df_binary_updated</span> <span class="op">&lt;-</span>
-  <span class="va">df_binary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    <span class="co"># Use the coefficients from the Brown model</span>
-    logodds_Brown <span class="op">=</span> <span class="fl">0.75</span> <span class="op">*</span> <span class="op">(</span><span class="va">famhistory</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.26</span> <span class="op">*</span> <span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">-</span> <span class="fl">17.5</span>,
-    <span class="co"># Convert to predicted probability</span>
-    phat_Brown <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logodds_Brown</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logodds_Brown</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-
-<span class="co"># Run the decision curve</span>
-<span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">phat_Brown</span>, <span class="va">df_binary_updated</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df_binary_updated</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">df_binary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Use the coefficients from the Brown model</span></span>
+<span>    logodds_Brown <span class="op">=</span> <span class="fl">0.75</span> <span class="op">*</span> <span class="op">(</span><span class="va">famhistory</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.26</span> <span class="op">*</span> <span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">-</span> <span class="fl">17.5</span>,</span>
+<span>    <span class="co"># Convert to predicted probability</span></span>
+<span>    phat_Brown <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logodds_Brown</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logodds_Brown</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run the decision curve</span></span>
+<span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">phat_Brown</span>, <span class="va">df_binary_updated</span>, thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>This decision curve suggests that although the model might be useful in the most risk averse patients, it is actually harmful in patients with more moderate threshold probabilities. As such, the Brown et al. model should not be used in clinical practice. This effect, a model being harmful, occurs due to miscalibration, that is, when patients are given risks that are too high or too low. Note that miscalibration only occurs rarely when models are created and tested on the same data set, such as in the example where we created a model with both family history and the marker.</p>
 </div>
@@ -617,24 +617,24 @@
 </ol>
 <p>Decision curve analysis can incorporate joint or conditional testing. All that is required is that appropriate variables are calculated from the data set; decision curves are then calculated as normal. First we would create the variables to represent our joint and conditional approach. For our example, let us use 0.15 as the cutoff probability level for patients who had their marker measured and should be biopsied.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df_binary_updated</span> <span class="op">&lt;-</span>
-  <span class="va">df_binary_updated</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    <span class="co"># Create a variable for the strategy of treating only high risk patients</span>
-    <span class="co"># This will be 1 for treat and 0 for don't treat</span>
-    high_risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,
-    <span class="co"># Treat based on Joint Approach</span>
-    joint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span> <span class="op">|</span> <span class="va">cancerpredmarker</span> <span class="op">&gt;</span> <span class="fl">0.15</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,
-    <span class="co"># Treat based on Conditional Approach</span>
-    conditional <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span> <span class="op">|</span> 
-                           <span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"intermediate"</span> <span class="op">&amp;</span> <span class="va">cancerpredmarker</span> <span class="op">&gt;</span> <span class="fl">0.15</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df_binary_updated</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">df_binary_updated</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Create a variable for the strategy of treating only high risk patients</span></span>
+<span>    <span class="co"># This will be 1 for treat and 0 for don't treat</span></span>
+<span>    high_risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Treat based on Joint Approach</span></span>
+<span>    joint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span> <span class="op">|</span> <span class="va">cancerpredmarker</span> <span class="op">&gt;</span> <span class="fl">0.15</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Treat based on Conditional Approach</span></span>
+<span>    conditional <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"high"</span> <span class="op">|</span> </span>
+<span>                           <span class="op">(</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"intermediate"</span> <span class="op">&amp;</span> <span class="va">cancerpredmarker</span> <span class="op">&gt;</span> <span class="fl">0.15</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>Now that we have the variables worked out, we can run the decision curve analysis.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">high_risk</span> <span class="op">+</span> <span class="va">joint</span> <span class="op">+</span> <span class="va">conditional</span>, 
-    data <span class="op">=</span> <span class="va">df_binary_updated</span>, 
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">high_risk</span> <span class="op">+</span> <span class="va">joint</span> <span class="op">+</span> <span class="va">conditional</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary_updated</span>, </span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>This appears to show that the joint test is the better option for the range of threshold probabilities from 5% - 24% since it has the highest net benefit across that range. Less than 5%, the clinical option of treating all would be superior to any other option, though rarely would treatment thresholds be so low. From 28%-35%, the conditional test would be a slightly better option, and in between the two ranges, the joint and conditional tests are comparable. The obvious disadvantage of the joint test is that the marker needs to be measured for everyone, and such tests may be expensive and time consuming.</p>
 </div>
@@ -644,22 +644,22 @@
 </h3>
 <p>To incorporate the harm of testing and measuring the marker, we ask a clinician, who tells us that, even if the marker were perfectly accurate, few clinicians would conduct more than 30 tests to predict one cancer diagnosis. This might be because the test is expensive, or requires some invasive procedure to obtain. The “harm” of measuring the marker is the reciprocal of 30, or 0.0333. To construct the decision curves for each strategy we now incorporate harm. We have to calculate harm specially for the conditional test, because only patients at intermediate risk are measured for the marker. Then incorporate it into our decision curve. The strategy for incorporating harm for the conditional test is by multiplying the proportion scanned by the harm of the scan.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># the harm of measuring the marker is stored in a scalar</span>
-<span class="va">harm_marker</span> <span class="op">&lt;-</span> <span class="fl">0.0333</span>
-
-<span class="co"># in the conditional test, only patients at intermediate risk have their marker measured</span>
-<span class="va">intermediate_risk</span> <span class="op">&lt;-</span> <span class="va">df_binary_updated</span><span class="op">$</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"intermediate"</span>
-
-<span class="co"># harm of the conditional approach is proportion of patients who have the marker measured multiplied by the harm</span>
-<span class="va">harm_conditional</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">intermediate_risk</span><span class="op">)</span> <span class="op">*</span> <span class="va">harm_marker</span>
-
-<span class="co"># Run the decision curve </span>
-<span class="va">dca_with_harms</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">high_risk</span> <span class="op">+</span> <span class="va">joint</span> <span class="op">+</span> <span class="va">conditional</span>, 
-    data <span class="op">=</span> <span class="va">df_binary_updated</span>, 
-    harm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>joint <span class="op">=</span> <span class="va">harm_marker</span>, conditional <span class="op">=</span> <span class="va">harm_conditional</span><span class="op">)</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dca_with_harms</span>, smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># the harm of measuring the marker is stored in a scalar</span></span>
+<span><span class="va">harm_marker</span> <span class="op">&lt;-</span> <span class="fl">0.0333</span></span>
+<span></span>
+<span><span class="co"># in the conditional test, only patients at intermediate risk have their marker measured</span></span>
+<span><span class="va">intermediate_risk</span> <span class="op">&lt;-</span> <span class="va">df_binary_updated</span><span class="op">$</span><span class="va">risk_group</span> <span class="op">==</span> <span class="st">"intermediate"</span></span>
+<span></span>
+<span><span class="co"># harm of the conditional approach is proportion of patients who have the marker measured multiplied by the harm</span></span>
+<span><span class="va">harm_conditional</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">intermediate_risk</span><span class="op">)</span> <span class="op">*</span> <span class="va">harm_marker</span></span>
+<span></span>
+<span><span class="co"># Run the decision curve </span></span>
+<span><span class="va">dca_with_harms</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">high_risk</span> <span class="op">+</span> <span class="va">joint</span> <span class="op">+</span> <span class="va">conditional</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary_updated</span>, </span>
+<span>    harm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>joint <span class="op">=</span> <span class="va">harm_marker</span>, conditional <span class="op">=</span> <span class="va">harm_conditional</span><span class="op">)</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dca_with_harms</span>, smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Here the conditional test is clearly the best option (above the 8% treatment threshold), in fact, once you take into account the harm of measuring the marker, it is clearly not worth measuring the marker for everyone: the net benefit of just treating high risk patients is often higher than that of the joint test.</p>
 </div>
@@ -669,22 +669,22 @@
 <p>For any model assessed through decision curve analysis, if we also wanted to show the net benefits in a table, we could save them out. For a particular range of value, we would only need to specify what threshold to start, stop, and the increment we’d like to use.</p>
 <p>Let us imagine that we want to view the net benefit of using only the marker to predict whether a patient has cancer, compared with the net benefits of biopsying all patients at thresholds of 5%, 10%, 15%, … 35%. For the model itself, we would actually need to first specify that the marker variable—unlike those of any of the models before—is not a probability. Based on our thresholds, we’d want to begin at 0.05, and by increments of 0.05, stop at 0.35.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dca_with_harms</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">threshold</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">threshold</span>, <span class="va">net_benefit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">threshold</span>, 
-              names_from <span class="op">=</span> <span class="va">variable</span>,
-              values_from <span class="op">=</span> <span class="va">net_benefit</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span>
-<span class="co">#&gt;   threshold     all  none high_risk    joint conditional</span>
-<span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      0.05  0.094<span style="text-decoration: underline;">7</span>     0    0.016<span style="text-decoration: underline;">8</span>  0.067<span style="text-decoration: underline;">1</span>      0.074<span style="text-decoration: underline;">0</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      0.1   0.044<span style="text-decoration: underline;">4</span>     0    0.016<span style="text-decoration: underline;">1</span>  0.057<span style="text-decoration: underline;">1</span>      0.066<span style="text-decoration: underline;">2</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      0.2  -<span style="color: #BB0000;">0.075</span>      0    0.014<span style="text-decoration: underline;">7</span>  0.033<span style="text-decoration: underline;">4</span>      0.047<span style="text-decoration: underline;">5</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      0.25 -<span style="color: #BB0000;">0.147</span>      0    0.013<span style="text-decoration: underline;">8</span>  0.019<span style="text-decoration: underline;">1</span>      0.036<span style="text-decoration: underline;">2</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      0.3  -<span style="color: #BB0000;">0.229</span>      0    0.012<span style="text-decoration: underline;">8</span>  0.002<span style="text-decoration: underline;">89</span>     0.023<span style="text-decoration: underline;">4</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>      0.35 -<span style="color: #BB0000;">0.323</span>      0    0.011<span style="text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.015</span><span style="color: #BB0000; text-decoration: underline;">9</span>      0.008<span style="text-decoration: underline;">61</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dca_with_harms</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">threshold</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">threshold</span>, <span class="va">net_benefit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">threshold</span>, </span>
+<span>              names_from <span class="op">=</span> <span class="va">variable</span>,</span>
+<span>              values_from <span class="op">=</span> <span class="va">net_benefit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
+<span><span class="co">#&gt;   threshold     all  none high_risk    joint conditional</span></span>
+<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      0.05  0.094<span style="text-decoration: underline;">7</span>     0    0.016<span style="text-decoration: underline;">8</span>  0.067<span style="text-decoration: underline;">1</span>      0.074<span style="text-decoration: underline;">0</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      0.1   0.044<span style="text-decoration: underline;">4</span>     0    0.016<span style="text-decoration: underline;">1</span>  0.057<span style="text-decoration: underline;">1</span>      0.066<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      0.2  -<span style="color: #BB0000;">0.075</span>      0    0.014<span style="text-decoration: underline;">7</span>  0.033<span style="text-decoration: underline;">4</span>      0.047<span style="text-decoration: underline;">5</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      0.25 -<span style="color: #BB0000;">0.147</span>      0    0.013<span style="text-decoration: underline;">8</span>  0.019<span style="text-decoration: underline;">1</span>      0.036<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      0.3  -<span style="color: #BB0000;">0.229</span>      0    0.012<span style="text-decoration: underline;">8</span>  0.002<span style="text-decoration: underline;">89</span>     0.023<span style="text-decoration: underline;">4</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>      0.35 -<span style="color: #BB0000;">0.323</span>      0    0.011<span style="text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.015</span><span style="color: #BB0000; text-decoration: underline;">9</span>      0.008<span style="text-decoration: underline;">61</span></span></span></code></pre></div>
 <p>Net benefit has a ready clinical interpretation. The value of 0.03 at a threshold probability of 20% can be interpreted as: “Comparing to conducting no biopsies, biopsying on the basis of the marker is the equivalent of a strategy that found 3 cancers per hundred patients without conducting any unnecessary biopsies.”</p>
 </div>
 <div class="section level3">
@@ -692,12 +692,12 @@
 </h3>
 <p>As part of assessing the usefulness of the marker, we would be interested in whether using this marker to identify patients with and without cancer would help reduce unnecessary biopsies. This value was the “intervention avoided” column in the table that was saved out. To view it graphically, we would only need to specify it in our command.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">marker</span>, 
-    data <span class="op">=</span> <span class="va">df_binary</span>, 
-    as_probability <span class="op">=</span> <span class="st">"marker"</span>,
-    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/net_intervention_avoided.html">net_intervention_avoided</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">marker</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_binary</span>, </span>
+<span>    as_probability <span class="op">=</span> <span class="st">"marker"</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.35</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/net_intervention_avoided.html">net_intervention_avoided</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>At a probability threshold of 15%, the net reduction in interventions is about 33 per 100 patients. In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers.</p>
 </div>
@@ -710,18 +710,18 @@
 </h3>
 <p>Patients went to have a marker measured and patients were followed to determine whether they were eventually diagnosed with cancer. We want to build a model using age, family history, and the marker, and assess how well the model predicts cancer within 1.5 years. The variables that will be used from the example dataset for this section of the tutorial are the following:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span>
-<span class="va">df_surv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span>
-<span class="co">#&gt;   patientid cancer ttcancer risk_group    age famhistory marker cancerpredmarker</span>
-<span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>         1 FALSE    3.01   low          64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>         2 FALSE    0.249  high         78.5          0 0.267           0.579  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>         3 FALSE    1.59   low          64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>         4 FALSE    3.46   low          58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>         5 FALSE    3.33   low          64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         6 FALSE    0.048<span style="text-decoration: underline;">8</span> intermedia…  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: cancer_cr &lt;fct&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span>
+<span><span class="va">df_surv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
+<span><span class="co">#&gt;   patientid cancer ttcancer risk_group    age famhistory marker cancerpredmarker</span></span>
+<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>         1 FALSE    3.01   low          64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>         2 FALSE    0.249  high         78.5          0 0.267           0.579  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>         3 FALSE    1.59   low          64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>         4 FALSE    3.46   low          58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>         5 FALSE    3.33   low          64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         6 FALSE    0.048<span style="text-decoration: underline;">8</span> intermedia…  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: cancer_cr &lt;fct&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="basic-data-set-up">Basic Data Set-up<a class="anchor" aria-label="anchor" href="#basic-data-set-up"></a>
@@ -733,17 +733,17 @@ S(t) = S_0(t)^{e^{X\beta}}
 <p>Where <span class="math inline">\(X\)</span> is matrix of covariates in the Cox model, <span class="math inline">\(\beta\)</span> is a vector containing the parameter estimates from the Cox model, and <span class="math inline">\(S_0(t)\)</span> is the baseline survival probability to time <span class="math inline">\(t\)</span>. To get such values within our code, we will run a Cox model with age, family history, and the marker, as predictors, save out the baseline survival function in a new variable, and obtaining the linear prediction from the model for each subject.</p>
 <p>We then obtain the baseline survival probability to our time point of interest. If no patient was observed at the exact time of interest, we can use the baseline survival probability to the observed time closest to, but not after, the time point. We can then calculate the probability of failure at the specified time point. For our example, we will use a time point of 1.5 years.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># build Cox model</span>
-<span class="va">cox_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/coxph.html" class="external-link">coxph</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">famhistory</span> <span class="op">+</span> <span class="va">marker</span>, data <span class="op">=</span> <span class="va">df_surv</span><span class="op">)</span>
-
-<span class="co"># show summary of model results</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">cox_model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div id="yhjwnablfa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="co"># build Cox model</span></span>
+<span><span class="va">cox_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/coxph.html" class="external-link">coxph</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">famhistory</span> <span class="op">+</span> <span class="va">marker</span>, data <span class="op">=</span> <span class="va">df_surv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># show summary of model results</span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">cox_model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div id="tzcxrtnnon" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#yhjwnablfa .gt_table {
+#tzcxrtnnon .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -768,7 +768,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-left-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_heading {
+#tzcxrtnnon .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -780,7 +780,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_title {
+#tzcxrtnnon .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -792,7 +792,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-width: 0;
 }
 
-#yhjwnablfa .gt_subtitle {
+#tzcxrtnnon .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -804,13 +804,13 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-width: 0;
 }
 
-#yhjwnablfa .gt_bottom_border {
+#tzcxrtnnon .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_col_headings {
+#tzcxrtnnon .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -825,7 +825,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_col_heading {
+#tzcxrtnnon .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -845,7 +845,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#yhjwnablfa .gt_column_spanner_outer {
+#tzcxrtnnon .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -857,15 +857,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 4px;
 }
 
-#yhjwnablfa .gt_column_spanner_outer:first-child {
+#tzcxrtnnon .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yhjwnablfa .gt_column_spanner_outer:last-child {
+#tzcxrtnnon .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yhjwnablfa .gt_column_spanner {
+#tzcxrtnnon .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -877,7 +877,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   width: 100%;
 }
 
-#yhjwnablfa .gt_group_heading {
+#tzcxrtnnon .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -902,7 +902,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#yhjwnablfa .gt_empty_group_heading {
+#tzcxrtnnon .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -917,15 +917,15 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: middle;
 }
 
-#yhjwnablfa .gt_from_md > :first-child {
+#tzcxrtnnon .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yhjwnablfa .gt_from_md > :last-child {
+#tzcxrtnnon .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yhjwnablfa .gt_row {
+#tzcxrtnnon .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -944,7 +944,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   overflow-x: hidden;
 }
 
-#yhjwnablfa .gt_stub {
+#tzcxrtnnon .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -957,7 +957,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#yhjwnablfa .gt_stub_row_group {
+#tzcxrtnnon .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -971,11 +971,11 @@ S(t) = S_0(t)^{e^{X\beta}}
   vertical-align: top;
 }
 
-#yhjwnablfa .gt_row_group_first td {
+#tzcxrtnnon .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yhjwnablfa .gt_summary_row {
+#tzcxrtnnon .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -985,16 +985,16 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#yhjwnablfa .gt_first_summary_row {
+#tzcxrtnnon .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_first_summary_row.thick {
+#tzcxrtnnon .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yhjwnablfa .gt_last_summary_row {
+#tzcxrtnnon .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1004,7 +1004,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_grand_summary_row {
+#tzcxrtnnon .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1014,7 +1014,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#yhjwnablfa .gt_first_grand_summary_row {
+#tzcxrtnnon .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1024,11 +1024,11 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-top-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_striped {
+#tzcxrtnnon .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yhjwnablfa .gt_table_body {
+#tzcxrtnnon .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1037,7 +1037,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-bottom-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_footnotes {
+#tzcxrtnnon .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1051,7 +1051,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_footnote {
+#tzcxrtnnon .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1060,7 +1060,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#yhjwnablfa .gt_sourcenotes {
+#tzcxrtnnon .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1074,7 +1074,7 @@ S(t) = S_0(t)^{e^{X\beta}}
   border-right-color: #D3D3D3;
 }
 
-#yhjwnablfa .gt_sourcenote {
+#tzcxrtnnon .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1082,36 +1082,36 @@ S(t) = S_0(t)^{e^{X\beta}}
   padding-right: 5px;
 }
 
-#yhjwnablfa .gt_left {
+#tzcxrtnnon .gt_left {
   text-align: left;
 }
 
-#yhjwnablfa .gt_center {
+#tzcxrtnnon .gt_center {
   text-align: center;
 }
 
-#yhjwnablfa .gt_right {
+#tzcxrtnnon .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yhjwnablfa .gt_font_normal {
+#tzcxrtnnon .gt_font_normal {
   font-weight: normal;
 }
 
-#yhjwnablfa .gt_font_bold {
+#tzcxrtnnon .gt_font_bold {
   font-weight: bold;
 }
 
-#yhjwnablfa .gt_font_italic {
+#tzcxrtnnon .gt_font_italic {
   font-style: italic;
 }
 
-#yhjwnablfa .gt_super {
+#tzcxrtnnon .gt_super {
   font-size: 65%;
 }
 
-#yhjwnablfa .gt_two_val_uncert {
+#tzcxrtnnon .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -1120,31 +1120,31 @@ S(t) = S_0(t)^{e^{X\beta}}
   margin-left: 0.1em;
 }
 
-#yhjwnablfa .gt_footnote_marks {
+#tzcxrtnnon .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#yhjwnablfa .gt_asterisk {
+#tzcxrtnnon .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yhjwnablfa .gt_slash_mark {
+#tzcxrtnnon .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#yhjwnablfa .gt_fraction_numerator {
+#tzcxrtnnon .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#yhjwnablfa .gt_fraction_denominator {
+#tzcxrtnnon .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1201,11 +1201,11 @@ df_surv_updated &lt;-
     select(-.fitted, -.se.fit)
 <p>The code for running the decision curve analysis is straightforward after the probability of failure is calculated. All we have to do is specify the time point we are interested in. For our example, let us not only set the threshold from 0% to 50%, but also add smoothing. Results of a smoothed curve should always be compared with the unsmoothed curve to ensure accuracy.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, 
-    data <span class="op">=</span> <span class="va">df_surv_updated</span>,
-    time <span class="op">=</span> <span class="fl">1.5</span>,
-    thresholds <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_surv_updated</span>,</span>
+<span>    time <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>This shows that using the model to inform clinical decisions will lead to superior outcomes for any decision associated with a threshold probability of above 2% or so.</p>
 </div>
@@ -1214,24 +1214,24 @@ df_surv_updated &lt;-
 </h3>
 <p>Competing risks endpoints are handled similarly to survival endpoints. The outcome must be defined as a factor, with the lowest level called <code>"censor"</code>, and the other levels defining the events of interest. The <code><a href="../reference/dca.html">dca()</a></code> function will treat the first outcome listed as the outcome of interest.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, 
-    data <span class="op">=</span> <span class="va">df_surv_updated</span>,
-    time <span class="op">=</span> <span class="fl">1.5</span>,
-    thresholds <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_surv_updated</span>,</span>
+<span>    time <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>    thresholds <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="case-control-data">Case-Control Data<a class="anchor" aria-label="anchor" href="#case-control-data"></a>
 </h2>
-<p>Case-control data are handled similarly to binary data, expect that the prevalence of the outcome must be specified as it cannot be estimated from the data.</p>
+<p>Case-control data are handled similarly to binary data, except that the prevalence of the outcome must be specified as it cannot be estimated from the data.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">casecontrol</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, 
-    data <span class="op">=</span> <span class="va">df_case_control</span>,
-    prevalence <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; Assuming '1' is [Event] and '0' is [non-Event]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">casecontrol</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">df_case_control</span>,</span>
+<span>    prevalence <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Assuming '1' is [Event] and '0' is [non-Event]</span></span></code></pre></div>
 <p><img src="dca_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
   </div>
@@ -1253,7 +1253,7 @@ df_surv_updated &lt;-
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
