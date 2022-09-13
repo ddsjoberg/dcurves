@@ -102,7 +102,7 @@ A few points are worth noting.
 First, look at the green line, the net benefit for "treat all”, that is, biopsy everyone. 
 This crosses the y axis at the prevalence. Imagine that a man had a risk threshold of 14%, and asked his risk under the "biopsy all" strategy. He would be told that his risk was the prevalence (14%).
 When a patient's risk threshold is the same as his predicted risk, the net benefit of biopsying and not biopsying are the same.
-Second, the decision curve for the binary variable (family history of cancer, the brown line) crosses the "biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer. 
+Second, the decision curve for the binary variable (family history of cancer, the teal line) crosses the "biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer. 
 The decision curve for a binary variable is equivalent to biopsy no-one at the positive predictive value. 
 This is because for a binary variable, a patient with the characteristic is given a risk at the positive predictive
 value. 
