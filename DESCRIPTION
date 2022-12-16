@@ -1,6 +1,6 @@
 Package: dcurves
 Title: Decision Curve Analysis for Model Evaluation
-Version: 0.3.0.9000
+Version: 0.3.0.9001
 Authors@R: 
     c(person(given = "Daniel D.",
            family = "Sjoberg",
@@ -30,6 +30,7 @@ Depends:
     R (>= 3.5)
 Imports: 
     broom (>= 0.7.10),
+    cli (>= 3.4.1),
     dplyr (>= 1.0.5),
     ggplot2 (>= 3.3.3),
     glue (>= 1.4.2),
@@ -55,4 +56,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.2

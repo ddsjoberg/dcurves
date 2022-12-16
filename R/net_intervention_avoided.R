@@ -23,6 +23,13 @@ net_intervention_avoided <- function(x, nper = 100) {
       call. = FALSE
     )
   }
+  if (any(x$dca$threshold > x$prevalence)) {
+    paste(
+      "Net Intervention above the prevalence is not valid.",
+      "See details {.href [here.](https://www.danieldsjoberg.com/dcurves/reference/net_intervention_avoided.html)}"
+    ) %>%
+    cli::cli_alert_info()
+  }
 
   # add net interventions to the dca tibble ------------------------------------
   x$dca <-
