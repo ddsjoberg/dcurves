@@ -8,4 +8,5 @@
 #' strategy at a threshold where you shouldn’t use the treat all strategy?"
 #'
 #' @name net_intervention_above_prev
+#' @keywords internal
 NULL
