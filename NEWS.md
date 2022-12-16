@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Added a note anytime a user creates a Net Interventions Avoided DCA that includes threshold probabilities above the prevalence.
+
 # dcurves 0.3.0
 
 * Added function `test_consequences()` to calculate the diagnostic accuracy of a risk at several thresholds.
