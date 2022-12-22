@@ -20,16 +20,14 @@ Add the number of net interventions avoided to \code{dca()} object.
 \examples{
 dca(
   cancer ~ cancerpredmarker,
-  data = df_binary,
-  thresholds = seq(0, 0.14, by = 0.01)
+  data = df_binary
 ) \%>\%
   net_intervention_avoided()
 
 dca(
   Surv(ttcancer, cancer) ~ cancerpredmarker,
   data = df_surv,
-  time = 1,
-  thresholds = seq(0, 0.14, by = 0.01)
+  time = 1
 ) \%>\%
   net_intervention_avoided()
 }

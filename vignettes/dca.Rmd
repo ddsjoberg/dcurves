@@ -248,8 +248,7 @@ This value was the “intervention avoided” column in the table that was saved
 ```{r}
 dca(cancer ~ marker, 
     data = df_binary, 
-    as_probability = "marker",
-    thresholds = seq(0, 0.14, by = 0.01)) %>%
+    as_probability = "marker") %>%
   net_intervention_avoided() %>%
   plot(smooth = TRUE)
 ```
