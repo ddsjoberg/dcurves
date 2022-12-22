@@ -94,8 +94,7 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="dca.html">dca</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>,</span></span>
-<span class="r-in"><span>  data <span class="op">=</span> <span class="va">df_binary</span>,</span></span>
-<span class="r-in"><span>  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.14</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">df_binary</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">net_intervention_avoided</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE, show_ggplot_code = FALSE)`</span>
@@ -104,8 +103,7 @@
 <span class="r-in"><span><span class="fu"><a href="dca.html">dca</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>,</span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">df_surv</span>,</span></span>
-<span class="r-in"><span>  time <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.14</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">net_intervention_avoided</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Printing with `plot(x, type = 'net_intervention_avoided', smooth = FALSE, show_ggplot_code = FALSE)`</span>
