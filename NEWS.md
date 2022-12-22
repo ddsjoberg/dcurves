@@ -1,6 +1,8 @@
 # dcurves (development version)
 
-* Added a note anytime a user creates a Net Interventions Avoided DCA that includes threshold probabilities above the prevalence.
+* The net interventions avoided figures have new defaults:
+  - The figure will now include the treat all and treat none reference lines.
+  - The `nper` now defaults to one.
 
 # dcurves 0.3.0
 

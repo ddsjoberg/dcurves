@@ -3,7 +3,7 @@
 #' Add the number of net interventions avoided to `dca()` object.
 #'
 #' @param x object of class `'dca'` calculated with `dca()`
-#' @param nper Number to report net interventions per. Default is 100.
+#' @param nper Number to report net interventions per. Default is 1
 #'
 #' @return 'dca' object
 #' @export
@@ -11,27 +11,28 @@
 #' @seealso [`dca()`], [`standardized_net_benefit()`], [`plot.dca()`], [`as_tibble.dca()`]
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
+#' dca(
+#'   cancer ~ cancerpredmarker,
+#'   data = df_binary,
+#'   thresholds = seq(0, 0.14, by = 0.01)
+#' ) %>%
 #'   net_intervention_avoided()
 #'
-#' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1) %>%
+#' dca(
+#'   Surv(ttcancer, cancer) ~ cancerpredmarker,
+#'   data = df_surv,
+#'   time = 1,
+#'   thresholds = seq(0, 0.14, by = 0.01)
+#' ) %>%
 #'   net_intervention_avoided()
 
-net_intervention_avoided <- function(x, nper = 100) {
+net_intervention_avoided <- function(x, nper = 1) {
   if (!inherits(x, "dca")) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
       call. = FALSE
     )
   }
-  if (any(x$dca$threshold > x$prevalence)) {
-    paste(
-      "Reporting Net Interventions Avoided above the prevalence is not valid.",
-      "See details {.href [here.](https://www.danieldsjoberg.com/dcurves/dev/reference/net_intervention_above_prev.html)}"
-    ) %>%
-    cli::cli_alert_info()
-  }
 
-  # add net interventions to the dca tibble ------------------------------------
   x$dca <-
     x$dca %>%
     dplyr::left_join(

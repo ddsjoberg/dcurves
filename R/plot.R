@@ -74,8 +74,7 @@ plot.dca <- function(x,
              "net_benefit" = expr(dplyr::filter(!is.na(!!sym("net_benefit")))),
              "standardized_net_benefit" = expr(dplyr::filter(!is.na(!!sym("standardized_net_benefit")))),
              "net_intervention_avoided" =
-               expr(dplyr::filter(!is.na(!!sym("net_intervention_avoided")),
-                                  !(!!sym("variable") %in% c("all", "none")))))
+               expr(dplyr::filter(!is.na(!!sym("net_intervention_avoided")))))
     )
 
   # assign aes() and geom_*() arguments ----------------------------------------
@@ -106,8 +105,8 @@ plot.dca <- function(x,
     ylim = c(x$prevalence * -0.1, x$prevalence) %>% unname()
   }
   else if (type == "net_intervention_avoided") {
-    y_axis_title <- paste("Net reduction in interventions\nper",
-                          x$net_interventions_nper, "patients")
+    y_axis_title <- "Net reduction in interventions"
+    if (x$net_interventions_nper != 1) y_axis_title <- paste(y_axis_title, "\nper", x$net_interventions_nper, "patients")
     ylim = c(0, x$net_interventions_nper)
   }
   else if (type == "standardized_net_benefit") {
