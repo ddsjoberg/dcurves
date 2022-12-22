@@ -30,7 +30,6 @@ Depends:
     R (>= 3.5)
 Imports: 
     broom (>= 0.7.10),
-    cli (>= 3.4.1),
     dplyr (>= 1.0.5),
     ggplot2 (>= 3.3.3),
     glue (>= 1.4.2),

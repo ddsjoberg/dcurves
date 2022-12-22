@@ -37,7 +37,7 @@ net_intervention_avoided <- function(x, nper = 1) {
     x$dca %>%
     dplyr::left_join(
       dplyr::filter(., .data$variable %in% "all") %>%
-        dplyr::select(.data$threshold, net_benefit_all = .data$net_benefit),
+        dplyr::select("threshold", net_benefit_all = "net_benefit"),
       by = "threshold"
     ) %>%
     dplyr::mutate(
@@ -45,7 +45,7 @@ net_intervention_avoided <- function(x, nper = 1) {
         (.data$net_benefit - .data$net_benefit_all) /
           (.data$threshold / (1 - .data$threshold)) * .env$nper
     ) %>%
-    dplyr::select(-.data$net_benefit_all)
+    dplyr::select(-"net_benefit_all")
 
   # add nper info to dca list --------------------------------------------------
   x$net_interventions_nper <- nper

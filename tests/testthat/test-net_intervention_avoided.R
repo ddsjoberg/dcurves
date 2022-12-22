@@ -10,7 +10,7 @@ test_that("net_intervention_avoided() works", {
       as_tibble() %>%
       dplyr::filter(threshold == 0.25) %>%
       dplyr::pull(net_intervention_avoided),
-    c(0.0, 44.0, 63.2),
+    c(0.0, 0.44, 0.632),
     tolerance = 1e-5
   )
 

@@ -112,7 +112,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                     .fns = ~dplyr::case_when(. == 0 ~ 0 - .Machine$double.eps,
                                              . == 1 ~ 1 + .Machine$double.eps,
                                              TRUE ~ .)),
-      .after = .data[[outcome_name]]
+      .after = all_of(outcome_name)
     )
 
   # calculate net benefit ------------------------------------------------------
@@ -229,7 +229,7 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
 
   df_tidy %>%
     dplyr::slice_tail() %>%
-    dplyr::pull(.data$estimate)
+    dplyr::pull("estimate")
 }
 
 .as_probability <- function(model_frame, outcome_name, outcome_type, as_probability, time) {
