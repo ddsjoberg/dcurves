@@ -113,7 +113,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                                              . == 1 ~ 1 + .Machine$double.eps,
                                              TRUE ~ .)),
       .after = all_of(outcome_name)
-    )
+    ) %>%
+    copy_labels_from(model_frame)
 
   # calculate net benefit ------------------------------------------------------
   dca_result <-
@@ -247,5 +248,13 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
   .check_probability_range(model_frame, outcome_name)
 
   model_frame
+}
+
+
+copy_labels_from <- function(x, y) {
+  for (v in names(x)) {
+    attr(x[[v]], "label") <- attr(y[[v]], "label") %||% attr(x[[v]], "label")
+  }
+  x
 }
 
