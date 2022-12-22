@@ -25,8 +25,14 @@
 #' @seealso [`dca()`], [`net_intervention_avoided()`], [`standardized_net_benefit()`], [`as_tibble.dca()`]
 #'
 #' @examples
-#' dca(cancer ~ cancerpredmarker, data = df_binary) %>%
+#' p <-
+#'   dca(cancer ~ cancerpredmarker, data = df_binary) %>%
 #'   plot(smooth = TRUE, show_ggplot_code = TRUE)
+#' p
+#'
+#' # change the line colors
+#' p + ggplot2::scale_color_manual(values = c('black', 'grey', 'purple'))
+#'
 plot.dca <- function(x,
                          type = NULL,
                          smooth = FALSE,

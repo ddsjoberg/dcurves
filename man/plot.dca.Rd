@@ -47,8 +47,14 @@ a ggplot2 object
 Plot DCA Object with ggplot
 }
 \examples{
-dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
+p <-
+  dca(cancer ~ cancerpredmarker, data = df_binary) \%>\%
   plot(smooth = TRUE, show_ggplot_code = TRUE)
+p
+
+# change the line colors
+p + ggplot2::scale_color_manual(values = c('black', 'grey', 'purple'))
+
 }
 \seealso{
 \code{\link[=dca]{dca()}}, \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}
