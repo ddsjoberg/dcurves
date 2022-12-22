@@ -123,7 +123,10 @@ df_binary_updated <-
   )
 
 # Run the decision curve
-dca(cancer ~ phat_Brown, df_binary_updated, thresholds = seq(0, 0.35, by = 0.01)) %>%
+dca(cancer ~ phat_Brown, 
+    data = df_binary_updated, 
+    thresholds = seq(0, 0.35, by = 0.01),
+    label = list(phat_Brown = "Brown Model")) %>%
   plot(smooth = TRUE)
 ```
 
@@ -251,7 +254,7 @@ dca(cancer ~ marker,
   plot(smooth = TRUE)
 ```
 
-At a probability threshold of 15%, the net reduction in interventions is about 33 per 100 patients.
+At a probability threshold of 15%, the net reduction in interventions is about 0.33.
 In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers. 
 
 ## Survival Outcomes
