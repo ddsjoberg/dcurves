@@ -1,6 +1,6 @@
 # dcurves (development version)
 
-* The net interventions avoided figures have new defaults:
+* The net interventions avoided figures have new defaults (breaking change):
   - The figure will now include the treat all and treat none reference lines.
   - The `nper` now defaults to one.
 
