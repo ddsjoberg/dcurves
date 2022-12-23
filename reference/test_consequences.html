@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -62,16 +62,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">test_consequences</span><span class="op">(</span>
-  <span class="va">formula</span>,
-  <span class="va">data</span>,
-  statistics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pos_rate"</span>, <span class="st">"neg_rate"</span>, <span class="st">"test_pos_rate"</span>, <span class="st">"test_neg_rate"</span>, <span class="st">"tp_rate"</span>,
-    <span class="st">"fp_rate"</span>, <span class="st">"fn_rate"</span>, <span class="st">"tn_rate"</span>, <span class="st">"ppv"</span>, <span class="st">"npv"</span>, <span class="st">"sens"</span>, <span class="st">"spec"</span>, <span class="st">"lr_pos"</span>, <span class="st">"lr_neg"</span><span class="op">)</span>,
-  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  time <span class="op">=</span> <span class="cn">NULL</span>,
-  prevalence <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">test_consequences</span><span class="op">(</span></span>
+<span>  <span class="va">formula</span>,</span>
+<span>  <span class="va">data</span>,</span>
+<span>  statistics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pos_rate"</span>, <span class="st">"neg_rate"</span>, <span class="st">"test_pos_rate"</span>, <span class="st">"test_neg_rate"</span>, <span class="st">"tp_rate"</span>,</span>
+<span>    <span class="st">"fp_rate"</span>, <span class="st">"fn_rate"</span>, <span class="st">"tn_rate"</span>, <span class="st">"ppv"</span>, <span class="st">"npv"</span>, <span class="st">"sens"</span>, <span class="st">"spec"</span>, <span class="st">"lr_pos"</span>, <span class="st">"lr_neg"</span><span class="op">)</span>,</span>
+<span>  thresholds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prevalence <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,27 +79,42 @@
     <dl><dt>formula</dt>
 <dd><p>a formula with the outcome on the LHS and a sum of
 markers/covariates to test on the RHS</p></dd>
+
+
 <dt>data</dt>
 <dd><p>a data frame containing the variables in <code>formula=</code>.</p></dd>
+
+
 <dt>statistics</dt>
 <dd><p>Character vector with statistics to return. See below for details</p></dd>
+
+
 <dt>thresholds</dt>
 <dd><p>vector of threshold probabilities between 0 and 1.
 Default is <code>seq(0, 0.99, by = 0.01)</code>. Thresholds at zero are replaced
 with 10e-10.</p></dd>
+
+
 <dt>label</dt>
-<dd><p>named list of variable labels, e.g. <code>list(age = "Age, years)</code></p></dd>
+<dd><p>named list of variable labels, e.g. <code>list(age = "Age, years")</code></p></dd>
+
+
 <dt>time</dt>
 <dd><p>if outcome is survival, <code>time=</code> specifies the time the
 assessment is made</p></dd>
+
+
 <dt>prevalence</dt>
 <dd><p>When <code>NULL</code>, the prevalence is estimated from <code>data=</code>.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a tibble with test consequences</p>
+    
+
+<p>a tibble with test consequences</p>
     </div>
     <div id="statistics">
     <h2>statistics</h2>
@@ -111,18 +126,19 @@ may be set with this argument.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">test_consequences</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">test_consequences</span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 18</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   variable   label     n threshold pos_rate neg_rate test_pos_rate test_neg_rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> cancerpre… canc…   750      0        0.14     0.86        1              0    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cancerpre… canc…   750      0.25     0.14     0.86        0.192          0.808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> cancerpre… canc…   750      0.5      0.14     0.86        0.066<span style="text-decoration: underline;">7</span>         0.933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> cancerpre… canc…   750      0.75     0.14     0.86        0.018<span style="text-decoration: underline;">7</span>         0.981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cancerpre… canc…   750      1        0.14     0.86        0              1    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 more variables: tp_rate &lt;dbl&gt;, fp_rate &lt;dbl&gt;, fn_rate &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tn_rate &lt;dbl&gt;, ppv &lt;dbl&gt;, npv &lt;dbl&gt;, sens &lt;dbl&gt;, spec &lt;dbl&gt;, lr_pos &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lr_neg &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   variable   label     n thres…¹ pos_r…² neg_r…³ test_…⁴ test_…⁵ tp_rate fp_rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> cancerpre… canc…   750    0       0.14    0.86  1        0       0.14  0.86   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cancerpre… canc…   750    0.25    0.14    0.86  0.192    0.808   0.096 0.096  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> cancerpre… canc…   750    0.5     0.14    0.86  0.066<span style="text-decoration: underline;">7</span>   0.933   0.044 0.022<span style="text-decoration: underline;">7</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> cancerpre… canc…   750    0.75    0.14    0.86  0.018<span style="text-decoration: underline;">7</span>   0.981   0.016 0.002<span style="text-decoration: underline;">67</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cancerpre… canc…   750    1       0.14    0.86  0        1       0     0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 8 more variables: fn_rate &lt;dbl&gt;, tn_rate &lt;dbl&gt;, ppv &lt;dbl&gt;, npv &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   sens &lt;dbl&gt;, spec &lt;dbl&gt;, lr_pos &lt;dbl&gt;, lr_neg &lt;dbl&gt;, and abbreviated</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   variable names ¹​threshold, ²​pos_rate, ³​neg_rate, ⁴​test_pos_rate,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​test_neg_rate</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +153,7 @@ may be set with this argument.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

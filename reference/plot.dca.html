@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -62,22 +62,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for dca</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  type <span class="op">=</span> <span class="cn">NULL</span>,
-  smooth <span class="op">=</span> <span class="cn">FALSE</span>,
-  span <span class="op">=</span> <span class="fl">0.2</span>,
-  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="st">"bw"</span><span class="op">)</span>,
-  show_ggplot_code <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for dca</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  span <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="st">"bw"</span><span class="op">)</span>,</span>
+<span>  show_ggplot_code <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>dca object created with <code><a href="dca.html">dca()</a></code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>indicates type of plot to produce. Must be one of
 <code>c("net_benefit", "net_intervention_avoided", "standardized_net_benefit")</code>.
@@ -85,26 +87,39 @@ The default is
 <code>"net_benefit"</code>, unless the net intervention has been calculated
 when <code>"net_intervention_avoided"</code> is used, or if <code>"standardized_net_benefit"</code>
 has been calculated.</p></dd>
+
+
 <dt>smooth</dt>
 <dd><p>Logical indicator whether plot will be smooth with
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">ggplot2::stat_smooth()</a></code>. Default is <code>FALSE</code></p></dd>
+
+
 <dt>span</dt>
 <dd><p>when <code>smooth = TRUE</code>, Controls the amount of smoothing for
 loess smoother. Smaller numbers produce wigglier lines, larger numbers
 produce smoother lines. Default is <code>0.2</code>.</p></dd>
+
+
 <dt>style</dt>
 <dd><p>Must be one of <code>c("color", "bw")</code>. Default is <code>"color"</code>, and
 <code>"bw"</code> will print a black and white figure</p></dd>
+
+
 <dt>show_ggplot_code</dt>
 <dd><p>Logical indicating whether to print ggplot2 code used to
 create figure. Default is <code>FALSE</code>. Set to <code>TRUE</code> to perform advanced figure
 customization</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a ggplot2 object</p>
+    
+
+<p>a ggplot2 object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -117,8 +132,9 @@ customization</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="dca.html">dca</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, data <span class="op">=</span> <span class="va">df_binary</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>smooth <span class="op">=</span> <span class="cn">TRUE</span>, show_ggplot_code <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # ggplot2 code to create DCA figure -------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> as_tibble(x) %&gt;%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   dplyr::filter(!is.na(net_benefit)) %&gt;%</span>
@@ -129,7 +145,13 @@ customization</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   labs(x = "Threshold Probability", y = "Net Benefit", color = "") +</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   theme_bw()</span>
+<span class="r-in"><span><span class="va">p</span></span></span>
 <span class="r-plt img"><img src="plot.dca-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># change the line colors</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'grey'</span>, <span class="st">'purple'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.dca-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -144,7 +166,7 @@ customization</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
