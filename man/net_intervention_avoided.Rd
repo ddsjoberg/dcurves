@@ -29,7 +29,7 @@ dca(
   data = df_surv,
   time = 1
 ) \%>\%
-  net_intervention_avoided()
+  net_intervention_avoided(nper = 100)
 }
 \seealso{
 \code{\link[=dca]{dca()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=plot.dca]{plot.dca()}}, \code{\link[=as_tibble.dca]{as_tibble.dca()}}

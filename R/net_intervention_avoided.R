@@ -22,7 +22,7 @@
 #'   data = df_surv,
 #'   time = 1
 #' ) %>%
-#'   net_intervention_avoided()
+#'   net_intervention_avoided(nper = 100)
 
 net_intervention_avoided <- function(x, nper = 1) {
   if (!inherits(x, "dca")) {
