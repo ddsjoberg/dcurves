@@ -31,6 +31,7 @@ net_intervention_avoided <- function(x, nper = 1) {
     )
   }
 
+  # add net interventions to the DCA data frame
   x$dca <-
     x$dca %>%
     dplyr::left_join(

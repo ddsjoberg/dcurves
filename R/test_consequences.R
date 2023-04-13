@@ -68,6 +68,8 @@ test_consequences <- function(formula, data,
                                time = time, prevalence = prevalence, harm = NULL)
 }
 
+# function returns a data frame of test diagnostic statistics are various thresholds
+# this function is called by `test_consequences()` as well as the primary DCA functions
 test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type,
                                          statistics,
                                          thresholds = seq(0, 1, by = 0.25), label = NULL,
@@ -143,7 +145,20 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
     dplyr::ungroup()
 }
 
-
+#' Determine the outcome type
+#'
+#' Function inspects the inputs to identify whether the users have
+#' passed a binary or time-to-event endpoint.
+#'
+#' The function also includes various checks on the input data, as
+#' it relates to the outcome
+#'
+#' @param model_frame model frame from the formula input
+#' @param outcome_name character string with outcome name
+#' @param time time to calculate risk if Surv() outcome
+#'
+#' @noRd
+#' @keywords internal
 .outcome_type <- function(model_frame, outcome_name, time) {
   outcome_type <-
     dplyr::case_when(
@@ -170,6 +185,8 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
   outcome_type
 }
 
+
+# data check of the probabilities passed by the user
 .check_probability_range <- function(model_frame, outcome_name) {
   for (v in names(model_frame) %>% setdiff(c(outcome_name, "all", "none"))) {
     if (any(!dplyr::between(model_frame[[v]], 0L, 1L))) {
@@ -181,6 +198,9 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
 }
 
 #' Calculate a test's consequences
+#'
+#' Statistics are calculated using Bayes Rule, so we can compute the same statistics
+#' with a case-control design, when the user passes an external, known population prevalence
 #'
 #' @param outcome outcome vector
 #' @param risk vector of risks

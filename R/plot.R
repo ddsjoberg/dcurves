@@ -34,11 +34,14 @@
 #' p + ggplot2::scale_color_manual(values = c('black', 'grey', 'purple'))
 #'
 plot.dca <- function(x,
-                         type = NULL,
-                         smooth = FALSE,
-                         span = 0.2,
-                         style = c("color", "bw"),
-                         show_ggplot_code = FALSE, ...) {
+                     type = NULL,
+                     smooth = FALSE,
+                     span = 0.2,
+                     style = c("color", "bw"),
+                     show_ggplot_code = FALSE, ...) {
+  # process style argument -----------------------------------------------------
+  style <- match.arg(style)
+
   # set type of figure to create -----------------------------------------------
   if (is.null(type) && "net_intervention_avoided" %in% names(x$dca)) {
     type <- "net_intervention_avoided"
@@ -49,12 +52,11 @@ plot.dca <- function(x,
   else if (is.null(type)) {
     type <- "net_benefit"
   }
-
   type <- match.arg(type, choices = c("net_benefit",
                                       "net_intervention_avoided",
                                       "standardized_net_benefit"))
-  style <- match.arg(style)
 
+  # check inputs and return errors as needed -----------------------------------
   if (type %in% "net_intervention_avoided" &&
       !"net_intervention_avoided" %in% names(x$dca)) {
     paste(

@@ -18,7 +18,6 @@ standardized_net_benefit <- function(x) {
     stop("Argument `x=` must be class 'dca' calculated with `dca()`",
          call. = FALSE)
   }
-
   if (sum(x$dca$harm) > 0) {
     stop("Cannot combine model harms with standardized net benefit.", call. = FALSE)
   }

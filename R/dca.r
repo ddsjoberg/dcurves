@@ -148,6 +148,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
 
 #' Calculate risks
 #'
+#' When users request, we can convert a marker to a probability with logistic, or Cox regression
+#'
 #' @param outcome outcome object
 #' @param variable variable
 #' @param outcome_type type of outcome
@@ -233,6 +235,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
     dplyr::pull("estimate")
 }
 
+
+# convert marker to a probability
 .as_probability <- function(model_frame, outcome_name, outcome_type, as_probability, time) {
   as_probability <-
     model_frame %>%
@@ -250,7 +254,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
   model_frame
 }
 
-
+# a preceding step may result in the loss of label attributes
+# this function helps restore them
 copy_labels_from <- function(x, y) {
   for (v in names(x)) {
     attr(x[[v]], "label") <- attr(y[[v]], "label") %||% attr(x[[v]], "label")
