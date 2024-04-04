@@ -100,7 +100,9 @@ dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
 
 # use multiple cores
 future::plan("multisession", workers = 2)
-dca(cancer ~ cancerpredmarker, data = df_binary, parallel = TRUE)
+dca(cancer ~ cancerpredmarker, data = df_binary, thresholds = seq(0, 0.2, by = 0.05),
+   parallel = TRUE)
+future::plan("sequential") # stop parallelization
 }
 \seealso{
 \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=plot.dca]{plot.dca()}},

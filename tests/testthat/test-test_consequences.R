@@ -48,6 +48,7 @@ test_that("test_consequences() works", {
       future::plan("multisession", workers = 2)
       test_consequences(formula = cancer ~ cancerpredmarker + marker,
                         data = df_binary, parallel = TRUE)
+      future::plan("sequential") # stop parallelization
     }
   })
 })

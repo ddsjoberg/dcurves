@@ -76,7 +76,9 @@
 #'
 #' # use multiple cores
 #' future::plan("multisession", workers = 2)
-#' dca(cancer ~ cancerpredmarker, data = df_binary, parallel = TRUE)
+#' dca(cancer ~ cancerpredmarker, data = df_binary, thresholds = seq(0, 0.2, by = 0.05),
+#'    parallel = TRUE)
+#' future::plan("sequential") # stop parallelization
 dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(),
                 time = NULL, prevalence = NULL, parallel = FALSE) {
