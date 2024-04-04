@@ -1,6 +1,6 @@
 # dcurves (development version)
 
-* Add support for parallel calculation of test consequences via `future.apply` package. (#8 by @ck37)
+* Add support for parallel calculation of test consequences via `future.apply` package. (#25 by @ck37)
 
 # dcurves 0.4.0
 
