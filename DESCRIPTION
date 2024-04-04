@@ -1,6 +1,6 @@
 Package: dcurves
 Title: Decision Curve Analysis for Model Evaluation
-Version: 0.4.0.9000
+Version: 0.4.0.9000-1
 Authors@R: 
     c(person(given = "Daniel D.",
            family = "Sjoberg",
@@ -46,7 +46,9 @@ Suggests:
     rmarkdown (>= 2.7),
     spelling (>= 2.2),
     testthat (>= 3.0.2),
-    tidyr (>= 1.1.3)
+    tidyr (>= 1.1.3),
+    future,
+    future.apply
 VignetteBuilder: 
     knitr
 ByteCompile: true
@@ -56,4 +58,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

@@ -32,6 +32,10 @@
 #' @param prevalence When `NULL`, the prevalence is estimated from `data=`.
 #' If the data passed is a case-control set, the population prevalence
 #' may be set with this argument.
+#' @param parallel Set to TRUE (default FALSE) to have test consequences
+#' use future.apply to take advantage of a parallel processing backend (if
+#' configured), parallelizing across models. See vignette or ?dca for example
+#' code.
 #'
 #' @section as_probability argument:
 #' While the `as_probability=` argument can be used to convert a marker to the
@@ -69,9 +73,13 @@
 #'
 #' # calculate DCA with time to event endpoint
 #' dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
+#'
+#' # use multiple cores
+#' future::plan("multisession", workers = 2)
+#' dca(cancer ~ cancerpredmarker, data = df_binary, parallel = TRUE)
 dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
                 label = NULL, harm = NULL, as_probability = character(),
-                time = NULL, prevalence = NULL) {
+                time = NULL, prevalence = NULL, parallel = FALSE) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data))
     stop("`data=` must be a data frame", call. = FALSE)
@@ -127,7 +135,8 @@ dca <- function(formula, data, thresholds = seq(0, 0.99, by = 0.01),
       label = label,
       time = time,
       prevalence = prevalence,
-      harm = harm
+      harm = harm,
+      parallel = parallel
     )
 
   # return results -------------------------------------------------------------

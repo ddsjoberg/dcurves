@@ -42,4 +42,12 @@ test_that("test_consequences() works", {
          lr_pos  = (a / (a + c)) / (1 - (d / (b + d))),
          lr_neg  = (1 - (a / (a + c))) / (d / (b + d)))
   )
+
+  expect_no_error({
+    if ("future.apply" %in% rownames(utils::installed.packages())) {
+      future::plan("multisession", workers = 2)
+      test_consequences(formula = cancer ~ cancerpredmarker + marker,
+                        data = df_binary, parallel = TRUE)
+    }
+  })
 })

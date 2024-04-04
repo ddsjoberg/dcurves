@@ -45,7 +45,7 @@ test_consequences <- function(formula, data,
                                              "sens", "spec",
                                              "lr_pos", "lr_neg"),
                               thresholds = seq(0, 1, by = 0.25), label = NULL,
-                              time = NULL, prevalence = NULL) {
+                              time = NULL, prevalence = NULL, parallel = FALSE) {
   # checking inputs ------------------------------------------------------------
   if (!is.data.frame(data))
     stop("`data=` must be a data frame", call. = FALSE)
@@ -65,7 +65,7 @@ test_consequences <- function(formula, data,
   test_consequences_data_frame(model_frame = model_frame, outcome_name = outcome_name,
                                outcome_type = outcome_type, statistics = statistics,
                                thresholds = thresholds, label = label,
-                               time = time, prevalence = prevalence, harm = NULL)
+                               time = time, prevalence = prevalence, harm = NULL, parallel = parallel)
 }
 
 # function returns a data frame of test diagnostic statistics are various thresholds
@@ -73,7 +73,8 @@ test_consequences <- function(formula, data,
 test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type,
                                          statistics,
                                          thresholds = seq(0, 1, by = 0.25), label = NULL,
-                                         time = NULL, prevalence = NULL, harm = NULL) {
+                                         time = NULL, prevalence = NULL, harm = NULL,
+                                         parallel = FALSE) {
 
   # for binary outcomes, make the outcome a factor
   # so both levels always appear in `table()` results
@@ -83,11 +84,20 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
       .convert_to_binary_fct(model_frame[[outcome_name]], quiet = FALSE)
   }
 
+  # Initial diagnostic stat calculation can be slow with large datasets,
+  # and/or many models, so give the option for parallelization.
+  if (parallel && "future.apply" %in% rownames(utils::installed.packages())) {
+    lapply_fun = future.apply::future_lapply
+  } else {
+    lapply_fun = lapply
+  }
+
   # calculate initial set of diagnostic stats ----------------------------------
+  # This lapply may be parallelized per above.
   df_results <-
     names(model_frame) %>%
     setdiff(outcome_name) %>%
-    lapply(
+    lapply_fun(
       function(x) {
         .calculate_test_consequences(model_frame[[outcome_name]],
                                      model_frame[[x]],
@@ -102,7 +112,9 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
             harm = .env$harm[[x]] %||% 0
           )
       }
-    ) %>%
+    )
+
+ df_results <- df_results %>%
     dplyr::bind_rows() %>%
     dplyr::mutate(
       label = factor(.data$label, levels = unique(.data$label)),

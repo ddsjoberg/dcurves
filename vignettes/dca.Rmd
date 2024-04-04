@@ -256,6 +256,26 @@ dca(cancer ~ marker,
 At a probability threshold of 15%, the net reduction in interventions is about 0.33.
 In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers. 
 
+### Parallel processing
+
+Test consequence statistics (true positives, false positives, etc.) can be
+calculated in parallel across models by installing the `future.apply` package,
+using `future::plan()` to specify the number of cores to use, then setting
+`parallel = TRUE` in the call to `dca()`. This can speed up calculations with
+large datasets, many models, and/or a granular set of thresholds to be tested.
+
+```{r parallel}
+# Use 2 CPU threads (cores)
+future::plan("multisession", workers = 2)
+system.time({
+dca <-
+  dca(cancer ~ famhistory + cancerpredmarker, 
+    data = df_binary, 
+    thresholds = seq(0, 0.35, by = 0.02),
+    parallel = TRUE)
+})
+```
+
 ## Survival Outcomes
 
 ### Motivating Example

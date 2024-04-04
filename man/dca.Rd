@@ -12,7 +12,8 @@ dca(
   harm = NULL,
   as_probability = character(),
   time = NULL,
-  prevalence = NULL
+  prevalence = NULL,
+  parallel = FALSE
 )
 }
 \arguments{
@@ -38,6 +39,11 @@ assessment is made}
 \item{prevalence}{When \code{NULL}, the prevalence is estimated from \verb{data=}.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.}
+
+\item{parallel}{Set to TRUE (default FALSE) to have test consequences
+use future.apply to take advantage of a parallel processing backend (if
+configured), parallelizing across models. See vignette or ?dca for example
+code.}
 }
 \value{
 List including net benefit of each variable
@@ -91,6 +97,10 @@ dca(cancer ~ cancerpredmarker + marker,
 
 # calculate DCA with time to event endpoint
 dca(Surv(ttcancer, cancer) ~ cancerpredmarker, data = df_surv, time = 1)
+
+# use multiple cores
+future::plan("multisession", workers = 2)
+dca(cancer ~ cancerpredmarker, data = df_binary, parallel = TRUE)
 }
 \seealso{
 \code{\link[=net_intervention_avoided]{net_intervention_avoided()}}, \code{\link[=standardized_net_benefit]{standardized_net_benefit()}}, \code{\link[=plot.dca]{plot.dca()}},

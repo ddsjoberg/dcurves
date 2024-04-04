@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Add support for parallel calculation of test consequences via `future.apply` package. (#8 by @ck37)
+
 # dcurves 0.4.0
 
 * The net interventions avoided figures have new defaults (breaking change):

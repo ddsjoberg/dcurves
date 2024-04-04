@@ -23,6 +23,7 @@ ggplot
 loess
 miscalibration
 multivariable
+parallelizing
 tibble
 unsmoothed
 www

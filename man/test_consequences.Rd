@@ -12,7 +12,8 @@ test_consequences(
   thresholds = seq(0, 1, by = 0.25),
   label = NULL,
   time = NULL,
-  prevalence = NULL
+  prevalence = NULL,
+  parallel = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,11 @@ assessment is made}
 \item{prevalence}{When \code{NULL}, the prevalence is estimated from \verb{data=}.
 If the data passed is a case-control set, the population prevalence
 may be set with this argument.}
+
+\item{parallel}{Set to TRUE (default FALSE) to have test consequences
+use future.apply to take advantage of a parallel processing backend (if
+configured), parallelizing across models. See vignette or ?dca for example
+code.}
 }
 \value{
 a tibble with test consequences
