@@ -44,7 +44,8 @@ test_that("test_consequences() works", {
   )
 
   expect_no_error({
-    if ("future.apply" %in% rownames(utils::installed.packages())) {
+    # This test is only run if the future.apply package is installed.
+    if (requireNamespace("future.apply", quietly = TRUE)) {
       future::plan("multisession", workers = 2)
       test_consequences(formula = cancer ~ cancerpredmarker + marker,
                         data = df_binary, parallel = TRUE)

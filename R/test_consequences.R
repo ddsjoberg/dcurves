@@ -86,7 +86,7 @@ test_consequences_data_frame <- function(model_frame, outcome_name, outcome_type
 
   # Initial diagnostic stat calculation can be slow with large datasets,
   # and/or many models, so give the option for parallelization.
-  if (parallel && "future.apply" %in% rownames(utils::installed.packages())) {
+  if (parallel && requireNamespace("future.apply", quietly = TRUE)) {
     lapply_fun = future.apply::future_lapply
   } else {
     lapply_fun = lapply
