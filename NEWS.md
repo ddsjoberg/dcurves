@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+* Added {broom.helpers} package to the Suggests field, which accounts for an update in gtsummary v2.0
+
 # dcurves 0.4.0
 
 * The net interventions avoided figures have new defaults (breaking change):
