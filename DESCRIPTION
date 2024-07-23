@@ -42,7 +42,7 @@ Imports:
 Suggests: 
     broom.helpers,
     covr (>= 3.5.1),
-    gtsummary (>= 1.4.0),
+    gtsummary (>= 2.0.0),
     knitr (>= 1.32),
     rmarkdown (>= 2.7),
     spelling (>= 2.2),
