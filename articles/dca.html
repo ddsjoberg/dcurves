@@ -6,20 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Decision Curve Analysis • dcurves</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Decision Curve Analysis">
-<meta property="og:description" content="dcurves">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dcurves</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -42,7 +41,7 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -59,7 +58,7 @@
 <li>
   <a href="https://github.com/ddsjoberg/dca" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -70,7 +69,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -78,7 +77,7 @@
       <h1 data-toc-skip>Decision Curve Analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ddsjoberg/dcurves/blob/HEAD/vignettes/dca.Rmd" class="external-link"><code>vignettes/dca.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ddsjoberg/dcurves/blob/main/vignettes/dca.Rmd" class="external-link"><code>vignettes/dca.Rmd</code></a></small>
       <div class="hidden name"><code>dca.Rmd</code></div>
 
     </div>
@@ -133,14 +132,26 @@ associated with the biopsy result.</p>
 <code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
 <span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">mod</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">tbl</span></span></code></pre></div>
-<div id="zihptqmezn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mwlefoodfi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#zihptqmezn .gt_table {
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
+  border-style: none;
+}
+
+#mwlefoodfi p {
+  margin: 0;
+  padding: 0;
+}
+
+#mwlefoodfi .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -163,24 +174,12 @@ associated with the biopsy result.</p>
   border-left-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#zihptqmezn .gt_caption {
+#mwlefoodfi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zihptqmezn .gt_title {
+#mwlefoodfi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -192,25 +191,37 @@ associated with the biopsy result.</p>
   border-bottom-width: 0;
 }
 
-#zihptqmezn .gt_subtitle {
+#mwlefoodfi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#zihptqmezn .gt_bottom_border {
+#mwlefoodfi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_col_headings {
+#mwlefoodfi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -225,7 +236,7 @@ associated with the biopsy result.</p>
   border-right-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_col_heading {
+#mwlefoodfi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -245,7 +256,7 @@ associated with the biopsy result.</p>
   overflow-x: hidden;
 }
 
-#zihptqmezn .gt_column_spanner_outer {
+#mwlefoodfi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -257,15 +268,15 @@ associated with the biopsy result.</p>
   padding-right: 4px;
 }
 
-#zihptqmezn .gt_column_spanner_outer:first-child {
+#mwlefoodfi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zihptqmezn .gt_column_spanner_outer:last-child {
+#mwlefoodfi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zihptqmezn .gt_column_spanner {
+#mwlefoodfi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -277,7 +288,11 @@ associated with the biopsy result.</p>
   width: 100%;
 }
 
-#zihptqmezn .gt_group_heading {
+#mwlefoodfi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mwlefoodfi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -303,7 +318,7 @@ associated with the biopsy result.</p>
   text-align: left;
 }
 
-#zihptqmezn .gt_empty_group_heading {
+#mwlefoodfi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -318,15 +333,15 @@ associated with the biopsy result.</p>
   vertical-align: middle;
 }
 
-#zihptqmezn .gt_from_md > :first-child {
+#mwlefoodfi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zihptqmezn .gt_from_md > :last-child {
+#mwlefoodfi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zihptqmezn .gt_row {
+#mwlefoodfi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -345,7 +360,7 @@ associated with the biopsy result.</p>
   overflow-x: hidden;
 }
 
-#zihptqmezn .gt_stub {
+#mwlefoodfi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -358,7 +373,7 @@ associated with the biopsy result.</p>
   padding-right: 5px;
 }
 
-#zihptqmezn .gt_stub_row_group {
+#mwlefoodfi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -372,11 +387,15 @@ associated with the biopsy result.</p>
   vertical-align: top;
 }
 
-#zihptqmezn .gt_row_group_first td {
+#mwlefoodfi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zihptqmezn .gt_summary_row {
+#mwlefoodfi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -386,16 +405,16 @@ associated with the biopsy result.</p>
   padding-right: 5px;
 }
 
-#zihptqmezn .gt_first_summary_row {
+#mwlefoodfi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_first_summary_row.thick {
+#mwlefoodfi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zihptqmezn .gt_last_summary_row {
+#mwlefoodfi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -405,7 +424,7 @@ associated with the biopsy result.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_grand_summary_row {
+#mwlefoodfi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -415,7 +434,7 @@ associated with the biopsy result.</p>
   padding-right: 5px;
 }
 
-#zihptqmezn .gt_first_grand_summary_row {
+#mwlefoodfi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,11 +444,21 @@ associated with the biopsy result.</p>
   border-top-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_striped {
+#mwlefoodfi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zihptqmezn .gt_table_body {
+#mwlefoodfi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -438,7 +467,7 @@ associated with the biopsy result.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_footnotes {
+#mwlefoodfi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -452,30 +481,8 @@ associated with the biopsy result.</p>
   border-right-color: #D3D3D3;
 }
 
-#zihptqmezn .gt_footnote {
+#mwlefoodfi .gt_footnote {
   margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#zihptqmezn .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#zihptqmezn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -483,87 +490,118 @@ associated with the biopsy result.</p>
   padding-right: 5px;
 }
 
-#zihptqmezn .gt_left {
+#mwlefoodfi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_left {
   text-align: left;
 }
 
-#zihptqmezn .gt_center {
+#mwlefoodfi .gt_center {
   text-align: center;
 }
 
-#zihptqmezn .gt_right {
+#mwlefoodfi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zihptqmezn .gt_font_normal {
+#mwlefoodfi .gt_font_normal {
   font-weight: normal;
 }
 
-#zihptqmezn .gt_font_bold {
+#mwlefoodfi .gt_font_bold {
   font-weight: bold;
 }
 
-#zihptqmezn .gt_font_italic {
+#mwlefoodfi .gt_font_italic {
   font-style: italic;
 }
 
-#zihptqmezn .gt_super {
+#mwlefoodfi .gt_super {
   font-size: 65%;
 }
 
-#zihptqmezn .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#mwlefoodfi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-#zihptqmezn .gt_asterisk {
+#mwlefoodfi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zihptqmezn .gt_indent_1 {
+#mwlefoodfi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zihptqmezn .gt_indent_2 {
+#mwlefoodfi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zihptqmezn .gt_indent_3 {
+#mwlefoodfi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zihptqmezn .gt_indent_4 {
+#mwlefoodfi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zihptqmezn .gt_indent_5 {
+#mwlefoodfi .gt_indent_5 {
   text-indent: 25px;
 }
+
+#mwlefoodfi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
 </style>
-<table class="table gt_table">
-<thead class="gt_col_headings"><tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id='&lt;strong&gt;OR&lt;/strong&gt;&lt;sup class="gt_footnote_marks"&gt;1&lt;/sup&gt;'>
-<strong>OR</strong><sup class="gt_footnote_marks">1</sup>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;OR&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
+<span class="gt_from_md"><strong>OR</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
 </th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id='&lt;strong&gt;95% CI&lt;/strong&gt;&lt;sup class="gt_footnote_marks"&gt;1&lt;/sup&gt;'>
-<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;95% CI&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
+<span class="gt_from_md"><strong>95% CI</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
 </th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;"><strong>p-value</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;p-value&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>p-value</strong></span></th>
     </tr></thead>
 <tbody class="gt_table_body"><tr>
 <td headers="label" class="gt_row gt_left">famhistory</td>
 <td headers="estimate" class="gt_row gt_center">1.80</td>
-<td headers="ci" class="gt_row gt_center">1.07, 2.96</td>
+<td headers="conf.low" class="gt_row gt_center">1.07, 2.96</td>
 <td headers="p.value" class="gt_row gt_center">0.022</td>
 </tr></tbody>
 <tfoot class="gt_footnotes"><tr>
 <td class="gt_footnote" colspan="4">
-<sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> <span class="gt_from_md">OR = Odds Ratio, CI = Confidence Interval</span>
+</td>
     </tr></tfoot>
 </table>
 </div>
@@ -614,19 +652,20 @@ probabilities once again.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">cancer</span> <span class="op">~</span> <span class="va">marker</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">famhistory</span>, <span class="va">df_binary</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">df_binary</span>, type.predict <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 9</span></span></span>
-<span><span class="co">#&gt;    patientid cancer  dead risk_group     age famhistory marker cancerp…¹ .fitted</span></span>
-<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>         1 FALSE      0 low           64.0          0 0.776    0.037<span style="text-decoration: underline;">2</span>  0.037<span style="text-decoration: underline;">2</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>         2 FALSE      0 high          78.5          0 0.267    0.579   0.579  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>         3 FALSE      0 low           64.1          0 0.170    0.021<span style="text-decoration: underline;">6</span>  0.021<span style="text-decoration: underline;">6</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>         4 FALSE      0 low           58.5          0 0.024<span style="text-decoration: underline;">0</span>   0.003<span style="text-decoration: underline;">91</span> 0.003<span style="text-decoration: underline;">91</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>         5 FALSE      0 low           64.0          0 0.070<span style="text-decoration: underline;">9</span>   0.018<span style="text-decoration: underline;">8</span>  0.018<span style="text-decoration: underline;">8</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>         6 FALSE      0 intermediate  65.7          0 0.428    0.042<span style="text-decoration: underline;">6</span>  0.042<span style="text-decoration: underline;">6</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>         7 FALSE      1 intermediate  71.9          0 0.942    0.296   0.296  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>         8 TRUE       0 intermediate  66.6          0 2.91     0.387   0.387  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>         9 FALSE      0 low           64.3          0 0.715    0.037<span style="text-decoration: underline;">3</span>  0.037<span style="text-decoration: underline;">3</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>        10 FALSE      0 intermediate  65.7          0 0.129    0.032<span style="text-decoration: underline;">0</span>  0.032<span style="text-decoration: underline;">0</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and abbreviated variable name ¹​cancerpredmarker</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    patientid cancer  dead risk_group     age famhistory marker cancerpredmarker</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>         1 FALSE      0 low           64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>         2 FALSE      0 high          78.5          0 0.267           0.579  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>         3 FALSE      0 low           64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>         4 FALSE      0 low           58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>         5 FALSE      0 low           64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>         6 FALSE      0 intermediate  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>         7 FALSE      1 intermediate  71.9          0 0.942           0.296  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>         8 TRUE       0 intermediate  66.6          0 2.91            0.387  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>         9 FALSE      0 low           64.3          0 0.715           0.037<span style="text-decoration: underline;">3</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>        10 FALSE      0 intermediate  65.7          0 0.129           0.032<span style="text-decoration: underline;">0</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 740 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: .fitted &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>We now want to compare our different approaches to cancer detection:
 biopsying everyone, biopsying no-one, biopsying on the basis of family
 history, or biopsying on the basis of a multivariable statistical model
@@ -878,15 +917,15 @@ the following:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span>
 <span><span class="va">df_surv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;   patientid cancer ttcancer risk_group     age famhistory marker cance…¹ cance…²</span></span>
-<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>         1 FALSE    3.01   low           64.0          0 0.776  0.037<span style="text-decoration: underline;">2</span>  censor </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>         2 FALSE    0.249  high          78.5          0 0.267  0.579   censor </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>         3 FALSE    1.59   low           64.1          0 0.170  0.021<span style="text-decoration: underline;">6</span>  censor </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>         4 FALSE    3.46   low           58.5          0 0.024<span style="text-decoration: underline;">0</span> 0.003<span style="text-decoration: underline;">91</span> censor </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>         5 FALSE    3.33   low           64.0          0 0.070<span style="text-decoration: underline;">9</span> 0.018<span style="text-decoration: underline;">8</span>  censor </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         6 FALSE    0.048<span style="text-decoration: underline;">8</span> intermediate  65.7          0 0.428  0.042<span style="text-decoration: underline;">6</span>  censor </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​cancerpredmarker, ²​cancer_cr</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   patientid cancer ttcancer risk_group    age famhistory marker cancerpredmarker</span></span>
+<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>         1 FALSE    3.01   low          64.0          0 0.776           0.037<span style="text-decoration: underline;">2</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>         2 FALSE    0.249  high         78.5          0 0.267           0.579  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>         3 FALSE    1.59   low          64.1          0 0.170           0.021<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>         4 FALSE    3.46   low          58.5          0 0.024<span style="text-decoration: underline;">0</span>          0.003<span style="text-decoration: underline;">91</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>         5 FALSE    3.33   low          64.0          0 0.070<span style="text-decoration: underline;">9</span>          0.018<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         6 FALSE    0.048<span style="text-decoration: underline;">8</span> intermedia…  65.7          0 0.428           0.042<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: cancer_cr &lt;fct&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="basic-data-set-up">Basic Data Set-up<a class="anchor" aria-label="anchor" href="#basic-data-set-up"></a>
@@ -895,17 +934,21 @@ the following:</p>
 type of survival model; here we use a Cox as this is the most common
 model in statistical practice. The formula for a survival probability
 from a Cox model is given by</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>S</mi><mn>0</mn></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><msup><mi>e</mi><mrow><mi>X</mi><mi>β</mi></mrow></msup></msup></mrow><annotation encoding="application/x-tex">
 S(t) = S_0(t)^{e^{X\beta}}
-\]</span></p>
-<p>Where <span class="math inline">\(X\)</span> is matrix of covariates
-in the Cox model, <span class="math inline">\(\beta\)</span> is a vector
-containing the parameter estimates from the Cox model, and <span class="math inline">\(S_0(t)\)</span> is the baseline survival
-probability to time <span class="math inline">\(t\)</span>. To get such
-values within our code, we will run a Cox model with age, family
-history, and the marker, as predictors, save out the baseline survival
-function in a new variable, and obtaining the linear prediction from the
-model for each subject.</p>
+</annotation></semantics></math></p>
+<p>Where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+is matrix of covariates in the Cox model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+is a vector containing the parameter estimates from the Cox model, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mn>0</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">S_0(t)</annotation></semantics></math>
+is the baseline survival probability to time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+To get such values within our code, we will run a Cox model with age,
+family history, and the marker, as predictors, save out the baseline
+survival function in a new variable, and obtaining the linear prediction
+from the model for each subject.</p>
 <p>We then obtain the baseline survival probability to our time point of
 interest. If no patient was observed at the exact time of interest, we
 can use the baseline survival probability to the observed time closest
@@ -918,14 +961,26 @@ time point of 1.5 years.</p>
 <span></span>
 <span><span class="co"># show summary of model results</span></span>
 <span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span><span class="va">cox_model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div id="ptqqqvmoge" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="vijbfglzvn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vijbfglzvn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#ptqqqvmoge .gt_table {
+#vijbfglzvn thead, #vijbfglzvn tbody, #vijbfglzvn tfoot, #vijbfglzvn tr, #vijbfglzvn td, #vijbfglzvn th {
+  border-style: none;
+}
+
+#vijbfglzvn p {
+  margin: 0;
+  padding: 0;
+}
+
+#vijbfglzvn .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -948,24 +1003,12 @@ time point of 1.5 years.</p>
   border-left-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ptqqqvmoge .gt_caption {
+#vijbfglzvn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ptqqqvmoge .gt_title {
+#vijbfglzvn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -977,25 +1020,37 @@ time point of 1.5 years.</p>
   border-bottom-width: 0;
 }
 
-#ptqqqvmoge .gt_subtitle {
+#vijbfglzvn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#ptqqqvmoge .gt_bottom_border {
+#vijbfglzvn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vijbfglzvn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_col_headings {
+#vijbfglzvn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1010,7 +1065,7 @@ time point of 1.5 years.</p>
   border-right-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_col_heading {
+#vijbfglzvn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1030,7 +1085,7 @@ time point of 1.5 years.</p>
   overflow-x: hidden;
 }
 
-#ptqqqvmoge .gt_column_spanner_outer {
+#vijbfglzvn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1042,15 +1097,15 @@ time point of 1.5 years.</p>
   padding-right: 4px;
 }
 
-#ptqqqvmoge .gt_column_spanner_outer:first-child {
+#vijbfglzvn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ptqqqvmoge .gt_column_spanner_outer:last-child {
+#vijbfglzvn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ptqqqvmoge .gt_column_spanner {
+#vijbfglzvn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1062,7 +1117,11 @@ time point of 1.5 years.</p>
   width: 100%;
 }
 
-#ptqqqvmoge .gt_group_heading {
+#vijbfglzvn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vijbfglzvn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1088,7 +1147,7 @@ time point of 1.5 years.</p>
   text-align: left;
 }
 
-#ptqqqvmoge .gt_empty_group_heading {
+#vijbfglzvn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1103,15 +1162,15 @@ time point of 1.5 years.</p>
   vertical-align: middle;
 }
 
-#ptqqqvmoge .gt_from_md > :first-child {
+#vijbfglzvn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ptqqqvmoge .gt_from_md > :last-child {
+#vijbfglzvn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ptqqqvmoge .gt_row {
+#vijbfglzvn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1130,7 +1189,7 @@ time point of 1.5 years.</p>
   overflow-x: hidden;
 }
 
-#ptqqqvmoge .gt_stub {
+#vijbfglzvn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1143,7 +1202,7 @@ time point of 1.5 years.</p>
   padding-right: 5px;
 }
 
-#ptqqqvmoge .gt_stub_row_group {
+#vijbfglzvn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1157,11 +1216,15 @@ time point of 1.5 years.</p>
   vertical-align: top;
 }
 
-#ptqqqvmoge .gt_row_group_first td {
+#vijbfglzvn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ptqqqvmoge .gt_summary_row {
+#vijbfglzvn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vijbfglzvn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1171,16 +1234,16 @@ time point of 1.5 years.</p>
   padding-right: 5px;
 }
 
-#ptqqqvmoge .gt_first_summary_row {
+#vijbfglzvn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_first_summary_row.thick {
+#vijbfglzvn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ptqqqvmoge .gt_last_summary_row {
+#vijbfglzvn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1190,7 +1253,7 @@ time point of 1.5 years.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_grand_summary_row {
+#vijbfglzvn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1200,7 +1263,7 @@ time point of 1.5 years.</p>
   padding-right: 5px;
 }
 
-#ptqqqvmoge .gt_first_grand_summary_row {
+#vijbfglzvn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1210,11 +1273,21 @@ time point of 1.5 years.</p>
   border-top-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_striped {
+#vijbfglzvn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vijbfglzvn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ptqqqvmoge .gt_table_body {
+#vijbfglzvn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1223,7 +1296,7 @@ time point of 1.5 years.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_footnotes {
+#vijbfglzvn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1237,30 +1310,8 @@ time point of 1.5 years.</p>
   border-right-color: #D3D3D3;
 }
 
-#ptqqqvmoge .gt_footnote {
+#vijbfglzvn .gt_footnote {
   margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ptqqqvmoge .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ptqqqvmoge .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1268,120 +1319,155 @@ time point of 1.5 years.</p>
   padding-right: 5px;
 }
 
-#ptqqqvmoge .gt_left {
+#vijbfglzvn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vijbfglzvn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vijbfglzvn .gt_left {
   text-align: left;
 }
 
-#ptqqqvmoge .gt_center {
+#vijbfglzvn .gt_center {
   text-align: center;
 }
 
-#ptqqqvmoge .gt_right {
+#vijbfglzvn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ptqqqvmoge .gt_font_normal {
+#vijbfglzvn .gt_font_normal {
   font-weight: normal;
 }
 
-#ptqqqvmoge .gt_font_bold {
+#vijbfglzvn .gt_font_bold {
   font-weight: bold;
 }
 
-#ptqqqvmoge .gt_font_italic {
+#vijbfglzvn .gt_font_italic {
   font-style: italic;
 }
 
-#ptqqqvmoge .gt_super {
+#vijbfglzvn .gt_super {
   font-size: 65%;
 }
 
-#ptqqqvmoge .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#vijbfglzvn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-#ptqqqvmoge .gt_asterisk {
+#vijbfglzvn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ptqqqvmoge .gt_indent_1 {
+#vijbfglzvn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ptqqqvmoge .gt_indent_2 {
+#vijbfglzvn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ptqqqvmoge .gt_indent_3 {
+#vijbfglzvn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ptqqqvmoge .gt_indent_4 {
+#vijbfglzvn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ptqqqvmoge .gt_indent_5 {
+#vijbfglzvn .gt_indent_5 {
   text-indent: 25px;
 }
+
+#vijbfglzvn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vijbfglzvn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
 </style>
-<table class="table gt_table">
-<thead class="gt_col_headings"><tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id='&lt;strong&gt;HR&lt;/strong&gt;&lt;sup class="gt_footnote_marks"&gt;1&lt;/sup&gt;'>
-<strong>HR</strong><sup class="gt_footnote_marks">1</sup>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;HR&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
+<span class="gt_from_md"><strong>HR</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
 </th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id='&lt;strong&gt;95% CI&lt;/strong&gt;&lt;sup class="gt_footnote_marks"&gt;1&lt;/sup&gt;'>
-<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;95% CI&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
+<span class="gt_from_md"><strong>95% CI</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
 </th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;"><strong>p-value</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;p-value&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>p-value</strong></span></th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
 <td headers="label" class="gt_row gt_left">age</td>
 <td headers="estimate" class="gt_row gt_center">1.30</td>
-<td headers="ci" class="gt_row gt_center">1.24, 1.36</td>
+<td headers="conf.low" class="gt_row gt_center">1.24, 1.36</td>
 <td headers="p.value" class="gt_row gt_center"></td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">famhistory</td>
 <td headers="estimate" class="gt_row gt_center">2.19</td>
-<td headers="ci" class="gt_row gt_center">1.37, 3.48</td>
+<td headers="conf.low" class="gt_row gt_center">1.37, 3.48</td>
 <td headers="p.value" class="gt_row gt_center"></td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">marker</td>
 <td headers="estimate" class="gt_row gt_center">2.42</td>
-<td headers="ci" class="gt_row gt_center">2.09, 2.80</td>
+<td headers="conf.low" class="gt_row gt_center">2.09, 2.80</td>
 <td headers="p.value" class="gt_row gt_center"></td>
 </tr>
 </tbody>
 <tfoot class="gt_footnotes"><tr>
 <td class="gt_footnote" colspan="4">
-<sup class="gt_footnote_marks">1</sup> HR = Hazard Ratio, CI = Confidence Interval</td>
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> <span class="gt_from_md">HR = Hazard Ratio, CI = Confidence Interval</span>
+</td>
     </tr></tfoot>
 </table>
 </div>
-
-# add model prediction to our data frame
-df_surv_updated % mutate(ttcancer =  1.5),
-    type.predict = "expected"
-  ) %&gt;%
-    mutate(
-      pr_failure18 = 1 - exp(-.fitted)
-    ) %&gt;%
-    select(-.fitted, -.se.fit)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># add model prediction to our data frame</span></span>
+<span><span class="va">df_surv_updated</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span></span>
+<span>    <span class="va">cox_model</span>, </span>
+<span>    newdata <span class="op">=</span> <span class="va">df_surv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ttcancer <span class="op">=</span>  <span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>    type.predict <span class="op">=</span> <span class="st">"expected"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>      pr_failure18 <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">.fitted</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">.fitted</span>, <span class="op">-</span><span class="va">.se.fit</span><span class="op">)</span></span></code></pre></div>
 <p>The code for running the decision curve analysis is straightforward
 after the probability of failure is calculated. All we have to do is
 specify the time point we are interested in. For our example, let us not
 only set the threshold from 0% to 50%, but also add smoothing. Results
 of a smoothed curve should always be compared with the unsmoothed curve
 to ensure accuracy.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, </span>
 <span>    data <span class="op">=</span> <span class="va">df_surv_updated</span>,</span>
 <span>    time <span class="op">=</span> <span class="fl">1.5</span>,</span>
@@ -1400,7 +1486,7 @@ endpoints. The outcome must be defined as a factor, with the lowest
 level called <code>"censor"</code>, and the other levels defining the
 events of interest. The <code><a href="../reference/dca.html">dca()</a></code> function will treat the first
 outcome listed as the outcome of interest.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttcancer</span>, <span class="va">cancer_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">pr_failure18</span>, </span>
 <span>    data <span class="op">=</span> <span class="va">df_surv_updated</span>,</span>
 <span>    time <span class="op">=</span> <span class="fl">1.5</span>,</span>
@@ -1415,7 +1501,7 @@ outcome listed as the outcome of interest.</p>
 <p>Case-control data are handled similarly to binary data, except that
 the prevalence of the outcome must be specified as it cannot be
 estimated from the data.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dca.html">dca</a></span><span class="op">(</span><span class="va">casecontrol</span> <span class="op">~</span> <span class="va">cancerpredmarker</span>, </span>
 <span>    data <span class="op">=</span> <span class="va">df_case_control</span>,</span>
 <span>    prevalence <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1427,9 +1513,7 @@ estimated from the data.</p>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -1442,16 +1526,16 @@ estimated from the data.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
