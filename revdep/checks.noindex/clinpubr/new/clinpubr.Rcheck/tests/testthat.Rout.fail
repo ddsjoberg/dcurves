@@ -1,0 +1,320 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # This file is part of the standard setup for testthat.
+> # It is recommended that you do not modify it.
+> #
+> # Where should you do additional test configuration?
+> # Learn more about the roles of various files in:
+> # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+> # * https://testthat.r-lib.org/articles/special-files.html
+> 
+> library(testthat)
+> library(clinpubr)
+> 
+> test_check("clinpubr")
+Assuming '1' is [Event] and '0' is [non-Event]
+Assuming '1' is [Event] and '0' is [non-Event]
+Assuming '1' is [Event] and '0' is [non-Event]
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: Hmisc
+
+Attaching package: 'Hmisc'
+
+The following objects are masked from 'package:dplyr':
+
+    src, summarize
+
+The following object is masked from 'package:testthat':
+
+    describe
+
+The following objects are masked from 'package:base':
+
+    format.pval, units
+
+Taking all variables as interaction predictors
+Taking all variables as group variables
+Taking all variables as interaction predictors
+Taking all variables as group variables
+$lin
+
+$rcs
+
+$lin
+
+$rcs
+
+Ignoring unknown labels:
+* colour : "age"
+Ignoring unknown labels:
+* colour : "age"
+Ignoring unknown labels:
+* colour : "age"
+Ignoring unknown labels:
+* colour : "age"
+Taking all variables as predictors
+cannot process:2020-13-01
+cannot process:not_a_date
+cannot process:123456789
+
+Attaching package: 'rlang'
+
+The following objects are masked from 'package:withr':
+
+    local_options, with_options
+
+The following object is masked from 'package:clinpubr':
+
+    qq_show
+
+[ FAIL 3 | WARN 18 | SKIP 0 | PASS 399 ]
+
+══ Warnings ════════════════════════════════════════════════════════════════════
+── Warning ('test-importance_plot.R:13:3'): importance_plot works with top_n and split_at ──
+Removed 1 row containing missing values or values outside the scale range (`geom_bar()`).
+Backtrace:
+     ▆
+  1. └─vdiffr::expect_doppelganger("test_plot.png", p) at test-importance_plot.R:13:3
+  2.   └─vdiffr (local) writer(fig, testcase, title)
+  3.     ├─vdiffr:::print_plot(plot, title)
+  4.     └─vdiffr:::print_plot.ggplot(plot, title)
+  5.       ├─base::print(p)
+  6.       └─ggplot2 (local) `print.ggplot2::ggplot`(p)
+  7.         ├─ggplot2::ggplot_gtable(data)
+  8.         └─ggplot2 (local) `ggplot_gtable.ggplot2::ggplot_built`(data)
+  9.           └─ggplot2:::by_layer(...)
+ 10.             ├─rlang::try_fetch(...)
+ 11.             │ ├─base::tryCatch(...)
+ 12.             │ │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 13.             │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 14.             │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 15.             │ └─base::withCallingHandlers(...)
+ 16.             └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+ 17.               └─l$draw_geom(d, layout)
+ 18.                 └─ggplot2 (local) draw_geom(..., self = self)
+ 19.                   └─self$geom$handle_na(data, self$computed_geom_params)
+ 20.                     └─ggplot2 (local) handle_na(..., self = self)
+ 21.                       └─ggplot2::remove_missing(...)
+ 22.                         └─cli::cli_warn(msg)
+── Warning ('test-predictor_effect_plot.R:68:3'): rcs_plot wrapper works as expected (equivalent to method='rcs') ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. └─clinpubr::rcs_plot(...) at test-predictor_effect_plot.R:68:3
+ 2.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-predictor_effect_plot.R:78:3'): rcs_plot wrapper works as expected (equivalent to method='rcs') ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. └─clinpubr::predictor_effect_plot(...) at test-predictor_effect_plot.R:78:3
+── Warning ('test-predictor_effect_plot.R:126:5'): predictor_effect_plot produces expected images (cox, rcs) ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-predictor_effect_plot.R:124:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::predictor_effect_plot(...) at test-predictor_effect_plot.R:126:5
+── Warning ('test-predictor_effect_plot.R:149:5'): predictor_effect_plot produces expected images (logistic, linear) ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-predictor_effect_plot.R:144:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::predictor_effect_plot(...) at test-predictor_effect_plot.R:149:5
+── Warning ('test-predictor_effect_plot.R:160:5'): predictor_effect_plot produces expected images (logistic, linear) ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-predictor_effect_plot.R:144:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::predictor_effect_plot(...) at test-predictor_effect_plot.R:160:5
+── Warning ('test-predictor_effect_plot.R:173:5'): predictor_effect_plot produces expected images (logistic, linear) ──
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-predictor_effect_plot.R:144:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::predictor_effect_plot(...) at test-predictor_effect_plot.R:173:5
+── Warning ('test-rcs_plot.R:14:5'): rcs_plot works for Cox model ──────────────
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:13:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::rcs_plot(...) at test-rcs_plot.R:14:5
+ 5.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-rcs_plot.R:23:5'): rcs_plot works for linear model ───────────
+14 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:22:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::rcs_plot(cancer, x = "age", y = "wt.loss", covars = "ph.karno") at test-rcs_plot.R:23:5
+ 5.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-rcs_plot.R:28:5'): rcs_plot works for linear model ───────────
+14 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:22:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::rcs_plot(...) at test-rcs_plot.R:28:5
+ 5.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-rcs_plot.R:38:5'): rcs_plot works for logistic model ─────────
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:37:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::rcs_plot(...) at test-rcs_plot.R:38:5
+ 5.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-rcs_plot.R:83:3'): rcs_plot handles custom transformation ────
+1 incomplete cases excluded.
+Backtrace:
+    ▆
+ 1. └─clinpubr::rcs_plot(...) at test-rcs_plot.R:83:3
+ 2.   └─clinpubr::predictor_effect_plot(...)
+── Warning ('test-regressions.R:17:5'): regression_basic_results works for Cox regression ──
+The missing values are present differently across models.
+The analysis will be performed with the complete cases only.
+Consider imputing the data before doing this analysis.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-regressions.R:16:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::regression_basic_results(...) at test-regressions.R:17:5
+── Warning ('test-regressions.R:17:5'): regression_basic_results works for Cox regression ──
+Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+i Please use `linewidth` instead.
+i The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at <https://github.com/kassambara/ggpubr/issues>.
+Backtrace:
+     ▆
+  1. ├─withr::with_tempdir(...) at test-regressions.R:16:3
+  2. │ └─withr::with_dir(tmp, code)
+  3. │   └─base::force(code)
+  4. └─clinpubr::regression_basic_results(...) at test-regressions.R:17:5
+  5.   └─survminer::ggsurvplot(...)
+  6.     ├─base::do.call(ggsurvplot_core, opts)
+  7.     └─survminer (local) `<fn>`(...)
+  8.       └─survminer::ggsurvplot_df(...)
+  9.         └─ggpubr::geom_exec(...)
+ 10.           ├─base::do.call(geomfunc, option)
+ 11.           └─ggplot2 (local) `<fn>`(size = 1, linetype = 1, data = `<df[,10]>`, mapping = `<ggplt2::>`)
+ 12.             └─ggplot2::layer(...)
+ 13.               └─ggplot2:::deprecate_warn0(...)
+── Warning ('test-regressions.R:41:5'): regression_basic_results works for logistic regression ──
+The missing values are present differently across models.
+The analysis will be performed with the complete cases only.
+Consider imputing the data before doing this analysis.
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-regressions.R:40:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─clinpubr::regression_basic_results(...) at test-regressions.R:41:5
+── Warning ('test-regressions.R:217:3'): regression_basic_results works with time2 ──
+Log-rank test failed with error: survdiff not defined for counting process data
+Backtrace:
+    ▆
+ 1. └─clinpubr::regression_basic_results(...) at test-regressions.R:217:3
+ 2.   └─base::tryCatch(...)
+ 3.     └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 4.       └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 5.         └─value[[3L]](cond)
+── Warning ('test-regressions.R:217:3'): regression_basic_results works with time2 ──
+Log-rank test failed with error: survdiff not defined for counting process data
+Backtrace:
+    ▆
+ 1. └─clinpubr::regression_basic_results(...) at test-regressions.R:217:3
+ 2.   └─base::tryCatch(...)
+ 3.     └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 4.       └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 5.         └─value[[3L]](cond)
+── Warning ('test-utils.R:51:3'): remove_conflict handles variable conflicts ───
+b are removed to resolve variable conflict.
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test-utils.R:51:3
+ 2. │ └─testthat::quasi_label(enquo(object), label)
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─clinpubr:::remove_conflict(c("a", "b"), c("b", "c"))
+
+══ Failed tests ════════════════════════════════════════════════════════════════
+── Failure ('test-predictor_effect_plot.R:137:5'): predictor_effect_plot produces expected images (cox, rcs) ──
+Snapshot of `testcase` has changed.
+
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-predictor_effect_plot.R:124:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─vdiffr::expect_doppelganger("predictor effect cox rcs age", p) at test-predictor_effect_plot.R:137:5
+ 5.   ├─base::withCallingHandlers(...)
+ 6.   └─testthat::expect_snapshot_file(...)
+── Failure ('test-rcs_plot.R:16:5'): rcs_plot works for Cox model ──────────────
+Snapshot of `testcase` has changed.
+
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:13:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─vdiffr::expect_doppelganger("Cox model RCS plot", result) at test-rcs_plot.R:16:5
+ 5.   ├─base::withCallingHandlers(...)
+ 6.   └─testthat::expect_snapshot_file(...)
+── Failure ('test-rcs_plot.R:39:5'): rcs_plot works for logistic model ─────────
+Snapshot of `testcase` has changed.
+
+Backtrace:
+    ▆
+ 1. ├─withr::with_tempdir(...) at test-rcs_plot.R:37:3
+ 2. │ └─withr::with_dir(tmp, code)
+ 3. │   └─base::force(code)
+ 4. └─vdiffr::expect_doppelganger("Logistic model RCS plot", result) at test-rcs_plot.R:39:5
+ 5.   ├─base::withCallingHandlers(...)
+ 6.   └─testthat::expect_snapshot_file(...)
+
+── Snapshots ───────────────────────────────────────────────────────────────────
+To review and process snapshots locally:
+* Locate check directory.
+* Copy 'tests/testthat/_snaps' to local package.
+* Run `testthat::snapshot_accept()` to accept all changes.
+* Run `testthat::snapshot_review()` to review all changes.
+[ FAIL 3 | WARN 18 | SKIP 0 | PASS 399 ]
+Error:
+! Test failures.
+Execution halted

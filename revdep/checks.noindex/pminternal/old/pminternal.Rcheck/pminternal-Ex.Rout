@@ -1,0 +1,419 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pminternal"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('pminternal')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("boot_optimism")
+> ### * boot_optimism
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: boot_optimism
+> ### Title: Calculate optimism and bias-corrected scores via bootstrap
+> ###   resampling
+> ### Aliases: boot_optimism
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 1000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.186
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> model_fun <- function(data, ...){
++   glm(y ~ x1 + x2, data=data, family="binomial")
++ }
+> 
+> pred_fun <- function(model, data, ...){
++   predict(model, newdata=data, type="response")
++ }
+> 
+> boot_optimism(data=dat, outcome="y", model_fun=model_fun, pred_fun=pred_fun,
++               method="boot", B=20) # B set to 20 for example but should be >= 200
+                         C   Brier Intercept  Slope    Eavg     E50     E90
+Apparent            0.7964  0.1262   4.4e-15  1.000  0.0195  0.0162  0.0328
+Optimism            0.0049 -0.0018   1.0e-02  0.016  0.0044  0.0051  0.0076
+B Optimism         20.0000 20.0000   2.0e+01 20.000 20.0000 20.0000 20.0000
+Optimism Corrected  0.7915  0.1280  -1.0e-02  0.984  0.0151  0.0111  0.0251
+Simple Corrected    0.7953  0.1268  -1.0e-02  0.984  0.0222  0.0157  0.0458
+B Simple           20.0000 20.0000   2.0e+01 20.000 20.0000 20.0000 20.0000
+                     Emax    ECI
+Apparent            0.101  0.062
+Optimism            0.020  0.048
+B Optimism         20.000 20.000
+Optimism Corrected  0.081  0.014
+Simple Corrected    0.109  0.099
+B Simple           20.000 20.000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cal_plot")
+> ### * cal_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cal_plot
+> ### Title: Plot apparent and bias-corrected calibration curves
+> ### Aliases: cal_plot
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ x1 + x2, data=dat, family="binomial")
+> 
+> # to get a plot of bias-corrected calibration we need
+> # to specify 'eval' argument via 'calib_args'
+> # this argument specifies at what points to evalulate the
+> # calibration curve for plotting. The example below uses
+> # 100 equally spaced points between the min and max
+> # original prediction.
+> 
+> p <- predict(m1, type="response")
+> p100 <- seq(min(p), max(p), length.out=100)
+> 
+> m1_iv <- validate(m1, method="cv_optimism", B=10,
++                   calib_args = list(eval=p100))
+> # calib_ags can be used to set other calibration curve
+> # settings: see pmcalibration::pmcalibration
+> 
+> cal_plot(m1_iv)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calibration_stability")
+> ### * calibration_stability
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calibration_stability
+> ### Title: Plot calibration stability across bootstrap replicates
+> ### Aliases: calibration_stability
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("classification_stability")
+> ### * classification_stability
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: classification_stability
+> ### Title: Classification instability plot
+> ### Aliases: classification_stability
+> 
+> ### ** Examples
+> 
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ ., data=dat, family="binomial")
+> 
+> # internal validation of m1 via bootstrap optimism with 10 resamples
+> # B = 10 for example but should be >= 200 in practice
+> m1_iv <- validate(m1, method="boot_optimism", B=10)
+It is recommended that B >= 200 for bootstrap validation
+> 
+> classification_stability(m1_iv, threshold=.2)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("crossval")
+> ### * crossval
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: crossval
+> ### Title: Calculate bias-corrected scores via cross-validation
+> ### Aliases: crossval
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 1000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.186
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> #m1 <- glm(y ~ x1 + x2, data=dat, family="binomial")
+> 
+> model_fun <- function(data, ...){
++   glm(y ~ x1 + x2, data=data, family="binomial")
++ }
+> 
+> pred_fun <- function(model, data, ...){
++   predict(model, newdata=data, type="response")
++ }
+> 
+> # CV Corrected = Apparent - CV Optimism
+> # CV Average = average score in held out fold
+> crossval(data=dat, outcome="y", model_fun=model_fun, pred_fun=pred_fun, k=10)
+                         C    Brier Intercept Slope   Eavg    E50    E90  Emax
+Apparent            0.7964  1.3e-01   4.4e-15  1.00  0.020  0.016  0.033  0.10
+CV Optimism        -0.0049 -3.2e-18   1.6e-02 -0.04 -0.033 -0.027 -0.069 -0.10
+B Optimism         10.0000  1.0e+01   1.0e+01 10.00 10.000 10.000 10.000 10.00
+Optimism Corrected  0.8012  1.3e-01  -1.6e-02  1.04  0.053  0.044  0.102  0.21
+CV Average          0.8013  1.3e-01  -1.7e-02  1.04  0.053  0.044  0.102  0.21
+B Average          10.0000  1.0e+01   1.0e+01 10.00 10.000 10.000 10.000 10.00
+                      ECI
+Apparent            0.062
+CV Optimism        -0.489
+B Optimism         10.000
+Optimism Corrected  0.550
+CV Average          0.556
+B Average          10.000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dcurve_stability")
+> ### * dcurve_stability
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dcurve_stability
+> ### Title: Plot decision curve stability across bootstrap replicates
+> ### Aliases: dcurve_stability
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mape_stability")
+> ### * mape_stability
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mape_stability
+> ### Title: Mean absolute predictor error (MAPE) stability plot
+> ### Aliases: mape_stability
+> 
+> ### ** Examples
+> 
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ ., data=dat, family="binomial")
+> 
+> # internal validation of m1 via bootstrap optimism with 10 resamples
+> # B = 10 for example but should be >= 200 in practice
+> m1_iv <- validate(m1, method="boot_optimism", B=10)
+It is recommended that B >= 200 for bootstrap validation
+> 
+> mape_stability(m1_iv)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("prediction_stability")
+> ### * prediction_stability
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: prediction_stability
+> ### Title: Plot prediction stability across bootstrap replicates
+> ### Aliases: prediction_stability
+> 
+> ### ** Examples
+> 
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ ., data=dat, family="binomial")
+> 
+> # internal validation of m1 via bootstrap optimism with 10 resamples
+> # B = 10 for example but should be >= 200 in practice
+> m1_iv <- validate(m1, method="boot_optimism", B=10)
+It is recommended that B >= 200 for bootstrap validation
+> 
+> prediction_stability(m1_iv)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("score_binary")
+> ### * score_binary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: score_binary
+> ### Title: Score predictions for binary events
+> ### Aliases: score_binary
+> 
+> ### ** Examples
+> 
+> p <- runif(100)
+> y <- rbinom(length(p), 1, p)
+> score_binary(y = y, p = p)
+          C       Brier   Intercept       Slope        Eavg         E50 
+ 0.77536232  0.19507662 -0.28734285  0.82626569  0.05784706  0.04183614 
+        E90        Emax         ECI 
+ 0.11372489  0.12212064  0.43617459 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.internal_validate")
+> ### * summary.internal_validate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.internal_validate
+> ### Title: Summarize a internal_validate object
+> ### Aliases: summary.internal_validate
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ ., data=dat, family="binomial")
+> 
+> # internal validation of m1 via bootstrap optimism with 10 resamples
+> # B = 10 for example but should be >= 200 in practice
+> m1_iv <- validate(m1, method="boot_optimism", B=10)
+It is recommended that B >= 200 for bootstrap validation
+> summary(m1_iv)
+          apparent optimism corrected  n
+C           0.7779  0.00158    0.7764 10
+Brier       0.1335 -0.00111    0.1346 10
+Intercept   0.0000 -0.01917    0.0192 10
+Slope       1.0000  0.00083    0.9992 10
+Eavg        0.0076  0.00516    0.0024 10
+E50         0.0064  0.00381    0.0026 10
+E90         0.0115  0.00882    0.0027 10
+Emax        0.0580  0.07771   -0.0197 10
+ECI         0.0110  0.03656   -0.0256 10
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("validate")
+> ### * validate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: validate
+> ### Title: Get bias-corrected performance measures via bootstrapping or
+> ###   cross-validation
+> ### Aliases: validate
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 2000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.1985
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> m1 <- glm(y ~ ., data=dat, family="binomial")
+> 
+> # internal validation of m1 via bootstrap optimism with 10 resamples
+> # B = 10 for example but should be >= 200 in practice
+> m1_iv <- validate(m1, method="boot_optimism", B=10)
+It is recommended that B >= 200 for bootstrap validation
+> m1_iv
+          apparent optimism corrected  n
+C           0.7779  0.00158    0.7764 10
+Brier       0.1335 -0.00111    0.1346 10
+Intercept   0.0000 -0.01917    0.0192 10
+Slope       1.0000  0.00083    0.9992 10
+Eavg        0.0076  0.00516    0.0024 10
+E50         0.0064  0.00381    0.0026 10
+E90         0.0115  0.00882    0.0027 10
+Emax        0.0580  0.07771   -0.0197 10
+ECI         0.0110  0.03656   -0.0256 10
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  19.678 1.086 29.127 0.005 0.016 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

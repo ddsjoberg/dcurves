@@ -1,0 +1,62 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pminternal"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('pminternal')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("boot_optimism")
+> ### * boot_optimism
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: boot_optimism
+> ### Title: Calculate optimism and bias-corrected scores via bootstrap
+> ###   resampling
+> ### Aliases: boot_optimism
+> 
+> ### ** Examples
+> 
+> library(pminternal)
+> set.seed(456)
+> # simulate data with two predictors that interact
+> dat <- pmcalibration::sim_dat(N = 1000, a1 = -2, a3 = -.3)
+> mean(dat$y)
+[1] 0.186
+> dat$LP <- NULL # remove linear predictor
+> 
+> # fit a (misspecified) logistic regression model
+> model_fun <- function(data, ...){
++   glm(y ~ x1 + x2, data=data, family="binomial")
++ }
+> 
+> pred_fun <- function(model, data, ...){
++   predict(model, newdata=data, type="response")
++ }
+> 
+> boot_optimism(data=dat, outcome="y", model_fun=model_fun, pred_fun=pred_fun,
++               method="boot", B=20) # B set to 20 for example but should be >= 200
+Error in serverSocket(port = port) : 
+  creation of server socket failed: port 11465 cannot be opened
+Calls: boot_optimism -> <Anonymous> -> makePSOCKcluster -> serverSocket
+Execution halted

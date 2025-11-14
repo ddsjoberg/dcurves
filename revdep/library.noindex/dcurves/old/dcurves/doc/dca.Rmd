@@ -1,0 +1,351 @@
+---
+title: "Decision Curve Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Decision Curve Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(dcurves)
+library(gtsummary); library(dplyr); library(tidyr)
+```
+
+Diagnostic and prognostic models are typically evaluated with measures of accuracy that do not address clinical consequences.
+Decision-analytic techniques allow assessment of clinical outcomes but often require collection of additional information and may be cumbersome to apply to models that yield a continuous result.
+Decision curve analysis is a method for evaluating and comparing prediction models that incorporates clinical consequences, requires only the data set on which the models are tested, and can be applied to models that have either continuous or dichotomous results.
+This document will walk you through how to perform a decision curve analysis (DCA) in many settings, and how to interpret the resulting curves. 
+In DCA prediction models are compared to two default strategies: 1) assume that all patients are test positive and therefore treat everyone, or 2) assume that all patients are test negative and offer treatment to no one. 
+"Treatment” is considered in the widest possible sense, not only drugs, radiotherapy or surgery, but advice, further diagnostic procedures or more intensive monitoring.
+For more details on DCA, visit [www.decisioncurveanalysis.org](https://www.mskcc.org/departments/epidemiology-biostatistics/biostatistics/decision-curve-analysis).
+You'll find the original articles explaining the details of the DCA derivation along with other papers providing more details. 
+Below we'll walk you through how to perform DCA for binary and time-to-event outcomes
+
+## Binary Outcomes
+
+### Univariate Decision Curve Analysis
+
+We'll be working with the example dataset `df_binary` included with the package.
+The dataset includes information on `r nrow(df_binary)` patients who have recently discovered they have a gene mutation that puts them at a higher risk for harboring cancer.
+Each patient has been biopsied and we know their cancer status. 
+It is known that older patients with a family history of cancer have a higher probability of harboring cancer. 
+A clinical chemist has recently discovered a marker that she believes can distinguish between patients with and without cancer. 
+We wish to assess whether or not the new marker does indeed identify patients with and without cancer. 
+If the marker does indeed predict well, many patients will not need to undergo a painful biopsy.
+
+First, we want to confirm family history of cancer is indeed associated with the biopsy result. 
+
+```{r}
+mod <- glm(cancer ~ famhistory, df_binary, family = binomial)
+tbl <- tbl_regression(mod, exponentiate = TRUE)
+tbl
+```
+
+Via logistic regression with cancer as the outcome, we can see that family history is related to biopsy outcome OR `r inline_text(tbl, variable = "famhistory")`. 
+The DCA can help us address the clinical utility of using family history to predict biopsy outcome. 
+
+```{r}
+dca(cancer ~ famhistory, df_binary) %>%
+  plot(smooth = TRUE)
+```
+
+First, note that there are many threshold probabilities shown here that are not of interest. 
+For example, it is unlikely that a patient would demand that they had at least a 50% risk of cancer before they would accept a biopsy. 
+Let's do the DCA again, this time restricting the output to threshold probabilities a more clinically reasonable range, between 0% and 35%.
+
+```{r}
+dca(cancer ~ famhistory, df_binary, thresholds = seq(0, 0.35, by = 0.01)) %>%
+  plot(smooth = TRUE)
+```
+
+Now that the graph is showing a more reasonable range of threshold probabilities, let's assess the clinical utility of family history alone. 
+We can see here that although family history is significantly associated with biopsy outcome, it only adds value to a small range of threshold probabilities near 13% - 20%. 
+If your personal threshold probability is 15% (i.e. you would undergo a biopsy if your probability of cancer was greater than 15%), then family history alone can be beneficial in making the decision to undergo biopsy. 
+However, if your threshold probability is less than 13% or higher than 20%, then family history adds no more benefit than a biopsy all, or biopsy none scheme. 
+
+### Multivariable Decision Curve Analysis
+
+#### Evaluation of New Models 
+
+We wanted to examine the value of a statistical model that incorporates family history, age, and the
+marker. 
+First we will build the logistic regression model with all three variables, and second we would have saved out the predicted probability of having cancer based on the model. 
+Note that in our example data set, this variable actually already exists so it wouldn't be necessary to create the predicted probabilities once again. 
+
+```{r}
+glm(cancer ~ marker + age + famhistory, df_binary, family = binomial) %>%
+  broom::augment(newdata = df_binary, type.predict = "response")
+```
+
+We now want to compare our different approaches to cancer detection: biopsying everyone, biopsying no-one, biopsying on the basis of family history, or biopsying on the basis of a multivariable statistical model including the marker, age and family history of cancer. 
+
+```{r}
+dca(cancer ~ famhistory + cancerpredmarker, 
+    data = df_binary, 
+    thresholds = seq(0, 0.35, by = 0.01)) %>%
+  plot(smooth = TRUE)
+```
+
+The key aspect of decision curve analysis is to look at which strategy leads to the largest net benefit (i.e. the "highest” line), which in this example would correspond to the model that includes age, family history of cancer, and the marker. 
+It is clear that, across the range of reasonable threshold probabilities, one cannot go wrong basing decisions on this multivariate model: it is superior, and unlike any alternative strategy, it is never worse.
+
+A few points are worth noting. 
+First, look at the green line, the net benefit for "treat all”, that is, biopsy everyone. 
+This crosses the y axis at the prevalence. Imagine that a man had a risk threshold of 14%, and asked his risk under the "biopsy all" strategy. He would be told that his risk was the prevalence (14%).
+When a patient's risk threshold is the same as his predicted risk, the net benefit of biopsying and not biopsying are the same.
+Second, the decision curve for the binary variable (family history of cancer, the teal line) crosses the "biopsy all men” line at 1 – negative predictive value and again, this is easily explained: the negative predictive value is 87%, so a patient with no family history of cancer has a probability of disease of 13%; a patient with a threshold probability less than this – for example, a patient who would opt for biopsy even if risk was 10% - should therefore be biopsied even if he/she had no family history of cancer. 
+The decision curve for a binary variable is equivalent to biopsy no-one at the positive predictive value. 
+This is because for a binary variable, a patient with the characteristic is given a risk at the positive predictive
+value. 
+
+#### Evaluation of Published Models 
+
+Imagine that a model was published by Brown et al. with respect to our cancer biopsy data set. 
+The authors reported a statistical model with coefficients of 0.75 for a positive family history of cancer; 0.26 for each increased year of age, and an intercept of -17.5. To test this formula on our dataset:
+
+```{r}
+df_binary_updated <-
+  df_binary %>%
+  mutate(
+    # Use the coefficients from the Brown model
+    logodds_Brown = 0.75 * (famhistory) + 0.26 * (age) - 17.5,
+    # Convert to predicted probability
+    phat_Brown = exp(logodds_Brown) / (1 + exp(logodds_Brown))
+  )
+
+# Run the decision curve
+dca(cancer ~ phat_Brown, 
+    data = df_binary_updated, 
+    thresholds = seq(0, 0.35, by = 0.01),
+    label = list(phat_Brown = "Brown Model")) %>%
+  plot(smooth = TRUE)
+```
+
+This decision curve suggests that although the model might be useful in the most risk averse patients, it is actually harmful in patients with more moderate threshold probabilities. 
+As such, the Brown et al. model should not be used in clinical practice. 
+This effect, a model being harmful, occurs due to miscalibration, that is, when patients are given risks that are too high or too low. 
+Note that miscalibration only occurs rarely when models are created and tested on the same data set, such as in the example where we created a model with both family history and the marker.
+
+#### Joint or Conditional Tests 
+
+Many decisions in medicine are based on joint or conditional test results. 
+A classic example is where patients are categorized on the basis of a test as being at high, low or intermediate risk. 
+Patients at high risk are referred immediately for treatment (in our example biopsied); patients at low risk are reassured and advised that no further action is necessary; patients at intermediate risk are sent for an additional test, with subsequent treatment decisions made accordingly.
+
+Imagine that for our example there was a previous test that categorized our patients as high, low, and intermediate risk of cancer and we wanted to incorporate our marker. 
+There are five clinical options: 
+
+1. Biopsy everyone
+2. Biopsy no-one
+3. Biopsy everyone that was determined to be at high risk of cancer; don't use the marker
+4. Measure the marker for everyone, then biopsy anyone who is either at high risk of cancer or who was determined to have a probability of cancer past a certain level, based on the marker (i.e. joint approach) 
+5. Biopsy everyone at high risk; measure the marker for patients at intermediate risk and biopsy
+those with a probability of cancer past a certain level, based on the marker (i.e. conditional
+approach) 
+
+Decision curve analysis can incorporate joint or conditional testing. All that is required is that
+appropriate variables are calculated from the data set; decision curves are then calculated as normal.
+First we would create the variables to represent our joint and conditional approach. For our example,
+let us use 0.15 as the cutoff probability level for patients who had their marker measured and should be
+biopsied.
+
+```{r}
+df_binary_updated <-
+  df_binary_updated %>%
+  mutate(
+    # Create a variable for the strategy of treating only high risk patients
+    # This will be 1 for treat and 0 for don't treat
+    high_risk = ifelse(risk_group == "high", 1, 0),
+    # Treat based on Joint Approach
+    joint = ifelse(risk_group == "high" | cancerpredmarker > 0.15, 1, 0),
+    # Treat based on Conditional Approach
+    conditional = ifelse(risk_group == "high" | 
+                           (risk_group == "intermediate" & cancerpredmarker > 0.15), 1, 0)
+  )
+```
+
+Now that we have the variables worked out, we can run the decision curve analysis.
+
+```{r}
+dca(cancer ~ high_risk + joint + conditional, 
+    data = df_binary_updated, 
+    thresholds = seq(0, 0.35, by = 0.01)) %>%
+  plot(smooth = TRUE)
+```
+
+This appears to show that the joint test is the better option for the range of threshold probabilities from 5% - 24% since it has the highest net benefit across that range. 
+Less than 5%, the clinical option of treating all would be superior to any other option, though rarely would treatment thresholds be so low.
+From 28%-35%, the conditional test would be a slightly better option, and in between the two ranges, the joint and conditional tests are comparable. 
+The obvious disadvantage of the joint test is that the marker needs to be measured for everyone, and such tests may be expensive and time consuming. 
+
+### Incorporating Harms into Model Assessment
+
+To incorporate the harm of testing and measuring the marker, we ask a clinician, who tells us that, even if the marker were perfectly accurate, few clinicians would conduct more than 30 tests to predict one cancer diagnosis.
+This might be because the test is expensive, or requires some invasive procedure to
+obtain.
+The "harm” of measuring the marker is the reciprocal of 30, or 0.0333.
+To construct the decision curves for each strategy we now incorporate harm.
+We have to calculate harm specially for the conditional test, because only patients at intermediate risk are measured for the marker.
+Then incorporate it into our decision curve.
+The strategy for incorporating harm for the conditional test is by multiplying the proportion scanned by the harm of the scan.
+
+```{r}
+# the harm of measuring the marker is stored in a scalar
+harm_marker <- 0.0333
+
+# in the conditional test, only patients at intermediate risk have their marker measured
+intermediate_risk <- df_binary_updated$risk_group == "intermediate"
+
+# harm of the conditional approach is proportion of patients who have the marker measured multiplied by the harm
+harm_conditional <- mean(intermediate_risk) * harm_marker
+
+# Run the decision curve 
+dca_with_harms <-
+  dca(cancer ~ high_risk + joint + conditional, 
+    data = df_binary_updated, 
+    harm = list(joint = harm_marker, conditional = harm_conditional),
+    thresholds = seq(0, 0.35, by = 0.01))
+plot(dca_with_harms, smooth = TRUE)
+```
+
+Here the conditional test is clearly the best option (above the 8% treatment threshold), in fact, once you take into account the harm of measuring the marker, it is clearly not worth measuring the marker for everyone: the net benefit of just treating high risk patients is often higher than that of the joint test. 
+
+### Saving out Net Benefit Values 
+
+For any model assessed through decision curve analysis, if we also wanted to show the net benefits in a table, we could save them out.
+For a particular range of value, we would only need to specify what threshold to start, stop, and the increment we'd like to use.
+
+Let us imagine that we want to view the net benefit of using only the marker to predict whether a patient has cancer, compared with the net benefits of biopsying all patients at thresholds of 5%, 10%, 15%, ... 35%.
+For the model itself, we would actually need to first specify that the marker variable---unlike those of any of the models before---is not a probability.
+Based on our thresholds, we'd want to begin at 0.05, and by increments of 0.05, stop at 0.35.
+
+```{r}
+dca_with_harms %>%
+  as_tibble() %>%
+  filter(threshold %in% seq(0.05, 0.35, by = 0.05)) %>%
+  select(variable, threshold, net_benefit) %>%
+  pivot_wider(id_cols = threshold, 
+              names_from = variable,
+              values_from = net_benefit)
+```
+
+Net benefit has a ready clinical interpretation. The value of 0.03 at a threshold probability of 20% can be interpreted as: "Comparing to conducting no biopsies, biopsying on the basis of the marker is the equivalent of a strategy that found 3 cancers per hundred patients without conducting any unnecessary biopsies.” 
+
+### Interventions Avoided
+
+As part of assessing the usefulness of the marker, we would be interested in whether using this marker to identify patients with and without cancer would help reduce unnecessary biopsies.
+This value was the “intervention avoided” column in the table that was saved out. To view it graphically, we would only need to specify it in our command. 
+
+```{r}
+dca(cancer ~ marker, 
+    data = df_binary, 
+    as_probability = "marker") %>%
+  net_intervention_avoided() %>%
+  plot(smooth = TRUE)
+```
+
+At a probability threshold of 15%, the net reduction in interventions is about 0.33.
+In other words, at this probability threshold, biopsying patients on the basis of the marker is the equivalent of a strategy that reduced the biopsy rate by 33%, without missing any cancers. 
+
+## Survival Outcomes
+
+### Motivating Example
+
+Patients went to have a marker measured and patients were followed to determine whether they were eventually diagnosed with cancer.
+We want to build a model using age, family history, and the marker, and assess how
+well the model predicts cancer within 1.5 years.
+The variables that will be used from the example dataset for this section of the tutorial are the
+following: 
+
+```{r}
+library(survival)
+df_surv %>% head()
+```
+
+### Basic Data Set-up
+
+The survival probability to any time-point can be derived from any type of survival model; here we use a
+Cox as this is the most common model in statistical practice.
+The formula for a survival probability from a Cox model is given by
+
+$$
+S(t) = S_0(t)^{e^{X\beta}}
+$$
+
+Where $X$ is matrix of covariates in the Cox model, $\beta$ is a vector containing the parameter estimates from the Cox model, and $S_0(t)$ is the baseline survival probability to time $t$.
+To get such values within our code, we will run a Cox model with age, family history, and the marker, as predictors, save out the baseline survival function in a new variable, and obtaining the linear prediction from the model for each subject.
+
+We then obtain the baseline survival probability to our time point of interest. 
+If no patient was observed at the exact time of interest, we can use the baseline survival probability to the observed time closest to, but not after, the time point.
+We can then calculate the probability of failure at the specified time point.
+For our example, we will use a time point of 1.5 years.
+
+```{r}
+# build Cox model
+cox_model <- coxph(Surv(ttcancer, cancer) ~ age + famhistory + marker, data = df_surv)
+
+# show summary of model results
+tbl_regression(cox_model, exponentiate = TRUE)
+
+# add model prediction to our data frame
+df_surv_updated <-
+  broom::augment(
+    cox_model, 
+    newdata = df_surv %>% mutate(ttcancer =  1.5),
+    type.predict = "expected"
+  ) %>%
+    mutate(
+      pr_failure18 = 1 - exp(-.fitted)
+    ) %>%
+    select(-.fitted, -.se.fit)
+```
+
+The code for running the decision curve analysis is straightforward after the probability of failure is
+calculated.
+All we have to do is specify the time point we are interested in. 
+For our example, let us not only set the threshold from 0% to 50%, but also add smoothing. 
+Results of a smoothed curve should always be compared with the unsmoothed curve to ensure accuracy.
+
+```{r}
+dca(Surv(ttcancer, cancer) ~ pr_failure18, 
+    data = df_surv_updated,
+    time = 1.5,
+    thresholds = 1:50 / 100) %>%
+  plot(smooth = TRUE)
+```
+
+This shows that using the model to inform clinical decisions will lead to superior outcomes for any decision associated with a threshold probability of above 2% or so.
+
+### Competing Risks 
+
+Competing risks endpoints are handled similarly to survival endpoints. 
+The outcome must be defined as a factor, with the lowest level called `"censor"`, and the other levels defining the events of interest.
+The `dca()` function will treat the first outcome listed as the outcome of interest.
+
+```{r}
+dca(Surv(ttcancer, cancer_cr) ~ pr_failure18, 
+    data = df_surv_updated,
+    time = 1.5,
+    thresholds = 1:50 / 100) %>%
+  plot(smooth = TRUE)
+```
+
+## Case-Control Data
+
+Case-control data are handled similarly to binary data, except that the prevalence of the outcome must be specified as it cannot be estimated from the data.
+
+```{r}
+dca(casecontrol ~ cancerpredmarker, 
+    data = df_case_control,
+    prevalence = 0.15) %>%
+  plot(smooth = TRUE)
+```

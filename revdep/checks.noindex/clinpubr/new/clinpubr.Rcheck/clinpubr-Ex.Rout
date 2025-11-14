@@ -1,0 +1,1602 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "clinpubr"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('clinpubr')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("add_lists")
+> ### * add_lists
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: add_lists
+> ### Title: Adding lists element-wise
+> ### Aliases: add_lists
+> 
+> ### ** Examples
+> 
+> l1 <- list(a = 1, b = 2)
+> l2 <- list(a = 3, b = 4, c = 5)
+> add_lists(l1, l2)
+$a
+[1] 4
+
+$b
+[1] 6
+
+$c
+[1] 5
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("answer_check")
+> ### * answer_check
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: answer_check
+> ### Title: Check answers of multiple choice questions
+> ### Aliases: answer_check
+> 
+> ### ** Examples
+> 
+> dat <- data.frame(Q1 = c("A", "B", "C"), Q2 = c("AD", "AE", "ABF"))
+> seq <- c("A", "AE")
+> answer_check(dat, seq)
+     X1    X2
+1  TRUE FALSE
+2 FALSE  TRUE
+3 FALSE FALSE
+> dat <- data.frame(
++   Q1 = c("A", "B", "C"), Q2.A = c(TRUE, TRUE, FALSE),
++   Q2.B = c(TRUE, FALSE, TRUE), Q2.C = c(FALSE, TRUE, FALSE)
++ )
+> seq <- c("A", "TFT")
+> answer_check(dat, seq, multi_column = TRUE)
+     X1    X2
+1  TRUE FALSE
+2 FALSE  TRUE
+3 FALSE FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("baseline_table")
+> ### * baseline_table
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: baseline_table
+> ### Title: Create a baseline table for a dataset.
+> ### Aliases: baseline_table
+> 
+> ### ** Examples
+> 
+> withr::with_tempdir(
++   {
++     data(cancer, package = "survival")
++     var_types <- get_var_types(cancer, strata = "sex")
++     baseline_table(cancer, var_types = var_types, filename = "baseline.csv")
++ 
++     # baseline table with pairwise comparison
++     cancer$ph.ecog_cat <- factor(cancer$ph.ecog,
++       levels = c(0:3),
++       labels = c("0", "1", ">=2", ">=2")
++     )
++     var_types <- get_var_types(cancer, strata = "ph.ecog_cat")
++     baseline_table(cancer, var_types = var_types, filename = "baselineV2.csv")
++     print(paste0("files saved to: ", getwd()))
++   },
++   clean = FALSE
++ )
+[1] "files saved to: /private/var/folders/6f/gdjf_vxj2wl3jhmxdkd1hd_w0000gn/T/RtmpPx9VLY/filea019ed964d6"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("break_at")
+> ### * break_at
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: break_at
+> ### Title: Generate breaks for histogram
+> ### Aliases: break_at
+> 
+> ### ** Examples
+> 
+> break_at(xlim = c(0, 10), breaks = 12, ref_val = 3.12)
+ [1] -0.5163636  0.3927273  1.3018182  2.2109091  3.1200000  4.0290909
+ [7]  4.9381818  5.8472727  6.7563636  7.6654545  8.5745455  9.4836364
+[13] 10.3927273
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calculate_index")
+> ### * calculate_index
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calculate_index
+> ### Title: Calculate index based on conditions
+> ### Aliases: calculate_index
+> 
+> ### ** Examples
+> 
+> df <- data.frame(x = c(1, 2, 3, 4, 5), y = c(1, 2, NA, 4, NA))
+> calculate_index(df, x > 3, y < 3, .weight = c(1, 2), .na_replace = 0)
+[1] 2 2 0 1 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("check_nonnum")
+> ### * check_nonnum
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: check_nonnum
+> ### Title: Check elements that are not numeric
+> ### Aliases: check_nonnum
+> 
+> ### ** Examples
+> 
+> check_nonnum(c("\uFF11\uFF12\uFF13", "11..23", "3.14", "2.131", "35.2."))
+[1] "１２３" "11..23" "35.2." 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("classif_model_compare")
+> ### * classif_model_compare
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: classif_model_compare
+> ### Title: Performance comparison of classification models
+> ### Aliases: classif_model_compare
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> df <- kidney
+> df$dead <- ifelse(df$time <= 100 & df$status == 0, NA, df$time <= 100)
+> df <- na.omit(df[, -c(1:3)])
+> 
+> model0 <- glm(dead ~ age + frail, family = binomial(), data = df)
+> model <- glm(dead ~ ., family = binomial(), data = df)
+> df$base_pred <- predict(model0, type = "response")
+> df$full_pred <- predict(model, type = "response")
+> 
+> classif_model_compare(df, "dead", c("base_pred", "full_pred"), save_output = FALSE)
+Assuming 'TRUE' is [Event] and 'FALSE' is [non-Event]
+$metric_table
+      Model                  AUC PRAUC Accuracy Sensitivity Specificity
+2 full_pred 0.915 (0.847, 0.984) 0.885    0.839         0.8       0.889
+1 base_pred 0.822 (0.711, 0.933) 0.766    0.806         0.8       0.815
+  Pos Pred Value Neg Pred Value    F1 Kappa Brier cutoff Youden HosLem
+2          0.903          0.774 0.848 0.677 0.114  0.626  0.689  0.944
+1          0.848          0.759 0.824 0.610 0.171  0.490  0.615  0.405
+
+$dca_plot
+
+$roc_plot
+
+$pr_plot
+
+$calibration_plot
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("combine_files")
+> ### * combine_files
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: combine_files
+> ### Title: combine multiple data files into a single data frame
+> ### Aliases: combine_files
+> 
+> ### ** Examples
+> 
+> library(withr)
+> with_tempdir({
++   write.csv(data.frame(x = 1:3, y = 4:6), "file1.csv", row.names = FALSE)
++   write.csv(data.frame(x = 7:9, y = 10:12), "file2.csv", row.names = FALSE)
++   dat <- combine_files(pattern = "file")
++ })
+> print(dat)
+  x  y
+1 1  4
+2 2  5
+3 3  6
+4 7 10
+5 8 11
+6 9 12
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:withr’
+
+> nameEx("combine_multichoice")
+> ### * combine_multichoice
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: combine_multichoice
+> ### Title: Combine multi-choice columns into one
+> ### Aliases: combine_multichoice
+> 
+> ### ** Examples
+> 
+> # Single group (backward compatibility)
+> df <- data.frame(q1 = c(TRUE, FALSE, TRUE), q2 = c(FALSE, TRUE, TRUE))
+> combine_multichoice(df, quest_cols = c("q1", "q2"))
+  combined_multichoice
+1                    1
+2                    2
+3                  1,2
+> 
+> # Multiple groups with named list
+> df <- data.frame(
++   a1 = c(TRUE, FALSE, TRUE), a2 = c(FALSE, TRUE, TRUE),
++   b1 = c(TRUE, TRUE, FALSE), b2 = c(FALSE, FALSE, TRUE)
++ )
+> combine_multichoice(df, quest_cols = list(groupA = c("a1", "a2"), groupB = c("b1", "b2")))
+  groupA groupB
+1      1      1
+2      2      1
+3    1,2      2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("common_prefix")
+> ### * common_prefix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: common_prefix
+> ### Title: Get common prefix of a string vector
+> ### Aliases: common_prefix
+> 
+> ### ** Examples
+> 
+> common_prefix(c("Q1_a", "Q1_b", "Q1_c"))
+[1] "Q1_"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cut_by")
+> ### * cut_by
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cut_by
+> ### Title: Convert Numeric to Factor
+> ### Aliases: cut_by
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> cut_by(rnorm(100), c(0, 1, 2))
+  [1] [-2.31,0) [-2.31,0) [1,2)     [0,1)     [0,1)     [1,2)     [0,1)    
+  [8] [-2.31,0) [-2.31,0) [-2.31,0) [1,2)     [0,1)     [0,1)     [0,1)    
+ [15] [-2.31,0) [1,2)     [0,1)     [-2.31,0) [0,1)     [-2.31,0) [-2.31,0)
+ [22] [-2.31,0) [-2.31,0) [-2.31,0) [-2.31,0) [-2.31,0) [0,1)     [0,1)    
+ [29] [-2.31,0) [1,2)     [0,1)     [-2.31,0) [0,1)     [0,1)     [0,1)    
+ [36] [0,1)     [0,1)     [-2.31,0) [-2.31,0) [-2.31,0) [-2.31,0) [-2.31,0)
+ [43] [-2.31,0) [2,2.19]  [1,2)     [-2.31,0) [-2.31,0) [-2.31,0) [0,1)    
+ [50] [-2.31,0) [0,1)     [-2.31,0) [-2.31,0) [1,2)     [-2.31,0) [1,2)    
+ [57] [-2.31,0) [0,1)     [0,1)     [0,1)     [0,1)     [-2.31,0) [-2.31,0)
+ [64] [-2.31,0) [-2.31,0) [0,1)     [0,1)     [0,1)     [0,1)     [2,2.19] 
+ [71] [-2.31,0) [-2.31,0) [1,2)     [-2.31,0) [-2.31,0) [1,2)     [-2.31,0)
+ [78] [-2.31,0) [0,1)     [-2.31,0) [0,1)     [0,1)     [-2.31,0) [0,1)    
+ [85] [-2.31,0) [0,1)     [1,2)     [0,1)     [-2.31,0) [1,2)     [0,1)    
+ [92] [0,1)     [0,1)     [-2.31,0) [1,2)     [-2.31,0) [2,2.19]  [1,2)    
+ [99] [-2.31,0) [-2.31,0)
+Levels: [-2.31,0) [0,1) [1,2) [2,2.19]
+> cut_by(rnorm(100), c(1 / 3, 2 / 3), breaks_as_quantiles = TRUE, label_type = "LMH")
+  [1] Low    High   Medium Medium Low    Medium Low    Low    Medium High  
+ [11] Low    High   Low    Medium High   High   Medium Low    Low    Low   
+ [21] Medium Low    Medium Medium High   Low    High   Medium Low    Medium
+ [31] High   High   Medium Medium Low    High   Low    High   High   Low   
+ [41] High   Medium Low    Low    Low    Low    Low    High   High   Low   
+ [51] High   High   High   Low    Medium Medium High   Medium High   Medium
+ [61] High   Low    Low    High   Medium High   High   Medium High   High  
+ [71] Medium Medium Medium High   Low    Low    Medium High   High   Medium
+ [81] Low    High   Medium Low    Medium Medium High   Medium High   Medium
+ [91] Medium Medium Medium Low    Low    High   High   Low    Low    Low   
+Levels: Low Medium High
+> 
+> 
+> 
+> cleanEx()
+> nameEx("df_view_nonnum")
+> ### * df_view_nonnum
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: df_view_nonnum
+> ### Title: Show non-numeric elements in a data frame
+> ### Aliases: df_view_nonnum
+> 
+> ### ** Examples
+> 
+> df <- data.frame(
++   x = c("1", "2", "3..3", "4", "6a"),
++   y = c("1", "ss", "aa.a", "4", "xx"),
++   z = c("1", "2", "3", "4", "6")
++ )
+> df_view_nonnum(df)
+# A tibble: 3 × 2
+  x     y    
+  <chr> <chr>
+1 3..3  ss   
+2 6a    aa.a 
+3 <NA>  xx   
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exclusion_count")
+> ### * exclusion_count
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exclusion_count
+> ### Title: Count the number of excluded samples at each step
+> ### Aliases: exclusion_count
+> 
+> ### ** Examples
+> 
+> cohort <- data.frame(
++   age = c(17, 25, 30, NA, 50, 60),
++   sex = c("M", "F", "F", "M", "F", "M"),
++   value = c(1, NA, 3, 4, 5, NA),
++   dementia = c(TRUE, FALSE, FALSE, FALSE, TRUE, FALSE)
++ )
+> exclusion_count(
++   cohort,
++   age < 18,
++   is.na(value),
++   dementia == TRUE,
++   .criteria_names = c(
++     "Age < 18 years",
++     "Missing value",
++     "History of dementia"
++   )
++ )
+Warning in exclusion_count(cohort, age < 18, is.na(value), dementia == TRUE,  :
+  Criterion 'Age < 18 years' resulted in NA values. These rows have been excluded by default. Consider adding an explicit check for missing values (e.g., is.na(variable)) as a preceding criterion.
+             Criteria N
+1           Initial N 6
+2      Age < 18 years 2
+3       Missing value 2
+4 History of dementia 1
+5             Final N 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extract_num")
+> ### * extract_num
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extract_num
+> ### Title: Extract numbers from string.
+> ### Aliases: extract_num
+> 
+> ### ** Examples
+> 
+> x <- c("1.2(XXX)", "5-8POS", "NS", "FULL", "5.5", "4.2")
+> extract_num(x)
+[1] 1.2 5.0  NA  NA 5.5 4.2
+> extract_num(x,
++   res_type = "first", multimatch2na = TRUE, zero_regexp = "NEG|NS",
++   max_regexp = "FULL"
++ )
+[1] 1.20   NA 0.00 5.37 5.50 4.20
+> extract_num(x, res_type = "range", allow_neg = FALSE, zero_regexp = "NEG|NS", max_regexp = "FULL")
+[1] 1.20 6.50 0.00 6.35 5.50 4.20
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fill_with_last")
+> ### * fill_with_last
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fill_with_last
+> ### Title: Fill NA values with the last valid value
+> ### Aliases: fill_with_last
+> 
+> ### ** Examples
+> 
+> fill_with_last(c(1, 2, NA, 4, NA, 6))
+[1] 1 2 2 4 4 6
+> 
+> 
+> 
+> cleanEx()
+> nameEx("filter_rcs_predictors")
+> ### * filter_rcs_predictors
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: filter_rcs_predictors
+> ### Title: Filter predictors for RCS
+> ### Aliases: filter_rcs_predictors
+> 
+> ### ** Examples
+> 
+> filter_rcs_predictors(mtcars)
+[1] "mpg"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("first_mode")
+> ### * first_mode
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: first_mode
+> ### Title: Calculate the first mode
+> ### Aliases: first_mode
+> 
+> ### ** Examples
+> 
+> first_mode(c(1, 1, 2, 2, 3, 3, 3, NA, NA, NA))
+[1] 3
+> 
+> 
+> 
+> cleanEx()
+> nameEx("format_pval")
+> ### * format_pval
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: format_pval
+> ### Title: Format p-value for publication
+> ### Aliases: format_pval
+> 
+> ### ** Examples
+> 
+> format_pval(c(0.001, 0.0001, 0.05, 0.1123456))
+[1] "0.001"  "<0.001" "0.050"  "0.112" 
+> format_pval(c(0.001, 0.0001, 0.05, 0.1123456), text_ahead = "p value")
+[1] "p value = 0.001" "p value < 0.001" "p value = 0.050" "p value = 0.112"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("formula_add_covs")
+> ### * formula_add_covs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: formula_add_covs
+> ### Title: Add covariates to a formula
+> ### Aliases: formula_add_covs
+> 
+> ### ** Examples
+> 
+> formula_add_covs("y ~ a + b", c("c", "d"))
+y ~ a + b + c + d
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_samples")
+> ### * get_samples
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_samples
+> ### Title: Generate a sample of values from a vector and collapse them.
+> ### Aliases: get_samples
+> 
+> ### ** Examples
+> 
+> get_samples(c(1, 2, 3, 4, 5))
+[1] "1\n2\n3\n4\n5"
+> get_samples(c(1, 2, 3, 4, 5), n_samples = 2)
+[1] "1\n4"
+> get_samples(c(1, 2, 3, 3, 3), n_samples = 2, unique_only = TRUE)
+[1] "3\n1"
+> get_samples(c(1, 2, 3, 4, 5), collapse = ", ")
+[1] "1, 2, 3, 4, 5"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_valid")
+> ### * get_valid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_valid
+> ### Title: Get one valid value from vector.
+> ### Aliases: get_valid
+> 
+> ### ** Examples
+> 
+> get_valid(c(NA, 1, 2, NA, 3, NA, 4))
+[1] 1
+> get_valid(c(NA, 1, NA), mode = "last", disjoint = TRUE)
+[1] NA
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_valid_subset")
+> ### * get_valid_subset
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_valid_subset
+> ### Title: Get the subset that satisfies the missing rate condition.
+> ### Aliases: get_valid_subset
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> dim(cancer)
+[1] 228  10
+> max_missing_rates(cancer)
+$row
+[1] 0.3
+
+$col
+[1] 0.2061404
+
+> 
+> cancer_valid <- get_valid_subset(cancer, row_na_ratio = 0.2, col_na_ratio = 0.1, row_priority = 1)
+> dim(cancer_valid)
+[1] 227   9
+> max_missing_rates(cancer_valid)
+$row
+[1] 0.1111111
+
+$col
+[1] 0.05726872
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_var_types")
+> ### * get_var_types
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_var_types
+> ### Title: Get variable types for baseline table
+> ### Aliases: get_var_types
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> get_var_types(cancer, strata = "sex") # set save_qqplots = TRUE to check the QQ plots
+$factor_vars
+[1] "status"  "sex"     "ph.ecog"
+
+$exact_vars
+[1] "ph.ecog"
+
+$nonnormal_vars
+[1] "inst"      "time"      "ph.karno"  "pat.karno" "meal.cal"  "wt.loss"  
+
+$omit_vars
+NULL
+
+$strata
+[1] "sex"
+
+attr(,"class")
+[1] "var_types"
+> 
+> var_types <- get_var_types(cancer, strata = "sex")
+> # for some reason we want the variable "pat.karno" ro be considered normal.
+> var_types$nonnormal_vars <- setdiff(var_types$nonnormal_vars, "pat.karno")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("importance_plot")
+> ### * importance_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: importance_plot
+> ### Title: Importance plot
+> ### Aliases: importance_plot
+> 
+> ### ** Examples
+> 
+> set.seed(1)
+> dummy_importance <- runif(20)^5
+> names(dummy_importance) <- paste0("var", 1:20)
+> importance_plot(dummy_importance, top_n = 15, split_at = 10, save_plot = FALSE)
+Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_bar()`).
+> 
+> 
+> 
+> cleanEx()
+> nameEx("indicate_duplicates")
+> ### * indicate_duplicates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: indicate_duplicates
+> ### Title: Determine duplicate elements including their first occurrence.
+> ### Aliases: indicate_duplicates
+> 
+> ### ** Examples
+> 
+> indicate_duplicates(c(1, 2, NA, NA, 1))
+[1]  TRUE FALSE  TRUE  TRUE  TRUE
+> indicate_duplicates(c(1, 2, 3, 4, 4))
+[1] FALSE FALSE FALSE  TRUE  TRUE
+> 
+> # Useful to check duplicates in data frames.
+> df <- data.frame(
++   id = c(1, 2, 1, 2, 3), year = c(2010, 2011, 2010, 2010, 2011),
++   value = c(1, 2, 3, 4, 5)
++ )
+> df[indicate_duplicates(df[, c("id", "year")]), ]
+  id year value
+1  1 2010     1
+3  1 2010     3
+> 
+> 
+> 
+> cleanEx()
+> nameEx("interaction_p_value")
+> ### * interaction_p_value
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: interaction_p_value
+> ### Title: Calculate interaction p-value
+> ### Aliases: interaction_p_value
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> interaction_p_value(
++   data = cancer, y = "status", predictor = "age", group_var = "sex",
++   time = "time", rcs_knots = 4
++ )
+[1] 0.8364705
+> 
+> 
+> 
+> cleanEx()
+> nameEx("interaction_plot")
+> ### * interaction_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: interaction_plot
+> ### Title: Plot interactions
+> ### Aliases: interaction_plot
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> interaction_plot(cancer,
++   y = "status", time = "time", predictor = "age", group_var = "sex",
++   save_plot = FALSE
++ )
+$lin
+
+$rcs
+
+> interaction_plot(cancer,
++   y = "status", predictor = "age", group_var = "sex",
++   save_plot = FALSE
++ )
+$lin
+NULL
+
+$rcs
+NULL
+
+> interaction_plot(cancer,
++   y = "wt.loss", predictor = "age", group_var = "sex",
++   save_plot = FALSE
++ )
+$lin
+
+$rcs
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("interaction_scan")
+> ### * interaction_scan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: interaction_scan
+> ### Title: Scan for interactions between variables
+> ### Aliases: interaction_scan
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> interaction_scan(cancer, y = "status", time = "time", save_table = FALSE)
+Taking all variables as interaction predictors
+Taking all variables as group variables
+   predictor  group.by nvalid linear.p.int   rcs.p.int linear.p.adj rcs.p.adj
+30  ph.karno       age    227  0.001175210          NA   0.06581176        NA
+55   wt.loss pat.karno    211  0.002700883 0.043221846   0.07562471 0.1584422
+23   ph.ecog       age    227  0.005212170          NA   0.09729383        NA
+37 pat.karno       age    225  0.007588176          NA   0.10623447        NA
+53   wt.loss   ph.ecog    213  0.017475274 0.024888909   0.19572307 0.1584422
+6       inst  meal.cal    180  0.034779727 0.203410226   0.27963439 0.4381143
+10       age   ph.ecog    227  0.034954298 0.038087956   0.27963439 0.1584422
+29  ph.karno      inst    226  0.061388402          NA   0.37218638        NA
+1       inst       age    227  0.065753412 0.237741610   0.37218638 0.4415464
+31  ph.karno       sex    227  0.066461854          NA   0.37218638        NA
+25   ph.ecog  ph.karno    226  0.085030543          NA   0.42290054        NA
+11       age  ph.karno    227  0.090621545 0.004801632   0.42290054 0.1344457
+52   wt.loss       sex    214  0.109312502 0.045269206   0.43886181 0.1584422
+43  meal.cal      inst    180  0.109715452 0.194342490   0.43886181 0.4381143
+22   ph.ecog      inst    226  0.129860928          NA   0.48481413        NA
+47  meal.cal  ph.karno    181  0.141113356 0.252312208   0.49389674 0.4415464
+2       inst       sex    227  0.175876953 0.041397672   0.57935937 0.1584422
+12       age pat.karno    225  0.195470100 0.394678896   0.60812920 0.5816321
+34  ph.karno  meal.cal    181  0.209943408          NA   0.61878057        NA
+4       inst  ph.karno    226  0.225510459 0.044965534   0.62470864 0.1584422
+3       inst   ph.ecog    226  0.242494352 0.302816433   0.62470864 0.4710478
+28   ph.ecog   wt.loss    213  0.245421253          NA   0.62470864        NA
+56   wt.loss  meal.cal    171  0.257546003 0.234577099   0.62706853 0.4415464
+49  meal.cal   wt.loss    171  0.284344651 0.489127633   0.65212362 0.6521702
+36 pat.karno      inst    224  0.291126618          NA   0.65212362        NA
+39 pat.karno   ph.ecog    224  0.328338027          NA   0.66687924        NA
+46  meal.cal   ph.ecog    180  0.335313928 0.466719012   0.66687924 0.6521702
+21       sex   wt.loss    214  0.339026582          NA   0.66687924        NA
+26   ph.ecog pat.karno    224  0.345348178          NA   0.66687924        NA
+54   wt.loss  ph.karno    214  0.375088106 0.143807662   0.67741598 0.4381143
+27   ph.ecog  meal.cal    180  0.388090442          NA   0.67741598        NA
+18       sex  ph.karno    227  0.390232780          NA   0.67741598        NA
+51   wt.loss       age    214  0.399191563 0.187338838   0.67741598 0.4381143
+7       inst   wt.loss    213  0.473399173 0.734212021   0.76653237 0.8289878
+42 pat.karno   wt.loss    211  0.479082731          NA   0.76653237        NA
+24   ph.ecog       sex    227  0.509174494          NA   0.77661137        NA
+15       sex      inst    227  0.513118223          NA   0.77661137        NA
+20       sex  meal.cal    181  0.555454034          NA   0.79599783        NA
+41 pat.karno  meal.cal    179  0.588837274          NA   0.79599783        NA
+16       sex       age    228  0.591383290          NA   0.79599783        NA
+45  meal.cal       sex    181  0.604909836 0.740167689   0.79599783 0.8289878
+50   wt.loss      inst    213  0.616294367 0.283243243   0.79599783 0.4665183
+9        age       sex    228  0.618337181 0.836470481   0.79599783 0.9008144
+44  meal.cal       age    181  0.634129906 0.639968367   0.79599783 0.8145052
+32  ph.karno   ph.ecog    226  0.639641117          NA   0.79599783        NA
+19       sex pat.karno    225  0.679694865          NA   0.81964055        NA
+35  ph.karno   wt.loss    214  0.691505248          NA   0.81964055        NA
+33  ph.karno pat.karno    224  0.702549044          NA   0.81964055        NA
+8        age      inst    227  0.743529208 0.014041856   0.84588231 0.1584422
+17       sex   ph.ecog    227  0.755252065          NA   0.84588231        NA
+48  meal.cal pat.karno    179  0.796601549 0.939153684   0.86839791 0.9522793
+13       age  meal.cal    181  0.806369490 0.682373735   0.86839791 0.8289878
+14       age   wt.loss    214  0.885351851 0.952279308   0.93546611 0.9522793
+38 pat.karno       sex    225  0.927635398          NA   0.96199226        NA
+40 pat.karno  ph.karno    224  0.954621501          NA   0.97197826        NA
+5       inst pat.karno    224  0.992561584 0.166080282   0.99256158 0.4381143
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mad_outlier")
+> ### * mad_outlier
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mad_outlier
+> ### Title: Mark possible outliers with MAD.
+> ### Aliases: mad_outlier
+> 
+> ### ** Examples
+> 
+> x <- c(1, 2, 3, 4, 5, 100)
+> mad_outlier(x)
+[1] FALSE FALSE FALSE FALSE FALSE  TRUE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("max_missing_rates")
+> ### * max_missing_rates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: max_missing_rates
+> ### Title: Get the maximum missing rate of rows and columns.
+> ### Aliases: max_missing_rates
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> max_missing_rates(cancer)
+$row
+[1] 0.3
+
+$col
+[1] 0.2061404
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("merge_ordered_vectors")
+> ### * merge_ordered_vectors
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: merge_ordered_vectors
+> ### Title: Merging vectors while maintaining order
+> ### Aliases: merge_ordered_vectors
+> 
+> ### ** Examples
+> 
+> merge_ordered_vectors(list(c(1, 3, 4, 5, 7, 10), c(2, 5, 6, 7, 8), c(1, 7, 5, 10)))
+[1]  1  3  4  2  5  6  7 10  8
+> 
+> 
+> 
+> cleanEx()
+> nameEx("na2false")
+> ### * na2false
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: na2false
+> ### Title: Replace NA values with FALSE
+> ### Aliases: na2false
+> 
+> ### ** Examples
+> 
+> na2false(c(TRUE, FALSE, NA, TRUE, NA))
+[1]  TRUE FALSE FALSE  TRUE FALSE
+> na2false(c(1, 2, NA))
+[1] 1 2 0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("na_max")
+> ### * na_max
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: na_max
+> ### Title: Safe min and max functions that return NA if all values are NA
+> ### Aliases: na_max na_min
+> 
+> ### ** Examples
+> 
+> na_max(c(1, 2, 3, NA))
+[1] 3
+> na_min(c(NA, NA, NA))
+[1] NA
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predictor_effect_plot")
+> ### * predictor_effect_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predictor_effect_plot
+> ### Title: Plot the effect of a predictor variable
+> ### Aliases: predictor_effect_plot
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> cancer$dead <- cancer$status == 2
+> cancer <- cancer[!is.na(cancer$inst), ]
+> predictor_effect_plot(
++   data = cancer,
++   x = "age",
++   y = "dead",
++   method = "linear",
++   covars = "ph.karno",
++   add_hist = FALSE,
++   trans = "log2",
++   save_plot = FALSE,
++   cluster = "inst"
++ )
+Warning in predictor_effect_plot(data = cancer, x = "age", y = "dead", method = "linear",  :
+  1 incomplete cases excluded.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("qq_show")
+> ### * qq_show
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: qq_show
+> ### Title: QQ plot
+> ### Aliases: qq_show
+> 
+> ### ** Examples
+> 
+> qq_show(rnorm(100))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rcs_plot")
+> ### * rcs_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rcs_plot
+> ### Title: Plot restricted cubic spline
+> ### Aliases: rcs_plot
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> # coxph model with time assigned
+> rcs_plot(cancer, x = "age", y = "status", time = "time", covars = "ph.karno", save_plot = FALSE)
+Warning in predictor_effect_plot(data = data, x = x, y = y, time = time,  :
+  1 incomplete cases excluded.
+> 
+> # logistic model with time not assigned
+> cancer$dead <- cancer$status == 2
+> rcs_plot(cancer, x = "age", y = "dead", covars = "ph.karno", save_plot = FALSE)
+Warning in predictor_effect_plot(data = data, x = x, y = y, time = time,  :
+  1 incomplete cases excluded.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("regression_basic_results")
+> ### * regression_basic_results
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: regression_basic_results
+> ### Title: Basic results of logistic or Cox regression.
+> ### Aliases: regression_basic_results
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> # coxph model with time assigned
+> regression_basic_results(cancer,
++   x = "age", y = "status", time = "time",
++   model_covs = list(Crude = c(), Model1 = c("ph.karno"), Model2 = c("ph.karno", "sex")),
++   save_output = FALSE,
++   ggtheme = survminer::theme_survminer(font.legend = c(14, "plain", "black")) # theme for KM
++ )
+Warning: The missing values are present differently across models.
+The analysis will be performed with the complete cases only.
+Consider imputing the data before doing this analysis.
+Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+ℹ The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at <https://github.com/kassambara/ggpubr/issues>.
+$table
+                     Terms Count            Crude Crude           Model1 Model1
+1                age (All)   227               HR     P               HR      P
+2               Continuous    NA  1.02(1.00,1.04) 0.041  1.01(0.99,1.03)  0.158
+3      Continuous, per 0.1    NA  1.00(1.00,1.00) 0.041  1.00(1.00,1.00)  0.158
+4       Continuous, per 10    NA  1.21(1.01,1.45) 0.041  1.14(0.95,1.38)  0.158
+5      Continuous, per 100    NA 6.56(1.08,40.03) 0.041 3.80(0.60,24.23)  0.158
+6     Continuous, per 1 SD    NA  1.19(1.01,1.40) 0.041  1.13(0.95,1.34)  0.158
+7    Continuous, logarithm    NA  3.03(1.02,9.06) 0.047  2.20(0.72,6.72)  0.165
+8     Grouped by Quartiles    NA             <NA>  <NA>             <NA>   <NA>
+9                       Q1    49    1 (Reference)  <NA>    1 (Reference)   <NA>
+10                      Q2    56  1.08(0.68,1.72) 0.754  1.11(0.70,1.77)  0.658
+11                      Q3    55  1.02(0.64,1.63) 0.929  0.94(0.58,1.51)  0.787
+12                      Q4    67  1.39(0.89,2.15) 0.145  1.25(0.80,1.96)  0.325
+13             P for trend    NA             <NA> 0.160             <NA>  0.426
+14 Grouped by Median Value    NA             <NA>  <NA>             <NA>   <NA>
+15                     Low   105    1 (Reference)  <NA>    1 (Reference)   <NA>
+16                    High   122  1.16(0.85,1.58) 0.354  1.04(0.75,1.43)  0.833
+             Model2 Model2
+1                HR      P
+2   1.01(0.99,1.03)  0.188
+3   1.00(1.00,1.00)  0.188
+4   1.13(0.94,1.36)  0.188
+5  3.45(0.55,21.78)  0.188
+6   1.12(0.95,1.32)  0.188
+7   2.08(0.69,6.30)  0.195
+8              <NA>   <NA>
+9     1 (Reference)   <NA>
+10  1.05(0.66,1.68)  0.841
+11  0.88(0.55,1.42)  0.606
+12  1.20(0.77,1.87)  0.427
+13             <NA>  0.521
+14             <NA>   <NA>
+15    1 (Reference)   <NA>
+16  1.01(0.74,1.40)  0.933
+
+$plots
+$plots$x.quartile
+Ignoring unknown labels:
+• colour : "age"
+
+$plots$x.median
+Ignoring unknown labels:
+• colour : "age"
+
+
+> 
+> # logistic model with time not assigned
+> cancer$dead <- cancer$status == 2
+> regression_basic_results(cancer,
++   x = "age", y = "dead", ref_levels = c("Q3", "High"),
++   model_covs = list(Crude = c(), Model1 = c("ph.karno"), Model2 = c("ph.karno", "sex")),
++   save_output = FALSE
++ )
+Warning: The missing values are present differently across models.
+The analysis will be performed with the complete cases only.
+Consider imputing the data before doing this analysis.
+$table
+                     Terms Count               Crude Crude             Model1
+1                age (All)   227                  OR     P                 OR
+2               Continuous    NA     1.04(1.00,1.07) 0.025    1.03(1.00,1.06)
+3      Continuous, per 0.1    NA     1.00(1.00,1.01) 0.025    1.00(1.00,1.01)
+4       Continuous, per 10    NA     1.44(1.05,2.00) 0.025    1.34(0.96,1.87)
+5      Continuous, per 100    NA 39.29(1.61,1034.37) 0.025 18.70(0.69,532.68)
+6     Continuous, per 1 SD    NA     1.40(1.04,1.88) 0.025    1.31(0.97,1.77)
+7    Continuous, logarithm    NA    9.14(1.41,61.13) 0.021   5.96(0.87,41.79)
+8     Grouped by Quartiles    NA                <NA>  <NA>               <NA>
+9                       Q3    55       1 (Reference)  <NA>      1 (Reference)
+10                      Q1    49     0.77(0.34,1.77) 0.540    0.82(0.35,1.89)
+11                      Q2    56     1.03(0.45,2.34) 0.952    1.04(0.45,2.41)
+12                      Q4    67     1.55(0.68,3.59) 0.297    1.37(0.59,3.21)
+13             P for trend    NA                <NA> 0.119               <NA>
+14 Grouped by Median Value    NA                <NA>  <NA>               <NA>
+15                    High   122       1 (Reference)  <NA>      1 (Reference)
+16                     Low   105     0.71(0.40,1.27) 0.252    0.79(0.43,1.44)
+   Model1             Model2 Model2
+1       P                 OR      P
+2   0.083    1.02(0.99,1.06)  0.197
+3   0.083    1.00(1.00,1.01)  0.197
+4   0.083    1.26(0.89,1.78)  0.197
+5   0.083  9.74(0.30,317.81)  0.197
+6   0.083    1.23(0.90,1.69)  0.197
+7   0.069   4.24(0.56,32.03)  0.160
+8    <NA>               <NA>   <NA>
+9    <NA>      1 (Reference)   <NA>
+10  0.634    0.97(0.40,2.33)  0.938
+11  0.924    1.16(0.49,2.75)  0.742
+12  0.465    1.34(0.56,3.22)  0.508
+13  0.271               <NA>  0.558
+14   <NA>               <NA>   <NA>
+15   <NA>      1 (Reference)   <NA>
+16  0.440    0.92(0.49,1.71)  0.785
+
+$plots
+list()
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("regression_fit")
+> ### * regression_fit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: regression_fit
+> ### Title: Obtain regression results
+> ### Aliases: regression_fit
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> regression_fit(data = cancer, y = "status", predictor = "age", time = "time", rcs_knots = 4)
+              term  estimate  std.error statistic   p.value  conf.low conf.high
+1   rcs(age, 4)age 1.0433142 0.03618274  1.171895 0.2412391 0.9718882  1.119989
+2  rcs(age, 4)age' 0.9262853 0.07147187 -1.071373 0.2840016 0.8052075  1.065569
+3 rcs(age, 4)age'' 1.5723635 0.34657761  1.305854 0.1916021 0.7971601  3.101418
+> 
+> 
+> 
+> cleanEx()
+> nameEx("regression_forest")
+> ### * regression_forest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: regression_forest
+> ### Title: Forest plot of regression results
+> ### Aliases: regression_forest
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> cancer$ph.ecog_cat <- factor(cancer$ph.ecog, levels = c(0:3), labels = c("0", "1", ">=2", ">=2"))
+> regression_forest(cancer,
++   model_vars = c("age", "sex", "wt.loss", "ph.ecog_cat", "meal.cal"), y = "status", time = "time",
++   as_univariate = TRUE, save_plot = FALSE
++ )
+> 
+> regression_forest(cancer,
++   model_vars = c("age", "sex", "wt.loss", "ph.ecog_cat", "meal.cal"), y = "status", time = "time",
++   show_vars = c("age", "sex", "ph.ecog_cat", "meal.cal"), save_plot = FALSE
++ )
+> 
+> regression_forest(cancer,
++   model_vars = list(
++     M0 = c("age"),
++     M1 = c("age", "sex", "wt.loss", "ph.ecog_cat", "meal.cal"),
++     M2 = c("age", "sex", "wt.loss", "ph.ecog_cat", "meal.cal", "pat.karno")
++   ),
++   y = "status", time = "time",
++   show_vars = c("age", "sex", "ph.ecog_cat", "meal.cal"), save_plot = FALSE
++ )
+> 
+> 
+> 
+> cleanEx()
+> nameEx("regression_scan")
+> ### * regression_scan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: regression_scan
+> ### Title: Scan for significant regression predictors
+> ### Aliases: regression_scan
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> regression_scan(cancer, y = "status", time = "time", save_table = FALSE)
+Taking all variables as predictors
+  predictor nvalid original.HR original.pval original.padj logarithm.HR
+4   ph.ecog    227   1.6095320  2.692234e-05  0.0002153787           NA
+6 pat.karno    225   0.9803456  2.823960e-04  0.0011295839    0.2709544
+3       sex    228   0.5880028  1.491229e-03  0.0039766112           NA
+5  ph.karno    227   0.9836863  4.957861e-03  0.0099157221    0.3184168
+2       age    228   1.0188965  4.185313e-02  0.0669650101    3.0256773
+1      inst    227   0.9903692  3.459838e-01  0.4613117450    0.9292046
+7  meal.cal    181   0.9998762  5.929402e-01  0.6776459129    0.9141580
+8   wt.loss    214   1.0013201  8.281974e-01  0.8281973692           NA
+  logarithm.pval logarithm.padj categorized.HR categorized.pval
+4             NA             NA             NA     0.0001529594
+6   0.0003071163    0.001535582      0.5755627     0.0006607697
+3             NA             NA      0.5880028     0.0014912292
+5   0.0079467639    0.019866910      0.6352465     0.0077669568
+2   0.0466925552    0.077820925      1.1440790     0.3910647289
+1   0.3181431914    0.397678989      0.8384047     0.2600039692
+7   0.6128094775    0.612809477      0.8620604     0.3957557555
+8             NA             NA      1.3190185     0.0909098385
+  categorized.padj rcs.overall.pval rcs.overall.padj rcs.nonlinear.pval
+4      0.001223676               NA               NA                 NA
+6      0.002643079      0.002584773       0.01550864         0.59089516
+3      0.003976611               NA               NA                 NA
+5      0.015533914      0.012846171       0.03853851         0.23079609
+2      0.395755755      0.082544702       0.16508940         0.34241226
+1      0.346671959      0.817527653       0.87071306         0.98397049
+7      0.395755755      0.870713064       0.87071306         0.82272559
+8      0.145455742      0.112890717       0.16933608         0.05149364
+  rcs.nonlinear.padj best.var.trans
+4                 NA       original
+6          0.8863427       original
+3                 NA    categorized
+5          0.6848245       original
+2          0.6848245       original
+1          0.9839705    categorized
+7          0.9839705    categorized
+8          0.3089618  rcs.nonlinear
+> 
+> 
+> 
+> cleanEx()
+> nameEx("replace_elements")
+> ### * replace_elements
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: replace_elements
+> ### Title: Replacing elements in a vector
+> ### Aliases: replace_elements
+> 
+> ### ** Examples
+> 
+> replace_elements(c("a", "x", "1", NA, "a"), c("a", "b", NA), c("A", "B", "XX"))
+[1] "A"  "x"  "1"  "XX" "A" 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("split_multichoice")
+> ### * split_multichoice
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: split_multichoice
+> ### Title: Split multi-choice data into columns
+> ### Aliases: split_multichoice
+> 
+> ### ** Examples
+> 
+> df <- data.frame(q1 = c("ab", "c da", "b a", NA), q2 = c("a b", "a c", "d", "ab"))
+> split_multichoice(df, quest_cols = c("q1", "q2"))
+  q1_a  q1_b  q1_c  q1_d  q2_a  q2_b  q2_c  q2_d
+1 TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE
+2 TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+3 TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE
+4   NA    NA    NA    NA  TRUE  TRUE FALSE FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("str_match_replace")
+> ### * str_match_replace
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: str_match_replace
+> ### Title: Match string and replace with corresponding value
+> ### Aliases: str_match_replace
+> 
+> ### ** Examples
+> 
+> ori_names <- c("xx (mg/dl)", "b*x", "Covid-19")
+> modified_names <- c("v1", "v2", "v3")
+> x <- c("v1.v2", "v3.yy", "v4")
+> str_match_replace(x, modified_names, ori_names)
+[1] "xx (mg/dl).b*x" "Covid-19.yy"    "v4"            
+> 
+> 
+> 
+> cleanEx()
+> nameEx("subgroup_forest")
+> ### * subgroup_forest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: subgroup_forest
+> ### Title: Create subgroup forest plot.
+> ### Aliases: subgroup_forest
+> 
+> ### ** Examples
+> 
+> data(cancer, package = "survival")
+> # coxph model with time assigned
+> subgroup_forest(cancer,
++   subgroup_vars = c("age", "sex", "wt.loss"), x = "ph.ecog", y = "status",
++   time = "time", covars = "ph.karno", ticks_at = c(1, 2), save_plot = FALSE
++ )
+> 
+> # logistic model with time not assigned
+> cancer$dead <- cancer$status == 2
+> subgroup_forest(cancer,
++   subgroup_vars = c("age", "sex", "wt.loss"), x = "ph.ecog", y = "dead",
++   covars = "ph.karno", ticks_at = c(1, 2), save_plot = FALSE
++ )
+> 
+> cancer$ph.ecog_cat <- factor(cancer$ph.ecog, levels = c(0:3), labels = c("0", "1", ">=2", ">=2"))
+> subgroup_forest(cancer,
++   subgroup_vars = c("sex", "wt.loss"), x = "ph.ecog_cat", y = "dead",
++   covars = "ph.karno", ticks_at = c(1, 2), save_plot = FALSE
++ )
+> 
+> 
+> 
+> cleanEx()
+> nameEx("subject_view")
+> ### * subject_view
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: subject_view
+> ### Title: Get an overview of different subjects in data.
+> ### Aliases: subject_view
+> 
+> ### ** Examples
+> 
+> df <- data.frame(subject = sample(c("a", "b"), 1000, replace = TRUE), value = runif(1000))
+> df$unit <- NA
+> df$unit[df$subject == "a"] <- sample(c("mg/L", "g/l", "g/L"),
++   sum(df$subject == "a"),
++   replace = TRUE
++ )
+> df$value[df$subject == "a" & df$unit == "mg/L"] <-
++   df$value[df$subject == "a" & df$unit == "mg/L"] * 1000
+> df$unit[df$subject == "b"] <- sample(c(NA, "g", "mg"), sum(df$subject == "b"), replace = TRUE)
+> df$value[df$subject == "b" & df$unit %in% "mg"] <-
++   df$value[df$subject == "b" & df$unit %in% "mg"] * 1000
+> df$value[df$subject == "b" & is.na(df$unit)] <- df$value[df$subject == "b" & is.na(df$unit)] *
++   sample(c(1, 1000), size = sum(df$subject == "b" & is.na(df$unit)), replace = TRUE)
+> subject_view(
++   df = df, subject_col = "subject", info_cols = c("value", "unit"), value_col = "value",
++   save_table = FALSE
++ )
+  subject target_subject count nvalid     mean       sd    median
+1       a             NA   502    502 155.9743 284.8282 0.7510703
+2       b             NA   498    498 230.6505 313.6421 0.9522293
+                                                                                                                                                                                         value
+1 0.320450928527862\n0.289669456658885\n0.0891845354344696\n0.916557738324627\n0.72380965645425\n0.304598775692284\n0.0209252538625151\n0.132961038965732\n0.614346859045327\n0.15117178671062
+2       0.615554818883538\n819.993681041524\n0.109745523892343\n0.188118888065219\n249.126207549125\n0.921676764031872\n0.70473376987502\n532.968810759485\n385.239424882457\n711.993431439623
+                                                  unit
+1 mg/L\ng/L\nmg/L\ng/l\nmg/L\ng/L\ng/l\nmg/L\ng/L\ng/L
+2                   mg\ng\nmg\nmg\nmg\ng\ng\ng\nmg\nmg
+> 
+> 
+> 
+> cleanEx()
+> nameEx("test_normality")
+> ### * test_normality
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: test_normality
+> ### Title: Test normality of a numeric variable
+> ### Aliases: test_normality
+> 
+> ### ** Examples
+> 
+> # Test normal data
+> normal_data <- rnorm(100)
+> test_normality(normal_data)
+[1] TRUE
+> 
+> # Test non-normal data
+> skewed_data <- rexp(100)
+> test_normality(skewed_data)
+[1] FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("to_date")
+> ### * to_date
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: to_date
+> ### Title: Convert numerical or character date to date.
+> ### Aliases: to_date
+> 
+> ### ** Examples
+> 
+> to_date(c(43562, "2020-01-01", "2020/01/01", "20200101", "2020.01.01"))
+[1] "2019-04-07" "2020-01-01" "2020-01-01" "2020-01-01" "2020-01-01"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("unit_standardize")
+> ### * unit_standardize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: unit_standardize
+> ### Title: Standardize units of numeric data.
+> ### Aliases: unit_standardize
+> 
+> ### ** Examples
+> 
+> # Example 1: Using the list as change_rules is more convenient for small datasets.
+> df <- data.frame(
++   subject = c("a", "a", "b", "b", "b", "c", "c"), value = c(1, 2, 3, 4, 5, 6, 7),
++   unit = c(NA, "x", "x", "x", "y", "a", "b")
++ )
+> change_rules <- list(
++   list(subject = "a", target_unit = "x", units2change = c(NA), coeffs = c(20)),
++   list(subject = "b"),
++   list(subject = "c", target_unit = "b")
++ )
+> unit_standardize(df,
++   subject_col = "subject", value_col = "value", unit_col = "unit",
++   change_rules = change_rules
++ )
+  subject value unit
+1       a    20    x
+2       a     2    x
+3       b     3    x
+4       b     4    x
+5       b     5    x
+6       c     6    b
+7       c     7    b
+> 
+> # Example 2: Using the labeled result from `unit_view()` as the input
+> # is more robust for large datasets.
+> df <- data.frame(subject = sample(c("a", "b"), 1000, replace = TRUE), value = runif(1000))
+> df$unit <- NA
+> df$unit[df$subject == "a"] <- sample(c("mg/L", "g/l", "g/L"),
++   sum(df$subject == "a"),
++   replace = TRUE
++ )
+> df$value[df$subject == "a" & df$unit == "mg/L"] <-
++   df$value[df$subject == "a" & df$unit == "mg/L"] * 1000
+> df$unit[df$subject == "b"] <- sample(c(NA, "m.g", "mg"), sum(df$subject == "b"),
++   prob = c(0.3, 0.05, 0.65), replace = TRUE
++ )
+> df$value[df$subject == "b" & df$unit %in% "mg"] <-
++   df$value[df$subject == "b" & df$unit %in% "mg"] * 1000
+> df$value[df$subject == "b" & is.na(df$unit)] <- df$value[df$subject == "b" & is.na(df$unit)] *
++   sample(c(1, 1000), size = sum(df$subject == "b" & is.na(df$unit)), replace = TRUE)
+> 
+> unit_table <- unit_view(
++   df = df, subject_col = "subject",
++   value_col = "value", unit_col = "unit", save_table = FALSE
++ )
+> unit_table$label <- c("t", NA, 1e-3, NA, NA, "r") # labeling the units
+> 
+> df_standardized <- unit_standardize(
++   df = df, subject_col = "subject", value_col = "value",
++   unit_col = "unit", change_rules = unit_table
++ )
+> unit_view(
++   df = df_standardized, subject_col = "subject", value_col = "value", unit_col = "unit",
++   save_table = FALSE, conflicts_only = FALSE
++ )
+  subject unit label count nvalid        mean          sd      median
+1       a  g/L    NA   502    502   0.4795721   0.3001483   0.4604099
+2       b   mg    NA   498    361 472.3325281 310.7768116 464.6931856
+     q_0.025     q_0.975
+1 0.02325314   0.9748076
+2 0.23841398 972.4475616
+> 
+> 
+> 
+> cleanEx()
+> nameEx("unit_view")
+> ### * unit_view
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: unit_view
+> ### Title: Generate a table of conflicting units.
+> ### Aliases: unit_view
+> 
+> ### ** Examples
+> 
+> df <- data.frame(subject = sample(c("a", "b"), 1000, replace = TRUE), value = runif(1000))
+> df$unit <- NA
+> df$unit[df$subject == "a"] <- sample(c("mg/L", "g/l", "g/L"),
++   sum(df$subject == "a"),
++   replace = TRUE
++ )
+> df$value[df$subject == "a" & df$unit == "mg/L"] <-
++   df$value[df$subject == "a" & df$unit == "mg/L"] * 1000
+> df$unit[df$subject == "b"] <- sample(c(NA, "g", "mg"), sum(df$subject == "b"), replace = TRUE)
+> df$value[df$subject == "b" & df$unit %in% "mg"] <-
++   df$value[df$subject == "b" & df$unit %in% "mg"] * 1000
+> df$value[df$subject == "b" & is.na(df$unit)] <- df$value[df$subject == "b" & is.na(df$unit)] *
++   sample(c(1, 1000), size = sum(df$subject == "b" & is.na(df$unit)), replace = TRUE)
+> unit_view(
++   df = df, subject_col = "subject",
++   value_col = "value", unit_col = "unit", save_table = FALSE
++ )
+  subject unit label count nvalid        mean          sd      median
+1       a  g/L    NA   162    162   0.4998126   0.2910689   0.4775229
+2       a  g/l    NA   177    177   0.4612375   0.3012034   0.4212797
+3       a mg/L    NA   163    163 479.3651196 308.3338044 456.6756946
+4       b    g    NA   171    171   0.4965004   0.2969966   0.4810131
+5       b   mg    NA   149    149 474.1264673 289.8939333 446.5235593
+6       b <NA>    NA   178    178 247.9449407 323.3720984   0.9717465
+      q_0.025     q_0.975
+1  0.04759419   0.9641072
+2  0.01145089   0.9757115
+3 25.56898159 973.9859014
+4  0.02501601   0.9787826
+5 17.14848510 970.7532573
+6  0.07621674 943.1981916
+> 
+> 
+> 
+> cleanEx()
+> nameEx("unmake_names")
+> ### * unmake_names
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: unmake_names
+> ### Title: Unmake names
+> ### Aliases: unmake_names
+> 
+> ### ** Examples
+> 
+> ori_names <- c("xx (mg/dl)", "b*x", "Covid-19")
+> x <- c(make.names(ori_names), "aa")
+> unmake_names(x, ori_names)
+[1] "xx (mg/dl)" "b*x"        "Covid-19"   NA          
+> 
+> 
+> 
+> cleanEx()
+> nameEx("value_initial_cleaning")
+> ### * value_initial_cleaning
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: value_initial_cleaning
+> ### Title: Preliminarily cleaning string vectors
+> ### Aliases: value_initial_cleaning char_initial_cleaning
+> 
+> ### ** Examples
+> 
+> x <- c("\uFF11\uFF12\uFF13", "11..23", "\uff41\uff42\uff41\uff4e\uff44\uff4f\uff4e", 
++        "hello world ")
+> value_initial_cleaning(x)
+[1] "123"        "11.23"      "abandon"    "helloworld"
+> char_initial_cleaning(x)
+[1] "123"         "11..23"      "abandon"     "hello world"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("vec2code")
+> ### * vec2code
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: vec2code
+> ### Title: Generate code from string vector Generate the code that can be
+> ###   used to generate the string vector.
+> ### Aliases: vec2code
+> 
+> ### ** Examples
+> 
+> vec2code(colnames(mtcars))
+[1] "c('mpg','cyl','disp','hp','drat','wt','qsec','vs','am','gear','carb')"
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  7.302 0.402 8.986 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

@@ -1,0 +1,11 @@
+as_tibble.dca           Convert DCA Object to tibble
+dca                     Perform Decision Curve Analysis
+df_binary               Simulated data with a binary outcome
+df_case_control         Simulated data with a case-control outcome
+df_surv                 Simulated data with a survival outcome
+net_intervention_avoided
+                        Add Net Interventions Avoided
+plot.dca                Plot DCA Object with ggplot
+standardized_net_benefit
+                        Add Standardized Net Benefit
+test_consequences       Test Consequences
