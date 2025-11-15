@@ -1,5 +1,7 @@
 # dcurves (development version)
 
+# dcurves 0.5.1
+
 * HTML5 documentation update to satisfy CRAN requirement.
 
 # dcurves 0.5.0

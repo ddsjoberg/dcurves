@@ -1,6 +1,6 @@
 Package: dcurves
 Title: Decision Curve Analysis for Model Evaluation
-Version: 0.5.0.9001
+Version: 0.5.1.9000
 Authors@R: 
     c(person(given = "Daniel D.",
            family = "Sjoberg",
